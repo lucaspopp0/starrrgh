@@ -648,8 +648,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Starrrgh
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7833e7f03942943b9baf7399e67ff849, type: 2}
-  m_sharedMaterial: {fileID: 5259148620235621224, guid: 7833e7f03942943b9baf7399e67ff849,
+  m_fontAsset: {fileID: 11400000, guid: c8f7239d532bd46849a05152cda658b5, type: 2}
+  m_sharedMaterial: {fileID: -6395171465857329573, guid: c8f7239d532bd46849a05152cda658b5,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

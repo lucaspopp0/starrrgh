@@ -23,13 +23,14 @@ public class Hud: MonoBehaviour {
     }
 
     public void SetScore(int score) {
-        _scoreText.text = score.ToString();
-        
         // Calculate what the max possible width of a number with this many digits will be, and use that so
         // the size of the text doesn't change every time the score does
         var allEights = Regex.Replace(score.ToString(), @"\d", "8");
         var boundarySize = _scoreText.GetPreferredValues(allEights);
         _scoreText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, boundarySize.x);
+        
+        // Set the actual score text
+        _scoreText.text = score.ToString();
     }
 
     public void Reset() {
