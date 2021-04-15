@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -6.1330004, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1045, y: 0}
+  m_AnchoredPosition: {x: 500.00003, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1829099284479806864
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 1829099285339830985}
   m_Layer: 5
   m_Name: Heads Up Display
-  m_TagString: Untagged
+  m_TagString: HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
