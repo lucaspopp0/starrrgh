@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     //Strength of the stopping force
     [SerializeField] private float stoppingForce = 10.0f;
 
+    //Maximum speed the ship can have
+    [SerializeField] private float maxVelocity = 10.0f;
     private Vector2 velocity;
 
     // Start is called before the first frame update
@@ -100,6 +102,9 @@ public class PlayerMovement : MonoBehaviour
     {
         velocity += force * Time.deltaTime;
         //Converting velocity to a Vector3
+        float mag = velocity.magnitude;
+        //usableVel = usableVel.normalized * Mathf.Clamp(mag, 0, maxVelocity);
+        velocity = velocity.normalized * Mathf.Clamp(mag, 0, maxVelocity);
         Vector3 usableVel = velocity;
         this.transform.position += (usableVel * Time.deltaTime);
     }

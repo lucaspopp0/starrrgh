@@ -362,8 +362,9 @@ MonoBehaviour:
   G: 1
   closestApproach: 0.1
   rotationSpeed: 100
-  propForce: 50
+  propForce: 10
   stoppingForce: 10
+  maxVelocity: 5
 --- !u!4 &399288829
 Transform:
   m_ObjectHideFlags: 0
