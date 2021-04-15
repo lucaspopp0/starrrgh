@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8391b3b7-53eb-4665-805c-b55c029a79bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Edge of the Galaxy/EdgeOfTheGalaxy.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Edge of the Galaxy/EdgeOfTheGalaxy.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/MyButton.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/MyButton.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Fuel Bar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Fuel Bar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/HUD Testing.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/HUD Testing.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +72,7 @@
       <updated>1618360020022</updated>
       <workItem from="1618360030912" duration="136000" />
       <workItem from="1618360199794" duration="3086000" />
-      <workItem from="1618440224520" duration="3360000" />
+      <workItem from="1618440224520" duration="3640000" />
     </task>
     <servers />
   </component>
