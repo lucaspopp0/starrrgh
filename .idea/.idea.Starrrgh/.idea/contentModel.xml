@@ -19,7 +19,10 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="UI" t="Include">
-            <e p="MyButton.cs" t="Include" />
+            <e p="CustomButton.cs" t="Include" />
+            <e p="FuelBar.cs" t="Include" />
+            <e p="HealthBar.cs" t="Include" />
+            <e p="HUD.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">

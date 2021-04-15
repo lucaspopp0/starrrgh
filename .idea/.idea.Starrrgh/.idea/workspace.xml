@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8391b3b7-53eb-4665-805c-b55c029a79bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/MyButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UI Testing.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/UI Testing.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Starrrgh/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Edge of the Galaxy/EdgeOfTheGalaxy.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Edge of the Galaxy/EdgeOfTheGalaxy.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/MyButton.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/MyButton.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +25,12 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/Button.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/MyButton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/CustomButton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/CustomSlider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/FuelBar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/HealthBar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/HUD.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/Hud.cs" />
       </list>
     </option>
   </component>
@@ -67,6 +76,7 @@
       <updated>1618360020022</updated>
       <workItem from="1618360030912" duration="136000" />
       <workItem from="1618360199794" duration="3086000" />
+      <workItem from="1618440224520" duration="3360000" />
     </task>
     <servers />
   </component>
@@ -77,5 +87,11 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="507" y="-788" width="632" height="516" key="#Context_Actions" timestamp="1618444058636">
+      <screen x="-137" y="-1055" width="1920" height="1055" />
+    </state>
+    <state x="507" y="-788" width="632" height="516" key="#Context_Actions/-137.-1055.1920.1055/0.25.1680.1025@-137.-1055.1920.1055" timestamp="1618444058636" />
   </component>
 </project>
