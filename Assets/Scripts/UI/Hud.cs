@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -22,7 +23,10 @@ public class Hud: MonoBehaviour {
     }
 
     public void SetScore(int score) {
+        var allEights = Regex.Replace(score.ToString(), @"\d", "8");
+        var boundarySize = _scoreText.GetPreferredValues(allEights);
         _scoreText.text = score.ToString();
+        _scoreText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, boundarySize.x);
     }
 
     public void Reset() {
