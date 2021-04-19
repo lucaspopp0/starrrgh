@@ -19,7 +19,6 @@ public class Hud: MonoBehaviour {
 
     private void Start() {
         Reset();
-        StartCoroutine(SlowlyIncrement());
     }
 
     public void SetScore(int score) {
@@ -37,13 +36,6 @@ public class Hud: MonoBehaviour {
         _healthBar.SetHealth(1f);
         _fuelBar.SetFuel(1f);
         SetScore(0);
-    }
-
-    public IEnumerator SlowlyIncrement() {
-        while (true) {
-            yield return new WaitForSeconds(1f);
-            SetScore(++score);
-        }
     }
 
 }
