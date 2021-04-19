@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxVelocity = 10.0f;
     private Vector2 velocity;
 
+    private bool alive = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,32 +41,34 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(alive){
         //Rotating the ship
-        float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-        this.transform.Rotate(0, 0, rotation);
+            float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+            this.transform.Rotate(0, 0, rotation);
 
-        //The propulsion force, in the direction the ship is pointed
-        Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
+            //The propulsion force, in the direction the ship is pointed
+            Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
 
-        Vector2 totalForce = Vector2.zero;
+            Vector2 totalForce = Vector2.zero;
 
-        //If the player presses shift
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            //Don't calculate forces from gravity or propulsion
-            //Apply a force opposite to the velocity to stop the ship
+            //If the player presses shift
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                //Don't calculate forces from gravity or propulsion
+                //Apply a force opposite to the velocity to stop the ship
 
-            //Should we add gravity to this? Or is that too much
-            totalForce = -(velocity.normalized) * stoppingForce;
+                //Should we add gravity to this? Or is that too much
+                totalForce = -(velocity.normalized) * stoppingForce;
+            }
+            //Otherwise, calculate gravity and propulsion like normal
+            else
+            {
+                totalForce = gravity(planets) + propulsion;
+            }
+
+            //Applying the force to the ship
+            applyForce(totalForce);
         }
-        //Otherwise, calculate gravity and propulsion like normal
-        else
-        {
-            totalForce = gravity(planets) + propulsion;
-        }
-
-        //Applying the force to the ship
-        applyForce(totalForce);
     }
 
     /*
@@ -107,5 +111,9 @@ public class PlayerMovement : MonoBehaviour
         velocity = velocity.normalized * Mathf.Clamp(mag, 0, maxVelocity);
         Vector3 usableVel = velocity;
         this.transform.position += (usableVel * Time.deltaTime);
+    }
+
+    public void kill(){
+        alive = false;
     }
 }
