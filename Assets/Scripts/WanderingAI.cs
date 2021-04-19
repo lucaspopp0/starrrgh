@@ -93,7 +93,7 @@ public const float baseSpeed = 1f;
 			 		Debug.Log("saw charcter");
                      if(!running){
                         if(hit.distance < 0.05f){
-                            hitObject.GetComponent<PlayerMovement>().kill();
+                            hitObject.GetComponent<PlayerHealth>().Die();
                             Debug.Log("caught charcter");
                             chasing = false;
                         }

@@ -10,7 +10,7 @@ public class Hud: MonoBehaviour {
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private FuelBar _fuelBar;
     [SerializeField] private TMP_Text _scoreText;
-
+    [SerializeField] private DeathPopup deathPopup;
     public HealthBar healthBar => _healthBar;
     public FuelBar fuelBar => _fuelBar;
     public TMP_Text scoreText => _scoreText;
@@ -36,6 +36,10 @@ public class Hud: MonoBehaviour {
         _healthBar.SetHealth(1f);
         _fuelBar.SetFuel(1f);
         SetScore(0);
+    }
+
+    public void PlayerDied() {
+        deathPopup.Open();
     }
 
 }

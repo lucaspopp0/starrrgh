@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
+[RequireComponent(typeof(PlayerHealth))]
+public class PlayerMovement : MonoBehaviour {
     /*
      * Planet variables
      */
