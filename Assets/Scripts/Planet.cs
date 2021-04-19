@@ -11,8 +11,11 @@ public class Planet : MonoBehaviour
         return mass;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        
+        if(col.gameObject.tag == "Player")
+        {
+            col.gameObject.GetComponent<PlayerHealth>().Die();
+        }
     }
 }
