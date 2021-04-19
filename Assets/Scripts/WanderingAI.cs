@@ -66,7 +66,7 @@ public const float baseSpeed = 1f;
 			if (range > maxDistance && !waiting) { //very far away and we want to redirect toward player
 				//anim.SetInteger("zombieToState", 0);
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
-				_multiplier = 4.0f;
+				_multiplier = 0.1f;
 			}
 			else if (range <= visibility && !waiting) {  //"sees player, and moves toward him
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
@@ -89,7 +89,7 @@ public const float baseSpeed = 1f;
             if (hit.collider != null)
             {
                 GameObject hitObject = hit.transform.gameObject;
-			 	if (hitObject.GetComponent<PlayerCharacter>()) {
+			 	if (hitObject.GetComponent<PlayerMovement>()) {
 			 		Debug.Log("saw charcter");
                      if(!running){
                         if(hit.distance < 0.05f){
