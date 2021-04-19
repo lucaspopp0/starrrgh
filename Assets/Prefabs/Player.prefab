@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3879672999910839373}
   - component: {fileID: 2208976258412743770}
   - component: {fileID: 6488844692504807682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,6 +56,7 @@ MonoBehaviour:
   rotationSpeed: 100
   propForce: 50
   stoppingForce: 10
+  dragForce: 0.1
   maxVelocity: 10
 --- !u!60 &3541752525490591100
 PolygonCollider2D:
@@ -175,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3393abcdcc45c0145981cfb32df0163e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthBar: {fileID: 0}
+  _hud: {fileID: 0}
 --- !u!114 &2208976258412743770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1816661792698912973}
   - component: {fileID: 1816661792698912972}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Default-Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7520624267798888821}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun Endpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

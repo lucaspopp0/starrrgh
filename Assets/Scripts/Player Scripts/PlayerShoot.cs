@@ -43,20 +43,30 @@ public class PlayerShoot : MonoBehaviour
         Material tmp = new Material(projectile);
         tmp.SetTextureScale("_MainTex",new Vector2(1f,distance/600f));
         World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition,zRot,.5f,distance,projectile,null,10000);
-         float timer = .1f;
-         
-         FunctionUpdater.Create(() =>
-         {
-             timer -= Time.deltaTime;
-             if (timer <= 0)
-             {
-                 worldMesh.DestroySelf();
-                 return true;
-             }
+        float timer = .1f;
+        LayerMask mask = LayerMask.GetMask("Default");
+        RaycastHit2D hit = Physics2D.Raycast(fromPosition , targetPosition,10f,mask);
+        if (hit.collider != null)
+            {
+                Debug.Log("hit" + hit.transform.position);
+                GameObject hitObject = hit.transform.gameObject;
+			 	if (hitObject.GetComponent<ReactiveTarget>()) {
+			 		Debug.Log("saw enemy");
+                    hitObject.GetComponent<ReactiveTarget>().ReactToHit();
+                     _scoreController.AddScore(3);
+                 }
+            }
+        FunctionUpdater.Create(() =>
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                worldMesh.DestroySelf();
+                return true;
+            }
 
-             return false;
-         });
-         _scoreController.AddScore(3);
+            return false;
+        });
     }
 
 }
