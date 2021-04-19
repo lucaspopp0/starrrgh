@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float propForce = 50.0f;
     //Strength of the stopping force
     [SerializeField] private float stoppingForce = 10.0f;
+    //Drag strength
+    [SerializeField] private float dragForce = 0.1f;
 
     //Maximum speed the ship can have
     [SerializeField] private float maxVelocity = 10.0f;
@@ -63,7 +65,8 @@ public class PlayerMovement : MonoBehaviour
             //Otherwise, calculate gravity and propulsion like normal
             else
             {
-                totalForce = gravity(planets) + propulsion;
+                Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
+                totalForce = gravity(planets) + propulsion - drag;
             }
 
             //Applying the force to the ship
