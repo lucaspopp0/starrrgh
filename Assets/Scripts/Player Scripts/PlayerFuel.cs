@@ -10,12 +10,9 @@ public class PlayerFuel : MonoBehaviour
 
     [SerializeField] private float _totalFuelTime;
 
+    //The max amount of fuel that can be used (in seconds)
     [SerializeField] private float _maxFuelTime;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -29,7 +26,7 @@ public class PlayerFuel : MonoBehaviour
         
         if (_fuelTime >= 0)
         {
-            _fuelBar.SetFuel(1f - (_totalFuelTime/_maxFuelTime)/10);
+            _fuelBar.SetFuel(1f - (_totalFuelTime/_maxFuelTime));
         }
         
         if (Input.GetKeyUp(KeyCode.W))
