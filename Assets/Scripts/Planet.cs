@@ -10,4 +10,9 @@ public class Planet : MonoBehaviour
     {
         return mass;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }
