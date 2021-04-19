@@ -8,8 +8,11 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private PlayerAim playerAim;
     [SerializeField] private Material projectile;
 
+    [SerializeField] private ScoreController _scoreController;
+
     private void Start()
     {
+        _scoreController = gameObject.GetComponent<ScoreController>();
         playerAim.OnShoot += PlayerShoot_OnShoot;
     }
     
@@ -32,12 +35,13 @@ public class PlayerShoot : MonoBehaviour
     
     private void CreateWeaponTracer(Vector3 fromPosition, Vector3 targetPosition)
     {//If we want to restrict the angle of fire we can add a check for it here
+        
         float distance = Vector3.Distance(fromPosition, targetPosition);
         Vector3 dir = (targetPosition - fromPosition).normalized;
         Vector3 tracerSpawnPosition = fromPosition + dir * distance * .5f;
         float zRot = GetAngleFromVectorFloat(dir) - 90;
         Material tmp = new Material(projectile);
-        tmp.SetTextureScale("_MainTex",new Vector2(1f,distance/256f));
+        tmp.SetTextureScale("_MainTex",new Vector2(1f,distance/600f));
         World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition,zRot,.5f,distance,projectile,null,10000);
          float timer = .1f;
          
@@ -52,6 +56,7 @@ public class PlayerShoot : MonoBehaviour
 
              return false;
          });
+         _scoreController.AddScore(3);
     }
 
 }
