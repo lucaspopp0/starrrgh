@@ -13,7 +13,6 @@ public class PlayerShoot : MonoBehaviour
     private void Start()
     {
         playerAim = gameObject.GetComponent<PlayerAim>();
-        _scoreController = gameObject.GetComponent<ScoreController>();
         playerAim.OnShoot += PlayerShoot_OnShoot;
     }
     
