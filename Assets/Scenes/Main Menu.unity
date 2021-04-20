@@ -1620,6 +1620,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1069319462}
     m_Modifications:
+    - target: {fileID: 5792208855771393968, guid: b8820ff71fe96452da9a55954b0f6701,
+        type: 3}
+      propertyPath: m_text
+      value: 'Survive and loot cargo ships while avoiding police!
+
+
+        A or
+        left arrow: turn left
+
+        D or right arrow: turn right
+
+        W or
+        up arrow: move forward
+
+        S or down arrow: move backwards
+
+        Left
+        shift: stop
+
+        Left click: shoot'
+      objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_Pivot.x
