@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WanderingAI : MonoBehaviour
-{
-public const float baseSpeed = 1f;
+public class WanderingAI : MonoBehaviour {
+
+	[SerializeField] private Thruster _leftThrust;
+	[SerializeField] private Thruster _rightThrust;
+	
+	public const float baseSpeed = 1f;
 
 	public float speed;
 	
@@ -80,6 +83,9 @@ public const float baseSpeed = 1f;
 
 				_multiplier = 4.0f; //dont move if not close to player
 			}
+			
+			_leftThrust.SetIntensity(_multiplier / 7f);
+			_rightThrust.SetIntensity(_multiplier / 7f);
 
             transform.Translate(0, 0.5f * Time.deltaTime * _multiplier * speed, 0);
             
@@ -124,6 +130,9 @@ public const float baseSpeed = 1f;
                  }
             }
             else{
+	            _leftThrust.SetIntensity(0f);
+	            _rightThrust.SetIntensity(0f);
+	            
                 if(waitFor > 0){
                     // if(extraTurn){
                     //     transform.Rotate(0,0,10);
