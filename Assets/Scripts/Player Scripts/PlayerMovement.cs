@@ -3,8 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
+[RequireComponent(typeof(PlayerHealth))]
+public class PlayerMovement : MonoBehaviour {
+
+    [SerializeField] private Thruster _leftThruster;
+    [SerializeField] private Thruster _rightThruster;
+
+    private Vector2 _lastUsableVelocity;
+    
     /*
      * Planet variables
      */
@@ -25,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float propForce = 50.0f;
     //Strength of the stopping force
     [SerializeField] private float stoppingForce = 10.0f;
+    //Drag strength
+    [SerializeField] private float dragForce = 0.1f;
 
     //Maximum speed the ship can have
     [SerializeField] private float maxVelocity = 10.0f;
@@ -46,8 +54,18 @@ public class PlayerMovement : MonoBehaviour
             float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
             this.transform.Rotate(0, 0, rotation);
 
+            var thrusterInput = Input.GetAxis("Vertical");
+            if (Mathf.Abs(thrusterInput) <= 0.01f) {
+                thrusterInput = Input.GetAxis("Horizontal");
+            }
+
+            var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
+            var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
+
             //The propulsion force, in the direction the ship is pointed
             Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
+            _leftThruster.SetIntensity(thrusterInput * leftProportion);
+            _rightThruster.SetIntensity(thrusterInput * rightProportion);
 
             Vector2 totalForce = Vector2.zero;
 
@@ -63,7 +81,8 @@ public class PlayerMovement : MonoBehaviour
             //Otherwise, calculate gravity and propulsion like normal
             else
             {
-                totalForce = gravity(planets) + propulsion;
+                Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
+                totalForce = gravity(planets) + propulsion - drag;
             }
 
             //Applying the force to the ship
@@ -110,10 +129,16 @@ public class PlayerMovement : MonoBehaviour
         //usableVel = usableVel.normalized * Mathf.Clamp(mag, 0, maxVelocity);
         velocity = velocity.normalized * Mathf.Clamp(mag, 0, maxVelocity);
         Vector3 usableVel = velocity;
+        _lastUsableVelocity = usableVel;
         this.transform.position += (usableVel * Time.deltaTime);
     }
 
     public void kill(){
         alive = false;
+        _lastUsableVelocity = Vector2.zero;
+    }
+
+    public Vector2 GetVelocity() {
+        return _lastUsableVelocity;
     }
 }

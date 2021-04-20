@@ -66,7 +66,7 @@ public const float baseSpeed = 1f;
 			if (range > maxDistance && !waiting) { //very far away and we want to redirect toward player
 				//anim.SetInteger("zombieToState", 0);
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
-				_multiplier = 4.0f;
+				_multiplier = 0.1f;
 			}
 			else if (range <= visibility && !waiting) {  //"sees player, and moves toward him
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
@@ -82,18 +82,24 @@ public const float baseSpeed = 1f;
 			}
 
             transform.Translate(0, 0.5f * Time.deltaTime * _multiplier * speed, 0);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up*0.57f , transform.up,10f);
-            Debug.DrawRay(transform.position + transform.up*0.57f , transform.up * 10f, Color.red);
-            // If it hits something...
             
+            //Debug.DrawRay(transform.position + transform.up*0.57f , transform.up * 10f, Color.red);
+            // If it hits something...
+            int grnd = 1 << LayerMask.NameToLayer("Default");
+            int fly = 1 << LayerMask.NameToLayer("Player");
+            int mask = grnd | fly;
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up*0.57f , transform.up,10f,mask);
+
+
             if (hit.collider != null)
             {
                 GameObject hitObject = hit.transform.gameObject;
-			 	if (hitObject.GetComponent<PlayerCharacter>()) {
+			 	if (hitObject.GetComponent<PlayerMovement>()) {
 			 		Debug.Log("saw charcter");
                      if(!running){
                         if(hit.distance < 0.05f){
-                            hitObject.GetComponent<PlayerMovement>().kill();
+                            hitObject.GetComponent<PlayerHealth>().Die();
                             Debug.Log("caught charcter");
                             chasing = false;
                         }
