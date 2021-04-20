@@ -20,6 +20,7 @@ public class Hud: MonoBehaviour {
 
     private void Start() {
         Reset();
+        pauseMenu.Close();
     }
 
     public void SetScore(int score) {

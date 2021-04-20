@@ -2114,7 +2114,7 @@ PrefabInstance:
     - target: {fileID: 3001476641590924842, guid: f7984a00e32da45f6ace2f5a162e0d2a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 307.96045
       objectReference: {fileID: 0}
     - target: {fileID: 3001476641590924842, guid: f7984a00e32da45f6ace2f5a162e0d2a,
         type: 3}
@@ -2124,7 +2124,7 @@ PrefabInstance:
     - target: {fileID: 3001476641590924842, guid: f7984a00e32da45f6ace2f5a162e0d2a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 173.98022
       objectReference: {fileID: 0}
     - target: {fileID: 3001476641590924842, guid: f7984a00e32da45f6ace2f5a162e0d2a,
         type: 3}
@@ -3082,8 +3082,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 114.20645, y: 0}
+  m_SizeDelta: {x: 188.4129, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5783305924959252207
 GameObject:
