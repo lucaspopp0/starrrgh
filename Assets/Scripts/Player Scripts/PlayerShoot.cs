@@ -45,9 +45,9 @@ public class PlayerShoot : MonoBehaviour
         World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition,zRot,.5f,distance,projectile,null,10000);
         float timer = .1f;
         LayerMask mask = LayerMask.GetMask("Default");
-        RaycastHit2D hit = Physics2D.Raycast(fromPosition , targetPosition,10f,mask);
-        if (hit.collider != null)
-            {
+        RaycastHit2D hit = Physics2D.Raycast(tracerSpawnPosition , dir,10f,mask);
+        Debug.DrawRay(tracerSpawnPosition , targetPosition,Color.red);
+        if (hit.collider != null){
                 Debug.Log("hit" + hit.transform.position);
                 GameObject hitObject = hit.transform.gameObject;
 			 	if (hitObject.GetComponent<ReactiveTarget>()) {
@@ -55,7 +55,7 @@ public class PlayerShoot : MonoBehaviour
                     hitObject.GetComponent<ReactiveTarget>().ReactToHit();
                      _scoreController.AddScore(3);
                  }
-            }
+        }
         FunctionUpdater.Create(() =>
         {
             timer -= Time.deltaTime;
