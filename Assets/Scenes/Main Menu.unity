@@ -2258,7 +2258,9 @@ PrefabInstance:
         Left
         shift: stop
 
-        Left click: shoot'
+        Left click: shoot
+
+        Esc: pause'
       objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
