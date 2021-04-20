@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
-    private const float StarsMovementSpeed = 0.3f;
+    [SerializeField] private const float StarsMovementSpeed = 0.3f;
 
     [SerializeField] private RectTransform stars;
     [SerializeField] private MainMenuPanel instructionsMenu;
