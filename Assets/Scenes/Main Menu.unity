@@ -1748,6 +1748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afca276c06c9f47d5928564389f51550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StarsMovementSpeed: 0.02
   stars: {fileID: 1667711489}
   instructionsMenu: {fileID: 2092622076}
   leaderboardMenu: {fileID: 930290742}
