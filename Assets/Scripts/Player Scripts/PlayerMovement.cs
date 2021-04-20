@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerHealth))]
 public class PlayerMovement : MonoBehaviour {
 
+    private Hud _hud;
+
     [SerializeField] private Thruster _leftThruster;
     [SerializeField] private Thruster _rightThruster;
 
@@ -40,6 +42,10 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool alive = true;
 
+    private void Awake() {
+        _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +56,9 @@ public class PlayerMovement : MonoBehaviour {
     void Update()
     {
         if(alive){
-        //Rotating the ship
+            if (Input.GetKeyDown(KeyCode.Escape)) _hud.Pause();
+
+            //Rotating the ship
             float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
             this.transform.Rotate(0, 0, rotation);
 
