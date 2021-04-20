@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerHealth))]
 public class PlayerMovement : MonoBehaviour {
 
+    [SerializeField] private Thruster _leftThruster;
+    [SerializeField] private Thruster _rightThruster;
+
     private Vector2 _lastUsableVelocity;
     
     /*
@@ -51,8 +54,18 @@ public class PlayerMovement : MonoBehaviour {
             float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
             this.transform.Rotate(0, 0, rotation);
 
+            var thrusterInput = Input.GetAxis("Vertical");
+            if (Mathf.Abs(thrusterInput) <= 0.01f) {
+                thrusterInput = Input.GetAxis("Horizontal");
+            }
+
+            var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
+            var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
+
             //The propulsion force, in the direction the ship is pointed
             Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
+            _leftThruster.SetIntensity(thrusterInput * leftProportion);
+            _rightThruster.SetIntensity(thrusterInput * rightProportion);
 
             Vector2 totalForce = Vector2.zero;
 
