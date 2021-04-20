@@ -5,6 +5,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerHealth))]
 public class PlayerMovement : MonoBehaviour {
+
+    private Vector2 _lastUsableVelocity;
+    
     /*
      * Planet variables
      */
@@ -113,10 +116,16 @@ public class PlayerMovement : MonoBehaviour {
         //usableVel = usableVel.normalized * Mathf.Clamp(mag, 0, maxVelocity);
         velocity = velocity.normalized * Mathf.Clamp(mag, 0, maxVelocity);
         Vector3 usableVel = velocity;
+        _lastUsableVelocity = usableVel;
         this.transform.position += (usableVel * Time.deltaTime);
     }
 
     public void kill(){
         alive = false;
+        _lastUsableVelocity = Vector2.zero;
+    }
+
+    public Vector2 GetVelocity() {
+        return _lastUsableVelocity;
     }
 }
