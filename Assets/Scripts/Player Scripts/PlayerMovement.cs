@@ -56,7 +56,13 @@ public class PlayerMovement : MonoBehaviour {
     void Update()
     {
         if(alive){
-            if (Input.GetKeyDown(KeyCode.Escape)) _hud.Pause();
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                if (GameState.shared.paused) {
+                    _hud.Unpause();
+                } else {
+                    _hud.Pause();
+                }
+            }
 
             //Rotating the ship
             float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;

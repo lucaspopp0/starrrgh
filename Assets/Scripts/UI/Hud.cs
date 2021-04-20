@@ -44,6 +44,10 @@ public class Hud: MonoBehaviour {
         pauseMenu.Open();
     }
 
+    public void Unpause() {
+        pauseMenu.Resume();
+    }
+
     public void PlayerDied() {
         deathPopup.Open();
     }
