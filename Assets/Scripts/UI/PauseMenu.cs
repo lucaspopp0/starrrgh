@@ -13,11 +13,13 @@ public class PauseMenu : MonoBehaviour {
     public void Open() {
         GameState.shared.paused = true;
         gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void Close() {
         gameObject.SetActive(false);
         GameState.shared.paused = false;
+        Time.timeScale = 1;
     }
 
     public void Resume() {
