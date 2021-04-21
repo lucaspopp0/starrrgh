@@ -23,7 +23,7 @@ public class DeathPopup: MonoBehaviour {
     }
 
     public void Quit() {
-        Application.Quit();
+        SceneManager.LoadScene(SceneId.MainMenu);
     }
 
 }

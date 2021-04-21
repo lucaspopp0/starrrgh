@@ -58,7 +58,9 @@ public class PlayerMovement : MonoBehaviour {
         if(alive){
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 if (GameState.shared.paused) {
-                    _hud.Unpause();
+                    _hud.Unpause
+                        
+                        ();
                 } else {
                     _hud.Pause();
                 }
