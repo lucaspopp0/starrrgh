@@ -4,13 +4,13 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -2717832465410499228
-    second: Default-Ship_0
+    second: Normal Police Ship
   - first:
       213: 5910598453246730488
-    second: Default-Ship_1
+    second: Police Ship Semi Damaged
   - first:
       213: -4591477558164741163
-    second: Default-Ship_2
+    second: Police Ship Very Damaged
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -108,7 +108,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Default-Ship_0
+      name: Normal Police Ship
       rect:
         serializedVersion: 2
         x: 0
@@ -116,7 +116,7 @@ TextureImporter:
         width: 883
         height: 1000
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,7 +129,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Default-Ship_1
+      name: Police Ship Semi Damaged
       rect:
         serializedVersion: 2
         x: 920
@@ -137,7 +137,7 @@ TextureImporter:
         width: 884
         height: 1000
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Default-Ship_2
+      name: Police Ship Very Damaged
       rect:
         serializedVersion: 2
         x: 1844
@@ -158,7 +158,7 @@ TextureImporter:
         width: 881
         height: 1000
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
