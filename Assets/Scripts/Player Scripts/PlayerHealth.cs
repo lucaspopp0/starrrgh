@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private static int MAX_HEALTH = 1000;
     private bool _shielded = false;
     private float _shieldTimer = 0f;
+    private static float MAX_SHIELD_TIME = 3f;
 
 	void Start() {
 		_health = MAX_HEALTH;
@@ -59,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
 	void startShieldTimer()
 	{
-		_shieldTimer = 3f;
+		_shieldTimer = MAX_SHIELD_TIME;
 	}
 	
 }
