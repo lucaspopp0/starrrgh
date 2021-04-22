@@ -14,6 +14,7 @@ public class PlayerFuel : MonoBehaviour
     //The max amount of fuel that can be used (in seconds)
     [SerializeField] private float _maxFuelTime;
     private PlayerMovement _movement;
+    private float _infiniteFuelTimer = 0f;
 
 
     private void Start()
@@ -24,29 +25,43 @@ public class PlayerFuel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) && !_movement.isDisabled())
+        if (_infiniteFuelTimer <= 0)
         {
-            _fuelTime += Time.deltaTime;
-            _totalFuelTime += Time.deltaTime;
 
+            if (Input.GetKey(KeyCode.W) && !_movement.isDisabled())
+            {
+                _fuelTime += Time.deltaTime;
+                _totalFuelTime += Time.deltaTime;
+
+            }
+
+            if (_fuelTime >= 0)
+            {
+                _fuelBar.SetFuel(1f - (_totalFuelTime / _maxFuelTime));
+            }
+
+            if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())
+            {
+                _fuelTime = 0;
+            }
+
+            if (_totalFuelTime >= _maxFuelTime)
+            {
+                _movement.setDisabled(true);
+            }
         }
-        
-        if (_fuelTime >= 0)
+        else
         {
-            _fuelBar.SetFuel(1f - (_totalFuelTime/_maxFuelTime));
-        }
-        
-        if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())
-        {
-            _fuelTime = 0;
-        }
-
-        if (_totalFuelTime >= _maxFuelTime)
-        {
-            _movement.setDisabled(true);
+            _infiniteFuelTimer -= Time.deltaTime;
         }
 
 
-        
+
+    }
+
+    public void infiniteFuel(float timer)
+    {
+        Debug.Log("Fuel Timer");
+        _infiniteFuelTimer = timer;
     }
 }
