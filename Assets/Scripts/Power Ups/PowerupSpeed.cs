@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerupSpeed : MonoBehaviour
 {
-    public float _speedUpConstant = 1.5f;//Speed increase of 50%
+    public float _speedUpConstant = 2f;//Speed increase of 100%
 
     private void OnTriggerEnter2D(Collider2D other)
     {
