@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float maxVelocity = 10.0f;
     private Vector2 velocity;
 
-    private static float SPEEDUP_TIME = 5f;
+    private float speedup_duration = 5f;
     private float propulsionCoeff = 1f;
     private float speedUpTimer = 0f;
 
@@ -188,14 +188,15 @@ public class PlayerMovement : MonoBehaviour {
        return _disabled;
    }
 
-   public void speedUp(float coeff)
+   public void speedUp(float coeff,float duration)
    {
        propulsionCoeff = coeff;
+       speedup_duration = duration;
        startSpeedUpTimer();
    }
 
    void startSpeedUpTimer()
    {
-       speedUpTimer = SPEEDUP_TIME;
+       speedUpTimer = speedup_duration;
    }
 }
