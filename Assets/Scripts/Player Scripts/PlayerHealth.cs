@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
 	[SerializeField] private Hud _hud;
     private int _health;
     private static int MAX_HEALTH = 1000;
+    private bool _shielded = false;
+    private float _shieldTimer = 0f;
 
 	void Start() {
 		_health = MAX_HEALTH;
@@ -15,6 +17,11 @@ public class PlayerHealth : MonoBehaviour
 	void Update(){
 		if(_health == 0){
 			Die();
+		}
+
+		if (_shieldTimer > 0)
+		{
+			_shieldTimer -= Time.deltaTime;
 		}
 	}
 
@@ -30,10 +37,29 @@ public class PlayerHealth : MonoBehaviour
 	}
 
 	public void Die() {
-		_health = 0;
-		_hud.healthBar.SetNormalizedValue(0);
-		_hud.PlayerDied();
-		GetComponent<PlayerMovement>().kill();
+		if (!_shielded && _shieldTimer <= 0)
+		{
+			_health = 0;
+			_hud.healthBar.SetNormalizedValue(0);
+			_hud.PlayerDied();
+			GetComponent<PlayerMovement>().kill();
+		}
+		else
+		{
+			setShield(false);
+			startShieldTimer();
+		}
+		
+	}
+
+	public void setShield(bool val)
+	{
+		_shielded = val;
+	}
+
+	void startShieldTimer()
+	{
+		_shieldTimer = 3f;
 	}
 	
 }
