@@ -40,6 +40,10 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float maxVelocity = 10.0f;
     private Vector2 velocity;
 
+    private static float SPEEDUP_TIME = 5f;
+    private float propulsionCoeff = 1f;
+    private float speedUpTimer = 0f;
+
     private bool alive = true;
     private bool _disabled = false;
 
@@ -83,7 +87,7 @@ public class PlayerMovement : MonoBehaviour {
             Vector2 propulsion = Vector2.zero;
             if (!isDisabled())
             {
-                propulsion = transform.up * propForce * Input.GetAxis("Vertical");
+                propulsion = transform.up * (propForce * Input.GetAxis("Vertical") * propulsionCoeff);
                 _leftThruster.SetIntensity(thrusterInput * leftProportion);
                 _rightThruster.SetIntensity(thrusterInput * rightProportion);
             }
@@ -109,6 +113,16 @@ public class PlayerMovement : MonoBehaviour {
 
             //Applying the force to the ship
             applyForce(totalForce);
+        }
+
+        if (propulsionCoeff > 1)
+        {
+            speedUpTimer -= Time.deltaTime;
+        }
+
+        if (speedUpTimer <= 0)
+        {
+            propulsionCoeff = 1;
         }
     }
 
@@ -172,5 +186,16 @@ public class PlayerMovement : MonoBehaviour {
    public bool isDisabled()
    {
        return _disabled;
+   }
+
+   public void speedUp(float coeff)
+   {
+       propulsionCoeff = coeff;
+       startSpeedUpTimer();
+   }
+
+   void startSpeedUpTimer()
+   {
+       speedUpTimer = SPEEDUP_TIME;
    }
 }

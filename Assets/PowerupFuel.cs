@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PowerupFuel : MonoBehaviour
 {
-    public float fuelTimer = 3f;
+    public float fuelTimer = 3f;//How long in seconds the player has infinite fuel
 
     private void OnTriggerEnter2D(Collider2D other)
     {

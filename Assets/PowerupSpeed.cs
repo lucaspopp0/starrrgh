@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerupShield : MonoBehaviour
+public class PowerupSpeed : MonoBehaviour
 {
-    public bool _shielded = true;//Prevents the player from dying for one instance
+    public float _speedUpConstant = 1.5f;//Speed increase of 50%
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerHealth>().setShield(_shielded);
+            other.gameObject.GetComponent<PlayerMovement>().speedUp(_speedUpConstant);
             Destroy(gameObject);
         }
     }
