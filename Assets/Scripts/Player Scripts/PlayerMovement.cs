@@ -163,4 +163,22 @@ public class PlayerMovement : MonoBehaviour {
     public Vector2 GetVelocity() {
         return _lastUsableVelocity;
     }
+
+    /*
+     * Adds a planet to calculate gravity from
+     */
+    public bool addPlanet(GameObject planet)
+    {
+        Planet p = planet.GetComponent<Planet>();
+        if(p != null)
+        {
+            return planets.Add(planet);
+        }
+        return false;
+    }
+
+    public bool removePlanet(GameObject planet)
+    {
+        return planets.Remove(planet);
+    }
 }

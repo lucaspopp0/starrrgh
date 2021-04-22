@@ -11,18 +11,22 @@ public class PlanetSpawn : MonoBehaviour
     [SerializeField] private GameObject player;
 
     private GameObject[] spawnedObjects;
+    private PlayerMovement movement;
 
     // Start is called before the first frame update
     void Start()
     {
         spawnedObjects = new GameObject[numObjects];
+        movement = player.GetComponent<PlayerMovement>();
 
         for (int i = 0; i < numObjects; i++)
         {
             float distance = Random.Range(minSpawnRadius, spawnRadius);
             Vector3 v = Random.insideUnitCircle.normalized * distance;
             GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
+            o.GetComponent<Planet>().setMass(7);
             spawnedObjects[i] = o;
+            movement.addPlanet(o);
         }
     }
 
