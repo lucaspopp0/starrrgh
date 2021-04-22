@@ -23,6 +23,12 @@ public class PlayerHealth : MonoBehaviour
 		_hud.healthBar.SetNormalizedValue(_health / (float)MAX_HEALTH);
 	}
 
+	public void Heal(int amount)
+	{
+		_health += amount;
+		_hud.healthBar.SetNormalizedValue(_health /(float)MAX_HEALTH);
+	}
+
 	public void Die() {
 		_health = 0;
 		_hud.healthBar.SetNormalizedValue(0);

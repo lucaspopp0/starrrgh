@@ -59,7 +59,7 @@ public class PlayerFuel : MonoBehaviour
 
     }
 
-    public void infiniteFuel(float timer)
+    public void InfiniteFuel(float timer)
     {
         Debug.Log("Fuel Timer");
         _infiniteFuelTimer = timer;

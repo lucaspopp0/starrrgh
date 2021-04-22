@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerupFuel : MonoBehaviour
+public class PowerupHealth : MonoBehaviour
 {
-    public float fuelTimer = 3f;
+    public int heathIncrease = 300;//Max health is 1000 hp
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerFuel>().InfiniteFuel(fuelTimer);
+            other.gameObject.GetComponent<PlayerHealth>().Heal(heathIncrease);
             Destroy(gameObject);
         }
     }
-
 }
