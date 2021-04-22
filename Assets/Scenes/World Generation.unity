@@ -744,7 +744,9 @@ MonoBehaviour:
   minSpawnRadius: 3
   numObjects: 10
   prefabs:
-  - {fileID: 3462841161870486946, guid: 25a78f59f6e1fb240827e4950f9a1cb6, type: 3}
+  - {fileID: 8477354868198538453, guid: 07a8b7e92e513d646a5b5d1a61135dd2, type: 3}
+  - {fileID: 6513161306640715917, guid: 1570e32bee4b4cf43bb917b285d3c3ea, type: 3}
+  - {fileID: 1630229127512356689, guid: 3de1ebc6b25d9d2459f648d5326062ad, type: 3}
   player: {fileID: 1167240244}
 --- !u!4 &870919829
 Transform:

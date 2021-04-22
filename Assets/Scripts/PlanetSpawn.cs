@@ -24,7 +24,6 @@ public class PlanetSpawn : MonoBehaviour
             float distance = Random.Range(minSpawnRadius, spawnRadius);
             Vector3 v = Random.insideUnitCircle.normalized * distance;
             GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
-            o.GetComponent<Planet>().setMass(7);
             spawnedObjects[i] = o;
             movement.addPlanet(o);
         }
