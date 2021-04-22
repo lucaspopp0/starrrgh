@@ -25,7 +25,14 @@ public class PlanetSpawn : MonoBehaviour
             Vector3 v = Random.insideUnitCircle.normalized * distance;
             GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
             spawnedObjects[i] = o;
-            movement.addPlanet(o);
+
+            foreach(Transform child in o.transform)
+            {
+                if(child.gameObject.GetComponent<Planet>() != null)
+                {
+                    movement.addPlanet(child.gameObject);
+                }
+            }
         }
     }
 
@@ -37,6 +44,6 @@ public class PlanetSpawn : MonoBehaviour
 
     private GameObject randomPrefab()
     {
-        return prefabs[Random.Range(0, prefabs.Length - 1)];
+        return prefabs[Random.Range(0, prefabs.Length)];
     }
 }
