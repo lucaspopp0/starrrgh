@@ -20,6 +20,7 @@ public class PlayerFuel : MonoBehaviour
     private void Start()
     {
         _movement = gameObject.GetComponent<PlayerMovement>();
+        _totalFuelTime = _maxFuelTime;
     }
 
     // Update is called once per frame
@@ -31,21 +32,21 @@ public class PlayerFuel : MonoBehaviour
             if (Input.GetKey(KeyCode.W) && !_movement.isDisabled())
             {
                 _fuelTime += Time.deltaTime;
-                _totalFuelTime += Time.deltaTime;
+                _totalFuelTime -= Time.deltaTime;
 
             }
 
-            if (_fuelTime >= 0)
+            if (_fuelTime >= 0)//W was pressed for a nonzero amount of time, update hud
             {
-                _fuelBar.SetFuel(1f - (_totalFuelTime / _maxFuelTime));
+                _fuelBar.SetFuel(_totalFuelTime / _maxFuelTime);
             }
 
-            if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())
+            if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())//You are not thrusting so stop using fuel
             {
                 _fuelTime = 0;
             }
 
-            if (_totalFuelTime >= _maxFuelTime)
+            if (_totalFuelTime <= 0)
             {
                 _movement.setDisabled(true);
             }
@@ -63,5 +64,11 @@ public class PlayerFuel : MonoBehaviour
     {
         Debug.Log("Fuel Timer");
         _infiniteFuelTimer = timer;
+    }
+
+    //Increase the current fuel amount by the input (in seconds)
+    public void AddFuel(float amount)
+    {
+        _totalFuelTime += amount;
     }
 }
