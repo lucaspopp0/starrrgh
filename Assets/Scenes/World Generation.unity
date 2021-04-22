@@ -740,9 +740,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cb17d3a419d48489794604ff4c3ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRadius: 100
+  spawnRadius: 20
+  minSpawnRadius: 3
   numObjects: 10
-  objects: []
+  prefabs:
+  - {fileID: 3462841161870486946, guid: 25a78f59f6e1fb240827e4950f9a1cb6, type: 3}
   player: {fileID: 1167240244}
 --- !u!4 &870919829
 Transform:
@@ -1126,7 +1128,7 @@ PrefabInstance:
     - target: {fileID: 1829099284479806870, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1829099284479806870, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
@@ -1326,7 +1328,7 @@ PrefabInstance:
     - target: {fileID: 1935501867617201655, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 20.34
       objectReference: {fileID: 0}
     - target: {fileID: 1935501867617201655, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
@@ -1376,7 +1378,7 @@ PrefabInstance:
     - target: {fileID: 2934812694578667310, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 201.125
       objectReference: {fileID: 0}
     - target: {fileID: 2934812694578667310, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
