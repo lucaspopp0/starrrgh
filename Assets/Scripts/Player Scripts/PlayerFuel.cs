@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,18 @@ public class PlayerFuel : MonoBehaviour
 
     //The max amount of fuel that can be used (in seconds)
     [SerializeField] private float _maxFuelTime;
-    
+    private PlayerMovement _movement;
+
+
+    private void Start()
+    {
+        _movement = gameObject.GetComponent<PlayerMovement>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && !_movement.isDisabled())
         {
             _fuelTime += Time.deltaTime;
             _totalFuelTime += Time.deltaTime;
@@ -29,9 +36,14 @@ public class PlayerFuel : MonoBehaviour
             _fuelBar.SetFuel(1f - (_totalFuelTime/_maxFuelTime));
         }
         
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())
         {
             _fuelTime = 0;
+        }
+
+        if (_totalFuelTime >= _maxFuelTime)
+        {
+            _movement.setDisabled(true);
         }
 
 

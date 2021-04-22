@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 velocity;
 
     private bool alive = true;
+    private bool _disabled = false;
 
     private void Awake() {
         _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
@@ -79,14 +80,19 @@ public class PlayerMovement : MonoBehaviour {
             var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
 
             //The propulsion force, in the direction the ship is pointed
-            Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
-            _leftThruster.SetIntensity(thrusterInput * leftProportion);
-            _rightThruster.SetIntensity(thrusterInput * rightProportion);
+            Vector2 propulsion = Vector2.zero;
+            if (!isDisabled())
+            {
+                propulsion = transform.up * propForce * Input.GetAxis("Vertical");
+                _leftThruster.SetIntensity(thrusterInput * leftProportion);
+                _rightThruster.SetIntensity(thrusterInput * rightProportion);
+            }
+           
 
             Vector2 totalForce = Vector2.zero;
 
             //If the player presses shift
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && !isDisabled())
             {
                 //Don't calculate forces from gravity or propulsion
                 //Apply a force opposite to the velocity to stop the ship
@@ -157,4 +163,14 @@ public class PlayerMovement : MonoBehaviour {
     public Vector2 GetVelocity() {
         return _lastUsableVelocity;
     }
+
+   public void setDisabled(bool disabled)
+    {
+        _disabled = disabled;
+    }
+
+   public bool isDisabled()
+   {
+       return _disabled;
+   }
 }
