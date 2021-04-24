@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     private Hud _hud;
 
     [SerializeField] private Thruster _leftThruster;
+    [SerializeField] private Thruster _mainThruster; 
     [SerializeField] private Thruster _rightThruster;
 
     private Vector2 _lastUsableVelocity;
@@ -81,6 +82,7 @@ public class PlayerMovement : MonoBehaviour {
             //The propulsion force, in the direction the ship is pointed
             Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
             _leftThruster.SetIntensity(thrusterInput * leftProportion);
+            _mainThruster.SetIntensity(thrusterInput);
             _rightThruster.SetIntensity(thrusterInput * rightProportion);
 
             Vector2 totalForce = Vector2.zero;
