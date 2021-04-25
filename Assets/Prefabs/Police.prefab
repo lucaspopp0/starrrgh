@@ -680,6 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftThrust: {fileID: 4723473302513559758}
   _rightThrust: {fileID: 6810888352628361960}
+  siren: {fileID: 1776671905176360552}
   speed: 1
   running: 0
   visibility: 8

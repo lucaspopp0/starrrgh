@@ -14,6 +14,18 @@ public class Siren: MonoBehaviour {
     private float _spriteTimer = 0f;
     private int _spriteCounter = 0;
 
+    private void Awake() {
+        TurnOff();
+    }
+
+    public void TurnOn() {
+        gameObject.SetActive(true);
+    }
+
+    public void TurnOff() {
+        gameObject.SetActive(false);
+    }
+
     private void Update() {
         _spriteTimer += Time.deltaTime;
 
