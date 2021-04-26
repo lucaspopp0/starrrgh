@@ -126,7 +126,7 @@ public class WanderingAI : MonoBehaviour {
             {
                 GameObject hitObject = hit.transform.gameObject;
 			 	if (hitObject.GetComponent<PlayerMovement>()) {
-                     if(!running){
+                     if(!running && hitObject.GetComponent<PlayerMovement>().alive){
                          if (siren != null) siren.TurnOn();
                         // if(hit.distance < 0.05f){
                         //     hitObject.GetComponent<PlayerHealth>().Die();

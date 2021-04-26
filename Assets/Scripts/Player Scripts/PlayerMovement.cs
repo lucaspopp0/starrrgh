@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private float curBoostTime;
 
-    private bool alive = true;
+    public bool alive = true;
     private bool _disabled = false;
 
     private void Awake() {

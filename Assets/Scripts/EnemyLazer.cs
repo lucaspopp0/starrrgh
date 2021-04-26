@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyLazer : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    [SerializeField] public ScoreController _scoreController;
     void Start () {
         // Kill me in one second
         Destroy (gameObject, 3.0f);
@@ -25,6 +27,12 @@ public class EnemyLazer : MonoBehaviour
 		}
         if(other.GetComponent<ReactiveTarget>()){
             other.GetComponent<ReactiveTarget>().ReactToHit();
+            if(other.GetComponent<WanderingAI>().running){ 
+                _scoreController.AddScore(3); //is cargoship
+            }
+            else{
+                _scoreController.AddScore(3); //is police ship
+            }
         }
 		Destroy(this.gameObject);
 	}
