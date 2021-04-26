@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Thruster _mainThruster;
     [SerializeField] private Thruster _rightThruster;
     [SerializeField] private AudioSource _powerupSound;
+    [SerializeField] private BoostEffect boostEffect;
 
     private Vector2 _lastUsableVelocity;
     
@@ -87,6 +88,7 @@ public class PlayerMovement : MonoBehaviour {
             if(Input.GetKeyDown(KeyCode.Space) && !boost){ //boost start
                 boost = true; 
                 curBoostTime = 0;
+                boostEffect.Play();
             }
             
             if(boost){
@@ -94,7 +96,7 @@ public class PlayerMovement : MonoBehaviour {
                 if(curBoostTime > boostTime){ 
                     boost = false;
                     velocity = this.transform.up * 8;
-
+                    boostEffect.Stop();
                 }
                 else{
                     this.transform.position += this.transform.up * Time.deltaTime * boostSpeed;
