@@ -105,18 +105,15 @@ public class WanderingAI : MonoBehaviour {
             {
                 GameObject hitObject = hit.transform.gameObject;
 			 	if (hitObject.GetComponent<PlayerMovement>()) {
-			 		Debug.Log("saw charcter");
                      if(!running){
                         if(hit.distance < 0.05f){
                             hitObject.GetComponent<PlayerHealth>().Die();
-                            Debug.Log("caught charcter");
                             chasing = false;
                             if (siren != null) siren.TurnOff();
                         }
                      }
 			 	}
                 else{
-                     Debug.Log("saw else"); //about to crash into planet, adjust path and move in that dir for some time
                      if(hit.distance < 0.2){
                          GetComponent<ReactiveTarget>().ReactToHit();
                      }
