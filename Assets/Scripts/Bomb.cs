@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    [SerializeField] private float fuseTimer = 3f;
+    [SerializeField] private float fuseTimer = 1f;
     private bool fuseEnabled = false;
 
     private void Update()
@@ -25,7 +25,7 @@ public class Bomb : MonoBehaviour
             StartCoroutine(Detonate());
         }
     }
-
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")

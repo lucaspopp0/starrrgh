@@ -16,7 +16,8 @@ public class PlayerBomb : MonoBehaviour
             GameObject bomb = Instantiate(_bombPrefab);
             bomb.transform.position = gameObject.transform.position;
             bomb.GetComponent<Bomb>().EnableFuse();
-            bombAmount--;
+            UseBomb();
+
         }
     }
 
