@@ -7,8 +7,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     private Hud _hud;
-
-    [SerializeField] private ScoreController _scoreController;
     [SerializeField] private Thruster _leftThruster;
     [SerializeField] private Thruster _mainThruster;
     [SerializeField] private Thruster _rightThruster;
@@ -61,6 +59,8 @@ public class PlayerMovement : MonoBehaviour {
     public bool alive = true;
     private bool _disabled = false;
 
+    private ScoreController _scoreController;
+
     private void Awake() {
         _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
     }
@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour {
     void Start()
     {
         velocity = Vector2.zero;
+        _scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
     }
 
     // Update is called once per frame
