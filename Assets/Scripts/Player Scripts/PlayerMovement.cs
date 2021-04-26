@@ -107,7 +107,8 @@ public class PlayerMovement : MonoBehaviour {
                     if (hit.collider != null)
                     {
                         GameObject hitObject = hit.transform.gameObject;
-                        if (hitObject.GetComponent<WanderingAI>() && hit.distance < 0.05f) {
+                        Debug.Log("dash hit comthing");
+                        if (hitObject.GetComponent<WanderingAI>() && hit.distance < 0.2f) {
                             if(hitObject.GetComponent<WanderingAI>()._alive){
                                 if(hitObject.GetComponent<WanderingAI>().running){
                                     _scoreController.AddScore(3);

@@ -119,7 +119,7 @@ public class WanderingAI : MonoBehaviour {
             int fly = 1 << LayerMask.NameToLayer("Player");
             int mask = grnd | fly;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up*0.57f , transform.up,10f,mask);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up*0.57f , transform.up,8f,mask);
 
 
             if (hit.collider != null)

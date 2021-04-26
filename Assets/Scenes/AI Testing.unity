@@ -2486,6 +2486,11 @@ PrefabInstance:
       propertyPath: _fuelBar
       value: 
       objectReference: {fileID: 124401634}
+    - target: {fileID: 2208976258412743770, guid: cbe94e02e4257e34094da2c4474c4903,
+        type: 3}
+      propertyPath: _maxFuelTime
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3879672999910839373, guid: cbe94e02e4257e34094da2c4474c4903,
         type: 3}
       propertyPath: _hud
