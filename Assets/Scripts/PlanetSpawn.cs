@@ -41,10 +41,13 @@ public class PlanetSpawn : MonoBehaviour
             GameObject p = cachedPlanets[i];
             Vector2 radius = new Vector2(p.transform.position.x - player.transform.position.x, p.transform.position.y - player.transform.position.y);
             //If a planet is outside that range, despawn it
+            //Simplify all this logic later
             if (radius.magnitude >= maxSpawnRadius)
             {
                 Vector3 v = Quaternion.AngleAxis(Random.Range(-45, 45), player.transform.forward) * (player.transform.up * (maxSpawnRadius - 0.1f * maxSpawnRadius) + player.transform.position);
                 bool canSpawn = true;
+                //This is very inefficient, if we run into some performance issues, should probably try and fix this
+                //This loop just checks all the stored features to see if the desired object can be spawned
                 for (int j = 0; j < cachedPlanets.Length; j++)
                 {
                     GameObject target = cachedPlanets[j];
@@ -53,6 +56,7 @@ public class PlanetSpawn : MonoBehaviour
                         canSpawn = false;
                     }
                 }
+                //If there is space to spawn a thing, delete the feature p and create a new feature at v
                 if (canSpawn)
                 {
                     //Remove the feature p
