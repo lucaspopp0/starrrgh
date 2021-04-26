@@ -43,12 +43,24 @@ public class PlanetSpawn : MonoBehaviour
             //If a planet is outside that range, despawn it
             if (radius.magnitude >= maxSpawnRadius)
             {
-                //Remove the feature p
-                deleteFeature(p);
-                //Then spawn a new planet in the direction the ship is moving (with some random angle applied)
                 Vector3 v = Quaternion.AngleAxis(Random.Range(-45, 45), player.transform.forward) * (player.transform.up * (maxSpawnRadius - 0.1f * maxSpawnRadius) + player.transform.position);
-                //Probably should rotate stuff here in some random direction
-                spawnFeature(v, Quaternion.identity);
+                bool canSpawn = true;
+                for (int j = 0; j < cachedPlanets.Length; j++)
+                {
+                    GameObject target = cachedPlanets[j];
+                    if((target.transform.position - v).magnitude <= 10.0f)
+                    {
+                        canSpawn = false;
+                    }
+                }
+                if (canSpawn)
+                {
+                    //Remove the feature p
+                    deleteFeature(p);
+                    //Then spawn a new planet in the direction the ship is moving (with some random angle applied)
+                    //Probably should rotate stuff here in some random direction
+                    spawnFeature(v, Quaternion.identity);
+                }
             }
         }
     }
