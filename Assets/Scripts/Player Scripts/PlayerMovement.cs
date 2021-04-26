@@ -40,6 +40,12 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float maxVelocity = 10.0f;
     private Vector2 velocity;
 
+    private Boolean boost;
+
+    private float boostRecharge;
+
+    private float curBoostTime;
+
     private bool alive = true;
 
     private void Awake() {
@@ -66,43 +72,64 @@ public class PlayerMovement : MonoBehaviour {
                 }
             }
 
-            //Rotating the ship
-            float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-            this.transform.Rotate(0, 0, rotation);
-
-            var thrusterInput = Input.GetAxis("Vertical");
-            if (Mathf.Abs(thrusterInput) <= 0.01f) {
-                thrusterInput = Input.GetAxis("Horizontal");
+            if(Input.GetKeyDown(KeyCode.Space) && !boost){ //boost start
+                boost = true; 
+                curBoostTime = 0;
             }
+            
+            if(boost){
+                curBoostTime += Time.deltaTime; //boost end
+                if(curBoostTime > 0.5){ 
+                    boost = false;
+                    velocity = this.transform.up * 8;
 
-            var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
-            var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
+                }
+                else{
+                    this.transform.position += this.transform.up * Time.deltaTime * 20;
+                    _leftThruster.SetIntensity(1);
+                    _rightThruster.SetIntensity(1);
+                }
 
-            //The propulsion force, in the direction the ship is pointed
-            Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
-            _leftThruster.SetIntensity(thrusterInput * leftProportion);
-            _rightThruster.SetIntensity(thrusterInput * rightProportion);
-
-            Vector2 totalForce = Vector2.zero;
-
-            //If the player presses shift
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                //Don't calculate forces from gravity or propulsion
-                //Apply a force opposite to the velocity to stop the ship
-
-                //Should we add gravity to this? Or is that too much
-                totalForce = -(velocity.normalized) * stoppingForce;
             }
-            //Otherwise, calculate gravity and propulsion like normal
-            else
-            {
-                Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
-                totalForce = gravity(planets) + propulsion - drag;
-            }
+            else{
+                //Rotating the ship
+                float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+                this.transform.Rotate(0, 0, rotation);
 
-            //Applying the force to the ship
-            applyForce(totalForce);
+                var thrusterInput = Input.GetAxis("Vertical");
+                if (Mathf.Abs(thrusterInput) <= 0.01f) {
+                    thrusterInput = Input.GetAxis("Horizontal");
+                }
+
+                var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
+                var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
+
+                //The propulsion force, in the direction the ship is pointed
+                Vector2 propulsion = transform.up * propForce * Input.GetAxis("Vertical");
+                _leftThruster.SetIntensity(thrusterInput * leftProportion);
+                _rightThruster.SetIntensity(thrusterInput * rightProportion);
+
+                Vector2 totalForce = Vector2.zero;
+
+                //If the player presses shift
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    //Don't calculate forces from gravity or propulsion
+                    //Apply a force opposite to the velocity to stop the ship
+
+                    //Should we add gravity to this? Or is that too much
+                    totalForce = -(velocity.normalized) * stoppingForce;
+                }
+                //Otherwise, calculate gravity and propulsion like normal
+                else
+                {
+                    Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
+                    totalForce = gravity(planets) + propulsion - drag;
+                }
+
+                //Applying the force to the ship
+                applyForce(totalForce);
+            }
         }
     }
 

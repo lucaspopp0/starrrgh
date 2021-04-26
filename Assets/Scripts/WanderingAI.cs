@@ -80,7 +80,7 @@ public class WanderingAI : MonoBehaviour {
                 _multiplier = 0f;
             }
             else if(range <= closeToPlayer && range > visibility && !waiting){ //on screen so have wander
-                _multiplier = 4f;
+                _multiplier = 4f; 
             }
 			else if (range <= visibility && !waiting) {  //sees player, and moves toward him
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
@@ -115,12 +115,12 @@ public class WanderingAI : MonoBehaviour {
 			 	if (hitObject.GetComponent<PlayerMovement>()) {
 			 		Debug.Log("saw charcter");
                      if(!running){
-                        if(hit.distance < 0.05f){
-                            hitObject.GetComponent<PlayerHealth>().Die();
-                            Debug.Log("caught charcter");
-                            chasing = false;
-                        }
-                        else{ //shoot at player
+                        // if(hit.distance < 0.05f){
+                        //     hitObject.GetComponent<PlayerHealth>().Die();
+                        //     Debug.Log("caught charcter");
+                        //     chasing = false;
+                        // }
+                        //else{ //shoot at player
                             if(reloadTime >= 20){
                                 reloadTime = 0;
                                 Instantiate(lazer, 
@@ -130,7 +130,7 @@ public class WanderingAI : MonoBehaviour {
                             else{
                                 reloadTime += Time.deltaTime * 50;
                             }
-                        }
+                        //}
                      }
 			 	}
                 else if(hitObject.GetComponent<EnemyLazer>()){
