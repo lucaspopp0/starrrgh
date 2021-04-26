@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cb17d3a419d48489794604ff4c3ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpawnRadius: 20
+  maxSpawnRadius: 40
   minSpawnRadius: 10
   numObjects: 10
   prefabs:

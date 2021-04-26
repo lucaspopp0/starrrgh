@@ -64,7 +64,7 @@ public class PlanetSpawn : MonoBehaviour
                 }
                 Destroy(p);
                 //Then spawn a new planet in the direction the ship is moving (with some random angle applied)
-                Vector3 v = Quaternion.AngleAxis(Random.Range(-30, 30), player.transform.forward) * (player.transform.up * maxSpawnRadius + player.transform.position);
+                Vector3 v = Quaternion.AngleAxis(Random.Range(-45, 45), player.transform.forward) * (player.transform.up * (maxSpawnRadius - 0.1f * maxSpawnRadius) + player.transform.position);
                 GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
                 spawnedObjects.Add(o);
 
