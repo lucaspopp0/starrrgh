@@ -103,8 +103,10 @@ public class PlayerMovement : MonoBehaviour {
             //Otherwise, calculate gravity and propulsion like normal
             else
             {
+                GameObject[] cachedPlanets = new GameObject[planets.Count];
+                planets.CopyTo(cachedPlanets);
                 Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
-                totalForce = gravity(planets) + propulsion - drag;
+                totalForce = gravity(cachedPlanets) + propulsion - drag;
             }
 
             //Applying the force to the ship
@@ -116,7 +118,7 @@ public class PlayerMovement : MonoBehaviour {
      * Returns the acceleration due to gravity from a set of celestial bodies
      * (Note: This does NOT return the force, just the acceleration)
      */
-    private Vector2 gravity(HashSet<GameObject> bodies)
+    private Vector2 gravity(GameObject[] bodies)
     {
         //Called a force here for convenience, really an acceleration
         Vector2 totalForce = Vector2.zero;
