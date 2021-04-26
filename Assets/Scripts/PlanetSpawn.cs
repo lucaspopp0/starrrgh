@@ -10,13 +10,13 @@ public class PlanetSpawn : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private GameObject player;
 
-    private GameObject[] spawnedObjects;
+    private HashSet<GameObject> spawnedObjects;
     private PlayerMovement movement;
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnedObjects = new GameObject[numObjects];
+        spawnedObjects = new HashSet<GameObject>();
         movement = player.GetComponent<PlayerMovement>();
 
         //Spawn a feature for the number specified, and then add any planets to the player movement script
@@ -27,7 +27,7 @@ public class PlanetSpawn : MonoBehaviour
             Vector3 v = Random.insideUnitCircle.normalized * distance;
             //Maybe rotate prefabs to some random direction
             GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
-            spawnedObjects[i] = o;
+            spawnedObjects.Add(o);
 
             //Adding all planets in the feature to the player movement script
             foreach(Transform child in o.transform)
@@ -45,9 +45,42 @@ public class PlanetSpawn : MonoBehaviour
     void Update()
     {
         //Check if planets are still within spawn distance of the ship
+        foreach(GameObject p in spawnedObjects)
+        {
+            Vector2 radius = new Vector2(p.transform.position.x - player.transform.position.x, p.transform.position.y - player.transform.position.y);
+            //If a planet is outside that range, despawn it
+            if (radius.magnitude >= spawnRadius)
+            {
+                spawnedObjects.Remove(p);
+                //Removing the planets from the player
+                foreach (Transform child in p.transform)
+                {
+                    //Probably don't have to do this check since we do it in addPlanet
+                    if (child.gameObject.GetComponent<Planet>() != null)
+                    {
+                        //This throws an error since we modify the planet list while we calculate gravity on the player
+                        movement.removePlanet(child.gameObject);
+                    }
+                }
+                Destroy(p);
+                //Then spawn a new planet in the direction the ship is moving
+                //Introduce some random angle to increase variety?
+                Vector3 v = player.transform.up * spawnRadius + player.transform.position;
+                GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
+                spawnedObjects.Add(o);
 
-        //If a planet is outside that range, despawn it
-        //Then spawn a new planet in the direction the ship is moving
+                //Adding all planets in the feature to the player movement script
+                foreach (Transform child in o.transform)
+                {
+                    //Probably don't have to do this check since we do it in addPlanet
+                    if (child.gameObject.GetComponent<Planet>() != null)
+                    {
+                        //This throws an error since we modify the planet list while we calculate gravity on the player
+                        movement.addPlanet(child.gameObject);
+                    }
+                }
+            }
+        }
     }
 
     /*
