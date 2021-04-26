@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 5737157408924922200}
   - component: {fileID: 5737157408924922203}
   - component: {fileID: 5737157408924922202}
+  - component: {fileID: 1508813020881854068}
   m_Layer: 0
   m_Name: Cargoship
   m_TagString: Untagged
@@ -173,12 +174,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cf177f0187e9047eba23c57d915d43af, type: 3}
+  m_Sprite: {fileID: -2717832465410499228, guid: cf177f0187e9047eba23c57d915d43af,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 1}
+  m_Size: {x: 0.8009091, y: 0.90909094}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -201,8 +203,8 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8, y: 0.908}
-    newSize: {x: 0.64, y: 1}
+    oldSize: {x: 0.8009091, y: 0.90909094}
+    newSize: {x: 0.8009091, y: 0.90909094}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -304,6 +306,22 @@ MonoBehaviour:
   running: 1
   visibility: 5
   maxDistance: 45
+--- !u!114 &1508813020881854068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5737157408924922207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb94de9c13484add93fc10347b3f7d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalSprite: {fileID: -2717832465410499228, guid: cf177f0187e9047eba23c57d915d43af,
+    type: 3}
+  raidedSprite: {fileID: 5910598453246730488, guid: cf177f0187e9047eba23c57d915d43af,
+    type: 3}
 --- !u!1 &7998390265083928194
 GameObject:
   m_ObjectHideFlags: 0

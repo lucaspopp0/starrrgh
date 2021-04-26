@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 8423486959968295626}
   - component: {fileID: 8423486959968295627}
   - component: {fileID: 8423486959968295631}
+  - component: {fileID: 8318950408401395539}
   m_Layer: 0
   m_Name: Police
   m_TagString: Untagged
@@ -562,12 +563,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8a59973c3cc49461999b09646b5c457a, type: 3}
+  m_Sprite: {fileID: -2717832465410499228, guid: 8a59973c3cc49461999b09646b5c457a,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5714286, y: 0.64857143}
+  m_Size: {x: 0.5733766, y: 0.6497311}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -590,8 +592,8 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5714286, y: 0.64857143}
-    newSize: {x: 0.5714286, y: 0.64857143}
+    oldSize: {x: 0.5733766, y: 0.6497311}
+    newSize: {x: 0.5733766, y: 0.6497311}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -698,6 +700,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 8084579502289631458, guid: 707da78b9d33ab94aa85ac36249a691b,
+    type: 3}
+--- !u!114 &8318950408401395539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423486959968295620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88344c201724df3bb8c0cd2e28c50b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalSprite: {fileID: -2717832465410499228, guid: 8a59973c3cc49461999b09646b5c457a,
+    type: 3}
+  semiDamagedSprite: {fileID: 5910598453246730488, guid: 8a59973c3cc49461999b09646b5c457a,
+    type: 3}
+  veryDamagedSprite: {fileID: -4591477558164741163, guid: 8a59973c3cc49461999b09646b5c457a,
     type: 3}
 --- !u!1001 &991529343096549706
 PrefabInstance:

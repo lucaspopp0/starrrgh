@@ -1,7 +1,16 @@
 fileFormatVersion: 2
 guid: 8a59973c3cc49461999b09646b5c457a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -2717832465410499228
+    second: Normal Police Ship
+  - first:
+      213: 5910598453246730488
+    second: Police Ship Semi Damaged
+  - first:
+      213: -4591477558164741163
+    second: Police Ship Very Damaged
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,12 +49,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 700
+  spritePixelsToUnits: 1540
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,7 +106,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Normal Police Ship
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 883
+        height: 1000
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46dde2cb5c1584ad0800000000000000
+      internalID: -2717832465410499228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Police Ship Semi Damaged
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 0
+        width: 884
+        height: 1000
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f0aebf3af9a60250800000000000000
+      internalID: 5910598453246730488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Police Ship Very Damaged
+      rect:
+        serializedVersion: 2
+        x: 1844
+        y: 0
+        width: 881
+        height: 1000
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d3a96fcc7bc740c0800000000000000
+      internalID: -4591477558164741163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
