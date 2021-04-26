@@ -23,7 +23,6 @@ public class PlayerBomb : MonoBehaviour
     public void AddBombs(int amount)
     {
         bombAmount += amount;
-        Debug.Log(bombAmount);
     }
 
     public void UseBomb()

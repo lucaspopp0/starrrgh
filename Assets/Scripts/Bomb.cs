@@ -15,10 +15,14 @@ public class Bomb : MonoBehaviour
             fuseTimer -= Time.deltaTime;
         }
 
-
+        if (fuseTimer > 0)
+        {
+            Debug.Log(fuseTimer);
+        }
+        
         if (fuseTimer <= 0)
         {
-            Detonate();
+            var enumerator = Detonate();
         }
     }
 
@@ -40,12 +44,13 @@ public class Bomb : MonoBehaviour
         fuseEnabled = true;
     }
 
-    private void Detonate()
+    private IEnumerator Detonate()
     {
-        Debug.Log("boom");
         //TODO: Check for collision on children here after enabling them
-        var child = transform.Find("Explosion Radius");
-        child.gameObject.SetActive(true);
+        //TODO: Maybe it spawns an explosion prefab with its own script
+        transform.GetChild(0).gameObject.SetActive(true);
+        Debug.Log("boom");
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 }
