@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlanetSpawn : MonoBehaviour
 {
-    [SerializeField] private float spawnRadius = 100.0f;
+    [SerializeField] private float maxSpawnRadius = 100.0f;
     [SerializeField] private float minSpawnRadius = 10.0f;
     [SerializeField] private int numObjects = 10;
     [SerializeField] private GameObject[] prefabs;
@@ -23,8 +22,9 @@ public class PlanetSpawn : MonoBehaviour
         for (int i = 0; i < numObjects; i++)
         {
             //Spawning at some random vector
-            float distance = Random.Range(minSpawnRadius, spawnRadius);
-            Vector3 v = Random.insideUnitCircle.normalized * distance;
+            float distance = Random.Range(minSpawnRadius - 0.1f * maxSpawnRadius, maxSpawnRadius);
+            //Debug.Log(360)
+            Vector3 v = Quaternion.AngleAxis((360 / numObjects) * i, player.transform.forward) * player.transform.up * distance + player.transform.position;
             //Maybe rotate prefabs to some random direction
             GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
             spawnedObjects.Add(o);
@@ -49,7 +49,7 @@ public class PlanetSpawn : MonoBehaviour
         {
             Vector2 radius = new Vector2(p.transform.position.x - player.transform.position.x, p.transform.position.y - player.transform.position.y);
             //If a planet is outside that range, despawn it
-            if (radius.magnitude >= spawnRadius)
+            if (radius.magnitude >= maxSpawnRadius)
             {
                 spawnedObjects.Remove(p);
                 //Removing the planets from the player
@@ -63,9 +63,8 @@ public class PlanetSpawn : MonoBehaviour
                     }
                 }
                 Destroy(p);
-                //Then spawn a new planet in the direction the ship is moving
-                //Introduce some random angle to increase variety?
-                Vector3 v = player.transform.up * spawnRadius + player.transform.position;
+                //Then spawn a new planet in the direction the ship is moving (with some random angle applied)
+                Vector3 v = Quaternion.AngleAxis(Random.Range(-30, 30), player.transform.forward) * (player.transform.up * maxSpawnRadius + player.transform.position);
                 GameObject o = Instantiate(randomPrefab(), v, Quaternion.identity);
                 spawnedObjects.Add(o);
 
