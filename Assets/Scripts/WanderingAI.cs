@@ -8,6 +8,8 @@ public class WanderingAI : MonoBehaviour {
 	[SerializeField] private Thruster _rightThrust;
 
     [SerializeField] private GameObject lazer;
+
+     [SerializeField] public AudioClip lazerShot;
 	
 	public const float baseSpeed = 1f;
 
@@ -22,6 +24,8 @@ public class WanderingAI : MonoBehaviour {
     public float maxDistance;
 
     public float closeToPlayer;
+
+    public float tooClose;
     private float obstacleRange = 3.5f;
 	
 	private bool _alive;
@@ -82,12 +86,19 @@ public class WanderingAI : MonoBehaviour {
             else if(range <= closeToPlayer && range > visibility && !waiting){ //on screen so have wander
                 _multiplier = 4f; 
             }
-			else if (range <= visibility && !waiting) {  //sees player, and moves toward him
+			else if (range <= visibility &&  range > tooClose && !waiting) {  //sees player, and moves toward him
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
                 if(running){
                     transform.Rotate(new Vector3(0,0,180));
                 }
 				_multiplier = 7.0f;
+			}
+            else if (range <= tooClose && !waiting) {  //sees player, and moves toward him
+                transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
+                if(running){
+                    transform.Rotate(new Vector3(0,0,180));
+                }
+				_multiplier = 0.0f;
 			}
             else {
 				//normal distance away, let wander
@@ -123,6 +134,7 @@ public class WanderingAI : MonoBehaviour {
                         //else{ //shoot at player
                             if(reloadTime >= 20){
                                 reloadTime = 0;
+                                AudioSource.PlayClipAtPoint (lazerShot, Camera.main.transform.position);
                                 Instantiate(lazer, 
                                 new Vector3(transform.position.x,transform.position.y, 0), 
                                 transform.rotation);

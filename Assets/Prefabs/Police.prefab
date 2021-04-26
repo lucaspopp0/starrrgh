@@ -276,11 +276,13 @@ MonoBehaviour:
   _leftThrust: {fileID: 4723473302513559758}
   _rightThrust: {fileID: 6810888352628361960}
   lazer: {fileID: 4624816897462325054, guid: ef19b8c756a765c418ed53b5ff650111, type: 3}
+  lazerShot: {fileID: 8300000, guid: 8c0e40659be10439d82c72215e239ed4, type: 3}
   speed: 1
   running: 0
   visibility: 8
   maxDistance: 45
   closeToPlayer: 25
+  tooClose: 2
 --- !u!114 &8423486959968295631
 MonoBehaviour:
   m_ObjectHideFlags: 0
