@@ -7,8 +7,9 @@ public class PlayerHealth : MonoBehaviour
 	[SerializeField] private Hud _hud;
     private int _health;
     private static int MAX_HEALTH = 1000;
+    [SerializeField] private GameObject explosionEffect;
 
-	void Start() {
+    void Start() {
 		_health = MAX_HEALTH;
 	}
 
@@ -28,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
 		_hud.healthBar.SetNormalizedValue(0);
 		_hud.PlayerDied();
 		GetComponent<PlayerMovement>().kill();
+		explosionEffect.SetActive(true);
 	}
 	
 }
