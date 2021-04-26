@@ -21,7 +21,7 @@ public class EnemyLazer : MonoBehaviour
         Debug.Log("hit somthing");
 		PlayerHealth player = other.GetComponent<PlayerHealth>();
 		if (player != null) {
-			player.Hurt(5);
+			player.Hurt(10);
 		}
         if(other.GetComponent<ReactiveTarget>()){
             other.GetComponent<ReactiveTarget>().ReactToHit();
