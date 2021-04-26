@@ -88,6 +88,19 @@ public class PlayerMovement : MonoBehaviour {
                     this.transform.position += this.transform.up * Time.deltaTime * 20;
                     _leftThruster.SetIntensity(1);
                     _rightThruster.SetIntensity(1);
+
+                    LayerMask mask = LayerMask.GetMask("Default");
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up,10f,mask);
+
+                    if (hit.collider != null)
+                    {
+                        GameObject hitObject = hit.transform.gameObject;
+                        if (hitObject.GetComponent<WanderingAI>()) {
+                            if(hit.distance < 0.05f){
+                                hitObject.GetComponent<ReactiveTarget>().ReactToHit();
+                            }
+                        }
+                    }
                 }
 
             }
