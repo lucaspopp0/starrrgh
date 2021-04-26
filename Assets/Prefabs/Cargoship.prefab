@@ -203,10 +203,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftThrust: {fileID: 8355400358298650552}
   _rightThrust: {fileID: 6142117972389227674}
+  lazer: {fileID: 4624816897462325054, guid: ef19b8c756a765c418ed53b5ff650111, type: 3}
   speed: 0.1
   running: 1
   visibility: 5
   maxDistance: 45
+  closeToPlayer: 25
 --- !u!1 &7998390265083928194
 GameObject:
   m_ObjectHideFlags: 0
