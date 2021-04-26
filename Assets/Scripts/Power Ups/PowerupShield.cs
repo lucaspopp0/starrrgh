@@ -11,6 +11,7 @@ public class PowerupShield : MonoBehaviour
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
+            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup();
             other.gameObject.GetComponent<PlayerHealth>().setShield(_shielded);
             Destroy(gameObject);
         }

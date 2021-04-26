@@ -11,6 +11,7 @@ public class PowerupHealth : MonoBehaviour
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
+            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup();
             other.gameObject.GetComponent<PlayerHealth>().Heal(heathIncrease);
             Destroy(gameObject);
         }

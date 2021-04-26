@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Thruster _leftThruster;
     [SerializeField] private Thruster _mainThruster;
     [SerializeField] private Thruster _rightThruster;
+    [SerializeField] private AudioSource _powerupSound;
 
     private Vector2 _lastUsableVelocity;
     
@@ -200,5 +201,9 @@ public class PlayerMovement : MonoBehaviour {
    void startSpeedUpTimer()
    {
        speedUpTimer = speedup_duration;
+   }
+
+   public void ObtainPowerup() {
+       _powerupSound.Play();
    }
 }
