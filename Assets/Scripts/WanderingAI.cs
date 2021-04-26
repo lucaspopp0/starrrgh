@@ -6,6 +6,7 @@ public class WanderingAI : MonoBehaviour {
 
 	[SerializeField] private Thruster _leftThrust;
 	[SerializeField] private Thruster _rightThrust;
+	[SerializeField] private Siren siren;
 	
 	public const float baseSpeed = 1f;
 
@@ -39,6 +40,8 @@ public class WanderingAI : MonoBehaviour {
         waitFor = 0;
         waiting = false;
         chasing = true;
+        
+        if (siren != null) siren.TurnOn();
 
 		Vector3 diff = playerObject.transform.position - this.transform.position;
 		float range = diff.magnitude;
@@ -106,6 +109,7 @@ public class WanderingAI : MonoBehaviour {
                         if(hit.distance < 0.05f){
                             hitObject.GetComponent<PlayerHealth>().Die();
                             chasing = false;
+                            if (siren != null) siren.TurnOff();
                         }
                      }
 			 	}

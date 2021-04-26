@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     private Hud _hud;
 
     [SerializeField] private Thruster _leftThruster;
+    [SerializeField] private Thruster _mainThruster;
     [SerializeField] private Thruster _rightThruster;
 
     private Vector2 _lastUsableVelocity;
@@ -89,6 +90,7 @@ public class PlayerMovement : MonoBehaviour {
             {
                 propulsion = transform.up * (propForce * Input.GetAxis("Vertical") * propulsionCoeff);
                 _leftThruster.SetIntensity(thrusterInput * leftProportion);
+                _mainThruster.SetIntensity(thrusterInput);
                 _rightThruster.SetIntensity(thrusterInput * rightProportion);
             }
            
