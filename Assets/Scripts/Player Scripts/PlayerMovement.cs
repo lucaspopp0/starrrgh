@@ -61,6 +61,10 @@ public class PlayerMovement : MonoBehaviour {
 
     private ScoreController _scoreController;
 
+    public bool isBoost(){
+        return boost;
+    }
+
     private void Awake() {
         _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
     }
@@ -85,8 +89,12 @@ public class PlayerMovement : MonoBehaviour {
                     _hud.Pause();
                 }
             }
+            if(isDisabled()){
+                _leftThruster.SetIntensity(0);
+                _rightThruster.SetIntensity(0);
+            }
 
-            if(Input.GetKeyDown(KeyCode.Space) && !boost){ //boost start
+            if(Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()){ //boost start
                 boost = true; 
                 curBoostTime = 0;
                 boostEffect.Play();
