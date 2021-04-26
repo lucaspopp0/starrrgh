@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour {
     //Drag strength
     [SerializeField] private float dragForce = 0.1f;
 
+    [SerializeField] private float boostSpeed = 20f;
+
+    [SerializeField] private float boostTime = 0.5f;
+
     //Maximum speed the ship can have
     [SerializeField] private float maxVelocity = 10.0f;
     private Vector2 velocity;
@@ -86,13 +90,13 @@ public class PlayerMovement : MonoBehaviour {
             
             if(boost){
                 curBoostTime += Time.deltaTime; //boost end
-                if(curBoostTime > 0.5){ 
+                if(curBoostTime > boostTime){ 
                     boost = false;
                     velocity = this.transform.up * 8;
 
                 }
                 else{
-                    this.transform.position += this.transform.up * Time.deltaTime * 20;
+                    this.transform.position += this.transform.up * Time.deltaTime * boostSpeed;
                     _leftThruster.SetIntensity(1);
                     _rightThruster.SetIntensity(1);
 
