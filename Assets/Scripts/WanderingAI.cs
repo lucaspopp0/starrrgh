@@ -6,6 +6,11 @@ public class WanderingAI : MonoBehaviour {
 
 	[SerializeField] private Thruster _leftThrust;
 	[SerializeField] private Thruster _rightThrust;
+    [SerializeField] private Siren siren;
+
+    [SerializeField] private GameObject lazer;
+
+     [SerializeField] public AudioClip lazerShot;
 	
 	public const float baseSpeed = 1f;
 
@@ -18,9 +23,13 @@ public class WanderingAI : MonoBehaviour {
     public float visibility;
 
     public float maxDistance;
+
+    public float closeToPlayer;
+
+    public float tooClose;
     private float obstacleRange = 3.5f;
 	
-	private bool _alive;
+	public bool _alive;
 	private int _animState;
 	private float _multiplier;
 
@@ -31,6 +40,8 @@ public class WanderingAI : MonoBehaviour {
 
     float waitFor;
 
+    float reloadTime;
+
 	void Start() {
 		_alive = true;
 		
@@ -39,6 +50,7 @@ public class WanderingAI : MonoBehaviour {
         waitFor = 0;
         waiting = false;
         chasing = true;
+        
 
 		Vector3 diff = playerObject.transform.position - this.transform.position;
 		float range = diff.magnitude;
@@ -50,9 +62,8 @@ public class WanderingAI : MonoBehaviour {
 		}
 		else if (range <= visibility) { 
 			//_animState = 3;
-			_multiplier = 8.0f;
+			_multiplier = 7.0f;
             //go towards player
-
 		}
 
 	}
@@ -71,12 +82,25 @@ public class WanderingAI : MonoBehaviour {
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
 				_multiplier = 0.1f;
 			}
-			else if (range <= visibility && !waiting) {  //"sees player, and moves toward him
+            else if (range > closeToPlayer && range <= maxDistance && !waiting){ //off screen so can just stay still
+                _multiplier = 0f;
+            }
+            else if(range <= closeToPlayer && range > visibility && !waiting){ //on screen so have wander
+                _multiplier = 4f; 
+            }
+			else if (range <= visibility &&  range > tooClose && !waiting) {  //sees player, and moves toward him
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
                 if(running){
                     transform.Rotate(new Vector3(0,0,180));
                 }
 				_multiplier = 7.0f;
+			}
+            else if (range <= tooClose && !waiting) {  //sees player, and moves toward him
+                transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
+                if(running){
+                    transform.Rotate(new Vector3(0,0,180));
+                }
+				_multiplier = 0.0f;
 			}
             else {
 				//normal distance away, let wander
@@ -95,23 +119,39 @@ public class WanderingAI : MonoBehaviour {
             int fly = 1 << LayerMask.NameToLayer("Player");
             int mask = grnd | fly;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up*0.57f , transform.up,10f,mask);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up*0.57f , transform.up,8f,mask);
 
 
             if (hit.collider != null)
             {
                 GameObject hitObject = hit.transform.gameObject;
 			 	if (hitObject.GetComponent<PlayerMovement>()) {
-			 		Debug.Log("saw charcter");
-                     if(!running){
-                        if(hit.distance < 0.05f){
-                            hitObject.GetComponent<PlayerHealth>().Die();
-                            Debug.Log("caught charcter");
-                            chasing = false;
-                        }
+                     if(!running && hitObject.GetComponent<PlayerMovement>().alive){
+                         if (siren != null) siren.TurnOn();
+                        // if(hit.distance < 0.05f){
+                        //     hitObject.GetComponent<PlayerHealth>().Die();
+                        //     Debug.Log("caught charcter");
+                        //     chasing = false;
+                        // }
+                        //else{ //shoot at player
+                            if(reloadTime >= 20){
+                                reloadTime = 0;
+                                AudioSource.PlayClipAtPoint (lazerShot, Camera.main.transform.position);
+                                Instantiate(lazer, 
+                                new Vector3(transform.position.x,transform.position.y, 0), 
+                                transform.rotation);
+                            }
+                            else{
+                                reloadTime += Time.deltaTime * 50;
+                            }
+                        //}
                      }
 			 	}
-                else{
+                else if(hitObject.GetComponent<EnemyLazer>()){
+                    Debug.Log("saw lazer, ignored");
+                }
+                else
+                {
                      Debug.Log("saw else"); //about to crash into planet, adjust path and move in that dir for some time
                      if(hit.distance < 0.2){
                          GetComponent<ReactiveTarget>().ReactToHit();

@@ -31,20 +31,25 @@ public class ParallaxStars: MonoBehaviour {
 
         if (_tryToFollowPlayer) {
             _currentSpeed = _playerMovement.GetVelocity();
-        }
-        
-        var nextPosition = transform.position;
-        nextPosition += (Vector3) _currentSpeed * (_parallaxMultiplier * Time.deltaTime);
 
-        if (Mathf.Abs(nextPosition.x - _randomCenter.x) >= individualSize.x) {
-            nextPosition.x = _randomCenter.x;
-        }
+            var nextPosition = transform.position;
+            nextPosition += (Vector3) _currentSpeed * (_parallaxMultiplier * Time.deltaTime);
 
-        if (Mathf.Abs(nextPosition.y - _randomCenter.y) >= individualSize.y) {
-            nextPosition.y = _randomCenter.y;
-        }
+            transform.SetPositionAndRotation(nextPosition, transform.rotation);
+        } else {
+            var nextPosition = transform.position;
+            nextPosition += (Vector3) _currentSpeed * (_parallaxMultiplier * Time.deltaTime);
 
-        transform.SetPositionAndRotation(nextPosition, transform.rotation);
+            if (Mathf.Abs(nextPosition.x - _randomCenter.x) >= individualSize.x) {
+                nextPosition.x = _randomCenter.x;
+            }
+
+            if (Mathf.Abs(nextPosition.y - _randomCenter.y) >= individualSize.y) {
+                nextPosition.y = _randomCenter.y;
+            }
+
+            transform.SetPositionAndRotation(nextPosition, transform.rotation);            
+        }
     }
 
     public void SetParallaxMultiplier(float mult) {

@@ -1,7 +1,22 @@
 fileFormatVersion: 2
 guid: f35496a555b404a25bf628e93cd4ba07
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 2005592704875652473
+    second: Shield
+  - first:
+      213: 1442473103554689200
+    second: Infinite Fuel
+  - first:
+      213: 8590971835194645222
+    second: Speed Up
+  - first:
+      213: -401497711014315406
+    second: Health Plus
+  - first:
+      213: 8897106440171328350
+    second: Bomb Plus
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,11 +118,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 177
-        width: 550
-        height: 645
+        y: 143
+        width: 444
+        height: 521
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -123,12 +138,12 @@ TextureImporter:
       name: Infinite Fuel
       rect:
         serializedVersion: 2
-        x: 597
-        y: 177
-        width: 612
-        height: 645
+        x: 480
+        y: 143
+        width: 496
+        height: 521
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,15 +156,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Speed Boost
+      name: Speed Up
       rect:
         serializedVersion: 2
-        x: 1256
-        y: 310
-        width: 729
-        height: 378
+        x: 1012
+        y: 249
+        width: 589
+        height: 306
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,15 +177,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Free Health
+      name: Health Plus
       rect:
         serializedVersion: 2
-        x: 2032
-        y: 286
-        width: 506
-        height: 427
+        x: 1639
+        y: 230
+        width: 412
+        height: 330
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -178,6 +193,27 @@ TextureImporter:
       bones: []
       spriteID: 27afbd485f79d6af0800000000000000
       internalID: -401497711014315406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb Plus
+      rect:
+        serializedVersion: 2
+        x: 2087
+        y: 189
+        width: 470
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e53904f1b2fd87b70800000000000000
+      internalID: 8897106440171328350
       vertices: []
       indices: 
       edges: []
