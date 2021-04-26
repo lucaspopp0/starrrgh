@@ -44,6 +44,8 @@ public class Bomb : MonoBehaviour
     {
         Debug.Log("boom");
         //TODO: Check for collision on children here after enabling them
+        var child = transform.Find("Explosion Radius");
+        child.gameObject.SetActive(true);
         Destroy(gameObject);
     }
 }
