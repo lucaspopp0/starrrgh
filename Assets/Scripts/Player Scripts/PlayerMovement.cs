@@ -126,12 +126,15 @@ public class PlayerMovement : MonoBehaviour
                     if (hit.collider != null)
                     {
                         GameObject hitObject = hit.transform.gameObject;
-                        Debug.Log("dash hit comthing");
-                        if (hitObject.GetComponent<WanderingAI>() && hit.distance < 0.2f)
+                        //Debug.Log("dash hit comthing");
+                        if (hitObject.GetComponent<WanderingAI>() && hit.distance < 0.5f)
                         {
+                            Debug.Log("dash hit enemy");
                             if (hitObject.GetComponent<WanderingAI>()._alive)
                             {
-                                if (hitObject.GetComponent<WanderingAI>().running)
+                                bool isCargoship = hitObject.GetComponent<WanderingAI>().running;
+                                hitObject.GetComponent<ReactiveTarget>().ReactToHit();
+                                if (isCargoship)
                                 {
                                     _scoreController.AddScore(3);
                                 }
@@ -139,8 +142,6 @@ public class PlayerMovement : MonoBehaviour
                                 {
                                     _scoreController.AddScore(5);
                                 }
-                                hitObject.GetComponent<ReactiveTarget>().ReactToHit();
-
                             }
                         }
                     }
