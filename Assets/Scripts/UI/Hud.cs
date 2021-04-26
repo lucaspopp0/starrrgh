@@ -41,12 +41,10 @@ public class Hud: MonoBehaviour {
     }
 
     public void Pause() {
-        Time.timeScale = 0;
         pauseMenu.Open();
     }
 
     public void Unpause() {
-        Time.timeScale = 1;
         pauseMenu.Resume();
     }
 
