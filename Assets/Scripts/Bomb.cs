@@ -22,7 +22,7 @@ public class Bomb : MonoBehaviour
         
         if (fuseTimer <= 0)
         {
-            var enumerator = Detonate();
+            StartCoroutine(Detonate());
         }
     }
 
