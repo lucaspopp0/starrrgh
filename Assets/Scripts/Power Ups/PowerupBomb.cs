@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerupFuel : MonoBehaviour
+public class PowerupBomb : MonoBehaviour
 {
-    public float fuelTimer = 10f;//How long in seconds the player has infinite fuel
+    public int bombAmount = 3;//How long in seconds the player has infinite fuel
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerFuel>().InfiniteFuel(fuelTimer);
+            other.gameObject.GetComponent<PlayerBomb>().AddBombs(bombAmount);
             Destroy(gameObject);
         }
     }
