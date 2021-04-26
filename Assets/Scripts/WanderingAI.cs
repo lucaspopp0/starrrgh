@@ -29,7 +29,7 @@ public class WanderingAI : MonoBehaviour {
     public float tooClose;
     private float obstacleRange = 3.5f;
 	
-	private bool _alive;
+	public bool _alive;
 	private int _animState;
 	private float _multiplier;
 
