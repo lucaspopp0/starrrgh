@@ -26,6 +26,7 @@ public class ReactiveTarget : MonoBehaviour
 		// anim.SetInteger("zombieToState", 2);
 		Destroy(this.gameObject.GetComponent<Collider>());
 		Destroy(Instantiate(deathEffect.gameObject,transform.position,Quaternion.identity) as GameObject,deathEffect.startLifetime);
+
 		yield return new WaitForSeconds(0.1f);
 		
 		Destroy(this.gameObject);

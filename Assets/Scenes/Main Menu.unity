@@ -816,7 +816,7 @@ PrefabInstance:
     - target: {fileID: 4238812467793511936, guid: aa27d42481a8d49e9b3597c99afa4b88,
         type: 3}
       propertyPath: m_Name
-      value: Leaderboard
+      value: Credits
       objectReference: {fileID: 0}
     - target: {fileID: 4238812467793511937, guid: aa27d42481a8d49e9b3597c99afa4b88,
         type: 3}
@@ -831,7 +831,7 @@ PrefabInstance:
     - target: {fileID: 4238812467793511937, guid: aa27d42481a8d49e9b3597c99afa4b88,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4238812467793511937, guid: aa27d42481a8d49e9b3597c99afa4b88,
         type: 3}
@@ -966,7 +966,7 @@ PrefabInstance:
     - target: {fileID: 4238812468620037549, guid: aa27d42481a8d49e9b3597c99afa4b88,
         type: 3}
       propertyPath: m_text
-      value: LEADERBOARD
+      value: CREDITS
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa27d42481a8d49e9b3597c99afa4b88, type: 3}
@@ -986,12 +986,34 @@ PrefabInstance:
     - target: {fileID: 5792208855771393968, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_text
-      value: Not yet implemented!
+      value: 'Menu music: ^POWER UP^ by scomber (dig.ccmixter.org)
+
+        Game
+        music 1: Stardust (Ziggy is coming) by Karstenholymoly (dig.ccmixter.org)
+
+        Game
+        music 2: nightWalk by airtone (dig.ccmixter.org)
+
+
+        All SFX are from
+        freesound.org'
       objectReference: {fileID: 0}
+    - target: {fileID: 5792208855771393968, guid: b8820ff71fe96452da9a55954b0f6701,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2342bdc08be594068b9f587745b39d39,
+        type: 2}
+    - target: {fileID: 5792208855771393968, guid: b8820ff71fe96452da9a55954b0f6701,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 6586046932034128566, guid: 2342bdc08be594068b9f587745b39d39,
+        type: 2}
     - target: {fileID: 5792208856025777872, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_text
-      value: Leaderboard
+      value: Credits
       objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
@@ -1101,7 +1123,7 @@ PrefabInstance:
     - target: {fileID: 5792208857181701117, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_Name
-      value: Leaderboard Menu
+      value: Credits Menu
       objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701119, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
@@ -1320,8 +1342,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1157092789}
-  - {fileID: 813811372}
   - {fileID: 1007215797}
+  - {fileID: 813811372}
   - {fileID: 427992774}
   m_Father: {fileID: 1147591463}
   m_RootOrder: 1
@@ -1381,7 +1403,7 @@ PrefabInstance:
     - target: {fileID: 4238812467793511937, guid: aa27d42481a8d49e9b3597c99afa4b88,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4238812467793511937, guid: aa27d42481a8d49e9b3597c99afa4b88,
         type: 3}

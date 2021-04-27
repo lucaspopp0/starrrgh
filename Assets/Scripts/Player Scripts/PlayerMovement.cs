@@ -7,10 +7,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     private Hud _hud;
-
     [SerializeField] private Thruster _leftThruster;
     [SerializeField] private Thruster _mainThruster;
     [SerializeField] private Thruster _rightThruster;
+    [SerializeField] private AudioSource _powerupSound;
+    [SerializeField] private BoostEffect boostEffect;
 
     private Vector2 _lastUsableVelocity;
     
@@ -37,6 +38,10 @@ public class PlayerMovement : MonoBehaviour {
     //Drag strength
     [SerializeField] private float dragForce = 0.1f;
 
+    [SerializeField] private float boostSpeed = 20f;
+
+    [SerializeField] private float boostTime = 0.5f;
+
     //Maximum speed the ship can have
     [SerializeField] private float maxVelocity = 10.0f;
     private Vector2 velocity;
@@ -45,8 +50,20 @@ public class PlayerMovement : MonoBehaviour {
     private float propulsionCoeff = 1f;
     private float speedUpTimer = 0f;
 
-    private bool alive = true;
+    private bool boost;
+
+    private float boostRecharge;
+
+    private float curBoostTime;
+
+    public bool alive = true;
     private bool _disabled = false;
+
+    private ScoreController _scoreController;
+
+    public bool isBoost(){
+        return boost;
+    }
 
     private void Awake() {
         _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
@@ -56,6 +73,7 @@ public class PlayerMovement : MonoBehaviour {
     void Start()
     {
         velocity = Vector2.zero;
+        _scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
     }
 
     // Update is called once per frame
@@ -71,18 +89,67 @@ public class PlayerMovement : MonoBehaviour {
                     _hud.Pause();
                 }
             }
-
-            //Rotating the ship
-            float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-            this.transform.Rotate(0, 0, rotation);
-
-            var thrusterInput = Input.GetAxis("Vertical");
-            if (Mathf.Abs(thrusterInput) <= 0.01f) {
-                thrusterInput = Input.GetAxis("Horizontal");
+            if(isDisabled()){
+                _leftThruster.SetIntensity(0);
+                _rightThruster.SetIntensity(0);
             }
 
-            var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
-            var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
+            if(Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()){ //boost start
+                boost = true; 
+                curBoostTime = 0;
+                boostEffect.Play();
+            }
+            
+            if(boost){
+                curBoostTime += Time.deltaTime; //boost end
+                if(curBoostTime > boostTime){ 
+                    boost = false;
+                    velocity = this.transform.up * 8;
+                    boostEffect.Stop();
+                }
+                else{
+                    this.transform.position += this.transform.up * Time.deltaTime * boostSpeed;
+                    _leftThruster.SetIntensity(1);
+                    _rightThruster.SetIntensity(1);
+
+                    LayerMask mask = LayerMask.GetMask("Default");
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up,10f,mask);
+
+                    if (hit.collider != null)
+                    {
+                        GameObject hitObject = hit.transform.gameObject;
+                        //Debug.Log("dash hit comthing");
+                        if (hitObject.GetComponent<WanderingAI>() && hit.distance < 0.5f) {
+                            Debug.Log("dash hit enemy");
+                            if(hitObject.GetComponent<WanderingAI>()._alive){
+                                bool isCargoship = hitObject.GetComponent<WanderingAI>().running;
+                                hitObject.GetComponent<ReactiveTarget>().ReactToHit();
+                                if(isCargoship){
+                                    _scoreController.AddScore(3);
+                                }
+                                else{
+                                    _scoreController.AddScore(5);
+                                }
+                                
+                                
+                            }
+                        }
+                    }
+                }
+
+            }
+            else{
+                //Rotating the ship
+                float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+                this.transform.Rotate(0, 0, rotation);
+
+                var thrusterInput = Input.GetAxis("Vertical");
+                if (Mathf.Abs(thrusterInput) <= 0.01f) {
+                    thrusterInput = Input.GetAxis("Horizontal");
+                }
+
+                var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
+                var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
 
             //The propulsion force, in the direction the ship is pointed
             Vector2 propulsion = Vector2.zero;
@@ -95,7 +162,7 @@ public class PlayerMovement : MonoBehaviour {
             }
            
 
-            Vector2 totalForce = Vector2.zero;
+                Vector2 totalForce = Vector2.zero;
 
             //If the player presses shift
             if (Input.GetKey(KeyCode.LeftShift) && !isDisabled())
@@ -103,18 +170,19 @@ public class PlayerMovement : MonoBehaviour {
                 //Don't calculate forces from gravity or propulsion
                 //Apply a force opposite to the velocity to stop the ship
 
-                //Should we add gravity to this? Or is that too much
-                totalForce = -(velocity.normalized) * stoppingForce;
-            }
-            //Otherwise, calculate gravity and propulsion like normal
-            else
-            {
-                Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
-                totalForce = gravity(planets) + propulsion - drag;
-            }
+                    //Should we add gravity to this? Or is that too much
+                    totalForce = -(velocity.normalized) * stoppingForce;
+                }
+                //Otherwise, calculate gravity and propulsion like normal
+                else
+                {
+                    Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
+                    totalForce = gravity(planets) + propulsion - drag;
+                }
 
-            //Applying the force to the ship
-            applyForce(totalForce);
+                //Applying the force to the ship
+                applyForce(totalForce);
+            }
         }
 
         if (propulsionCoeff > 1)
@@ -200,5 +268,9 @@ public class PlayerMovement : MonoBehaviour {
    void startSpeedUpTimer()
    {
        speedUpTimer = speedup_duration;
+   }
+
+   public void ObtainPowerup() {
+       _powerupSound.Play();
    }
 }

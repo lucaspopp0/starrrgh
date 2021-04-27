@@ -38,7 +38,18 @@ public class Bomb : MonoBehaviour
             other.gameObject.GetComponent<WanderingAI>().SetAlive(false);
         }
     }
-
+    private void OnTriggerEnter(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerHealth>().Hurt(500);
+        }
+        if (other.gameObject.tag == "Police")
+        {
+            //TODO: Add police tag
+            other.gameObject.GetComponent<WanderingAI>().SetAlive(false);
+        }
+    }
     public void EnableFuse()
     {
         fuseEnabled = true;
