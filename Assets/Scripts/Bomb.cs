@@ -1,11 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
-{
+public class Bomb : MonoBehaviour {
+
+    [SerializeField] private GameObject graphic;
+    [SerializeField] private GameObject effect;
+    
     [SerializeField] private float fuseTimer = 1f;
-    [SerializeField] private GameObject _explosion;
     private bool fuseEnabled = false;
+
+    private void Start() {
+        graphic.SetActive(true);
+        effect.SetActive(false);
+    }
 
     private void Update()
     {
@@ -55,10 +63,10 @@ public class Bomb : MonoBehaviour
 
     private IEnumerator Detonate()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
+        graphic.SetActive(false);
+        effect.SetActive(true);
         Debug.Log("boom");
-        yield return new WaitForSeconds(1f);
-        _explosion.SetActive(true);
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 }

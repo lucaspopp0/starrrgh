@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerBomb : MonoBehaviour
 {
-    private int bombAmount = 0;
+    [SerializeField] private int bombAmount = 0;
     [SerializeField] private GameObject _bombPrefab;
 
 
