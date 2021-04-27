@@ -6,6 +6,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private float fuseTimer = 1f;
+    [SerializeField] private AudioSource _explosion;
     private bool fuseEnabled = false;
 
     private void Update()
@@ -62,6 +63,7 @@ public class Bomb : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
         Debug.Log("boom");
         yield return new WaitForSeconds(1f);
+        _explosion.Play();
         Destroy(gameObject);
     }
 }
