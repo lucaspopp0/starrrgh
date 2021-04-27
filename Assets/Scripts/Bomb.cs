@@ -60,7 +60,6 @@ public class Bomb : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
         Debug.Log("boom");
         yield return new WaitForSeconds(1f);
-        transform.GetChild(1).gameObject.SetActive(true);
         _explosion.Play();
         Destroy(gameObject);
     }
