@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
      */
     //A list of planets to calculate gravity from
     [SerializeField] private GameObject[] planetList;
-    private HashSet<GameObject> planets;
+    private HashSet<GameObject> planets = new HashSet<GameObject>();
     //Newton's gravitational constant, just set to 1 for scale
     [SerializeField] private float G = 1;
     //The closest approach the ship can take where we still calculate the gravitational force from a planet
@@ -71,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        planets = new HashSet<GameObject>();
         foreach (GameObject p in planetList)
         {
             planets.Add(p);
