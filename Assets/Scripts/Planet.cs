@@ -11,6 +11,11 @@ public class Planet : MonoBehaviour
         return mass;
     }
 
+    public void setMass(float m)
+    {
+        mass = m;
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.tag == "Player")
