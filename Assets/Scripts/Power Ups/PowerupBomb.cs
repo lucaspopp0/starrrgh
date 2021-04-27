@@ -9,6 +9,7 @@ public class PowerupBomb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerBomb>().AddBombs(bombAmount);

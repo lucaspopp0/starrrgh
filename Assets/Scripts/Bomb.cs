@@ -38,7 +38,7 @@ public class Bomb : MonoBehaviour
             other.gameObject.GetComponent<WanderingAI>().SetAlive(false);
         }
     }
-    private void OnTriggerEnter(Collision2D other)
+    private void OnTriggerEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")
         {
