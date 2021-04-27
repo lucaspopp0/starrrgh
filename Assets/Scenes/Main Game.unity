@@ -3036,6 +3036,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6543034193656102392, guid: d777e284d6f294a35b0a2c58787968ad,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543034193656102392, guid: d777e284d6f294a35b0a2c58787968ad,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543034193731512945, guid: d777e284d6f294a35b0a2c58787968ad,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543034193731512945, guid: d777e284d6f294a35b0a2c58787968ad,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 6543034193731512959, guid: d777e284d6f294a35b0a2c58787968ad,
         type: 3}
       propertyPath: _parallaxMultiplier
