@@ -9691,10 +9691,8 @@ GameObject:
   - component: {fileID: 1816661792128626315}
   - component: {fileID: 1816661792128626312}
   - component: {fileID: 3541752525490591100}
-  - component: {fileID: 5550452134049110813}
   - component: {fileID: 3879672999910839373}
   - component: {fileID: 2208976258412743770}
-  - component: {fileID: 6488844692504807682}
   - component: {fileID: -2270819244963210443}
   m_Layer: 8
   m_Name: Player
@@ -9743,7 +9741,7 @@ MonoBehaviour:
   _rightThruster: {fileID: 7965335647110310285}
   _powerupSound: {fileID: 3352196136746648195}
   boostEffect: {fileID: 6412579697534259283}
-  planets: []
+  planetList: []
   G: 2
   closestApproach: 0.1
   rotationSpeed: 100
@@ -9847,19 +9845,6 @@ PolygonCollider2D:
       - {x: -0.01, y: -0.31571427}
       - {x: -0.017142856, y: -0.29}
       - {x: -0.022857143, y: -0.27857143}
---- !u!114 &5550452134049110813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816661792128626313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a1cc8f091ea1ef4fb96e469827459be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AimGunEndPointTransform: {fileID: 7520624267798888821}
 --- !u!114 &3879672999910839373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9920,21 +9905,6 @@ MonoBehaviour:
   _totalFuelTime: 0
   _dashFuelConsumption: 0.75
   _maxFuelTime: 5
---- !u!114 &6488844692504807682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816661792128626313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12b0347b747063744979492a28d1be8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAim: {fileID: 0}
-  projectile: {fileID: 2100000, guid: 4ca7e02f4740e8a43b61df76e469487e, type: 2}
-  _scoreController: {fileID: 0}
 --- !u!50 &-2270819244963210443
 Rigidbody2D:
   serializedVersion: 4
@@ -24989,12 +24959,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca3a5189fcb1842d99aea28a7e82ee44, type: 3}
---- !u!4 &7315654393556571272 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
-    type: 3}
-  m_PrefabInstance: {fileID: 7223994691823520465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3965266175953596787 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6000972225650834338, guid: ca3a5189fcb1842d99aea28a7e82ee44,
@@ -25007,3 +24971,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab8f98a0979405c809a11613591598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7315654393556571272 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
+    type: 3}
+  m_PrefabInstance: {fileID: 7223994691823520465}
+  m_PrefabAsset: {fileID: 0}
