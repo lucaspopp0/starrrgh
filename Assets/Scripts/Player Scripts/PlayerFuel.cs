@@ -11,6 +11,8 @@ public class PlayerFuel : MonoBehaviour
 
     [SerializeField] private float _totalFuelTime;
 
+    [SerializeField] private float _dashFuelConsumption;
+
     //The max amount of fuel that can be used (in seconds)
     [SerializeField] private float _maxFuelTime;
     private PlayerMovement _movement;
@@ -32,8 +34,8 @@ public class PlayerFuel : MonoBehaviour
         {
             if(_initialDash && _movement.isBoost()){
                 _initialDash = false;
-                _fuelTime += 5;
-                _totalFuelTime -= 5;
+                _fuelTime += _dashFuelConsumption;
+                _totalFuelTime -= _dashFuelConsumption;
             }
             else if (Input.GetKey(KeyCode.W) && !_movement.isDisabled() && !_movement.isBoost())
             {
