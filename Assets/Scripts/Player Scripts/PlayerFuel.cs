@@ -11,10 +11,14 @@ public class PlayerFuel : MonoBehaviour
 
     [SerializeField] private float _totalFuelTime;
 
+    [SerializeField] private float _dashFuelConsumption;
+
     //The max amount of fuel that can be used (in seconds)
     [SerializeField] private float _maxFuelTime;
     private PlayerMovement _movement;
     private float _infiniteFuelTimer = 0f;
+
+    private bool _initialDash = true;
 
 
     private void Start()
@@ -28,17 +32,31 @@ public class PlayerFuel : MonoBehaviour
     {
         if (_infiniteFuelTimer <= 0)
         {
-
-            if (Input.GetKey(KeyCode.W) && !_movement.isDisabled())
+            if(_initialDash && _movement.isBoost()){
+                _initialDash = false;
+                _fuelTime += _dashFuelConsumption;
+                _totalFuelTime -= _dashFuelConsumption;
+            }
+            else if (Input.GetKey(KeyCode.W) && !_movement.isDisabled() && !_movement.isBoost())
             {
                 _fuelTime += Time.deltaTime;
                 _totalFuelTime -= Time.deltaTime;
+                _initialDash = true;
 
+            }
+            else if(!_movement.isBoost()){
+                _initialDash = true;
             }
 
             if (_fuelTime >= 0)//W was pressed for a nonzero amount of time, update hud
             {
-                _fuelBar.SetFuel(_totalFuelTime / _maxFuelTime);
+                if(_totalFuelTime/_maxFuelTime < 0){
+                    _fuelBar.SetFuel(0);
+                }
+                else{
+                    _fuelBar.SetFuel(_totalFuelTime / _maxFuelTime);
+                }
+                
             }
 
             if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())//You are not thrusting so stop using fuel

@@ -9738,7 +9738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa6e2b0c8f4765438afca0e72c0243f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreController: {fileID: 0}
   _leftThruster: {fileID: 3965266175953596787}
   _mainThruster: {fileID: 5144648315527670320}
   _rightThruster: {fileID: 7965335647110310285}
@@ -9919,6 +9918,7 @@ MonoBehaviour:
   _fuelBar: {fileID: 0}
   _fuelTime: 0
   _totalFuelTime: 0
+  _dashFuelConsumption: 0.75
   _maxFuelTime: 5
 --- !u!114 &6488844692504807682
 MonoBehaviour:

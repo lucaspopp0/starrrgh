@@ -13,8 +13,8 @@ public class BackgroundMusic: MonoBehaviour {
     }
 
     private void Start() {
-        var random = new Random();
-        var trackNum = random.Next(0, trackOptions.Length);
+        var ms = DateTime.Now.Millisecond / 1000f;
+        var trackNum = Mathf.FloorToInt(ms * (trackOptions.Length - 0.02f));
         _src.clip = trackOptions[trackNum];
         _src.loop = true;
         _src.Play();
