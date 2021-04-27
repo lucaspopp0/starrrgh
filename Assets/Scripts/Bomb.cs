@@ -47,7 +47,6 @@ public class Bomb : MonoBehaviour
         }
         if (other.gameObject.tag == "Police")
         {
-            //TODO: Add police tag
             other.gameObject.GetComponent<WanderingAI>().SetAlive(false);
         }
     }
@@ -58,11 +57,10 @@ public class Bomb : MonoBehaviour
 
     private IEnumerator Detonate()
     {
-        //TODO: Check for collision on children here after enabling them
-        //TODO: Maybe it spawns an explosion prefab with its own script
         transform.GetChild(0).gameObject.SetActive(true);
         Debug.Log("boom");
         yield return new WaitForSeconds(1f);
+        transform.GetChild(1).gameObject.SetActive(true);
         _explosion.Play();
         Destroy(gameObject);
     }
