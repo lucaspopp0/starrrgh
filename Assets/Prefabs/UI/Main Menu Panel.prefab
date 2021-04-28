@@ -64,7 +64,27 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Placeholder instructions!
+  m_text: 'The goal of the game is to collect as much loot as you can before getting
+    caught by the space cops. Survive and loot cargo ships while avoiding police!
+
+
+    Use
+    the planets for protection and to conserve fuel, and try to collect power-ups
+    along the way to keep yourself alive.
+
+
+    CONTROLS:
+
+    Rotate: A/D
+
+    Forward/reverse:
+    W/S
+
+    Smart stop: Left shift
+
+    Dash attack: Space bar
+
+    Pause: Esc'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -374,7 +394,7 @@ GameObject:
   - component: {fileID: 5792208857181701119}
   - component: {fileID: 5792208857181701113}
   m_Layer: 5
-  m_Name: Instructions
+  m_Name: Main Menu Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
