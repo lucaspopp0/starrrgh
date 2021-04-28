@@ -986,16 +986,20 @@ PrefabInstance:
     - target: {fileID: 5792208855771393968, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_text
-      value: 'Menu music: ^POWER UP^ by scomber (dig.ccmixter.org)
+      value: 'Made with love by Prem Rao, Adam Stewart, Alex Petruso, and Lucas Popp
 
-        Game
-        music 1: Stardust (Ziggy is coming) by Karstenholymoly (dig.ccmixter.org)
 
-        Game
-        music 2: nightWalk by airtone (dig.ccmixter.org)
+        Menu
+        music: ^POWER UP^ by scomber (dig.ccmixter.org)
 
-        Game music 3: The
-        Game Has Changed (cdk RumbleStep Mix) by Analog By Nature (dig.ccmixter.org)
+        Game music 1: Stardust
+        (Ziggy is coming) by Karstenholymoly (dig.ccmixter.org)
+
+        Game music
+        2: nightWalk by airtone (dig.ccmixter.org)
+
+        Game music 3: The Game
+        Has Changed (cdk RumbleStep Mix) by Analog By Nature (dig.ccmixter.org)
 
 
         All
@@ -1056,12 +1060,12 @@ PrefabInstance:
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -160
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
@@ -1127,26 +1131,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Credits Menu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5792208857181701119, guid: b8820ff71fe96452da9a55954b0f6701,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5792208857181701119, guid: b8820ff71fe96452da9a55954b0f6701,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.19607843
-      objectReference: {fileID: 0}
-    - target: {fileID: 5792208857181701119, guid: b8820ff71fe96452da9a55954b0f6701,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.19607843
-      objectReference: {fileID: 0}
-    - target: {fileID: 5792208857181701119, guid: b8820ff71fe96452da9a55954b0f6701,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.19607843
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8820ff71fe96452da9a55954b0f6701, type: 3}
@@ -2430,12 +2414,12 @@ PrefabInstance:
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -160
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
