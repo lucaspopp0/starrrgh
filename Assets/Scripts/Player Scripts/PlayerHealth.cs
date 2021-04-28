@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour {
 
 	[SerializeField] private Gradient damageColorGradient;
 	[SerializeField] private SpriteRenderer shipSpriteRenderer;
+	[SerializeField] private AudioSource hurtSound;
 		
 	private Hud _hud;
     private int _health;
@@ -41,6 +42,7 @@ public class PlayerHealth : MonoBehaviour {
 		_health -= damage;
 		_hud.healthBar.SetNormalizedValue(_health / (float)MAX_HEALTH);
 		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
+		hurtSound.Play();
 	}
 
 	public void Heal(int amount)
