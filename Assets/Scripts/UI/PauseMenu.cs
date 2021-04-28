@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
-    
-    // Start is called before the first frame update
-    private void Awake() {
-        Close();
-    }
 
     public void Open() {
         gameObject.SetActive(true);
