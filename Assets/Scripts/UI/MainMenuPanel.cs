@@ -10,12 +10,16 @@ public class MainMenuPanel: MonoBehaviour {
     public Action onOpen;
     public Action onClose;
 
-    private void Awake() {
-        closeButton.onClick.AddListener(Close);
-    }
+    private bool _closeHandlerSet = false;
 
     public void Open() {
         gameObject.SetActive(true);
+        
+        if (!_closeHandlerSet) {
+            _closeHandlerSet = true;
+            closeButton.onClick.AddListener(Close);
+        }
+        
         isOpen = true;
         onOpen?.Invoke();
     }
