@@ -9,7 +9,7 @@ public class Bomb : MonoBehaviour {
     [SerializeField] private GameObject explosionRadius;
 
     
-    [SerializeField] private float fuseTimer = .2f;
+    private float fuseTimer = 1f;
     private bool fuseEnabled = false;
 
     private void Start() {

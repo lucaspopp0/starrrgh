@@ -4918,7 +4918,7 @@ MonoBehaviour:
   graphic: {fileID: 7421336997988341477}
   effect: {fileID: 2678385570763668109}
   explosionRadius: {fileID: 5819114498855919472}
-  fuseTimer: 3
+  fuseTimer: 0
 --- !u!1 &4899481798821515074
 GameObject:
   m_ObjectHideFlags: 0
