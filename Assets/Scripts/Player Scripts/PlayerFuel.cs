@@ -34,12 +34,10 @@ public class PlayerFuel : MonoBehaviour
         {
             if(_initialDash && _movement.isBoost()){
                 _initialDash = false;
-                _fuelTime += _dashFuelConsumption;
                 _totalFuelTime -= _dashFuelConsumption;
             }
             else if (Input.GetKey(KeyCode.W) && !_movement.isDisabled() && !_movement.isBoost())
             {
-                _fuelTime += Time.deltaTime;
                 _totalFuelTime -= Time.deltaTime;
                 _initialDash = true;
 
@@ -48,23 +46,15 @@ public class PlayerFuel : MonoBehaviour
                 _initialDash = true;
             }
 
-            if (_fuelTime >= 0)//W was pressed for a nonzero amount of time, update hud
-            {
+
                 if(_totalFuelTime/_maxFuelTime < 0){
                     _fuelBar.SetFuel(0);
                 }
                 else{
                     _fuelBar.SetFuel(_totalFuelTime / _maxFuelTime);
                 }
-                
-            }
 
-            if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())//You are not thrusting so stop using fuel
-            {
-                _fuelTime = 0;
-            }
-
-            if (_totalFuelTime <= 0)
+                if (_totalFuelTime <= 0)
             {
                 _movement.setDisabled(true);
             }
@@ -80,7 +70,6 @@ public class PlayerFuel : MonoBehaviour
 
     public void InfiniteFuel(float timer)
     {
-        Debug.Log("Fuel Timer");
         _infiniteFuelTimer = timer;
     }
 

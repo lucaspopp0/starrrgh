@@ -152,7 +152,6 @@ public class WanderingAI : MonoBehaviour {
                 }
                 else
                 {
-                     Debug.Log("saw else"); //about to crash into planet, adjust path and move in that dir for some time
                      if(hit.distance < 0.2){
                          GetComponent<ReactiveTarget>().ReactToHit();
                      }
