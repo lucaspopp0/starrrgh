@@ -48,6 +48,7 @@ public class PlayerHealth : MonoBehaviour {
 	public void Heal(int amount)
 	{
 		_health += amount;
+		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 		_hud.healthBar.SetNormalizedValue(_health /(float)MAX_HEALTH);
 	}
 
