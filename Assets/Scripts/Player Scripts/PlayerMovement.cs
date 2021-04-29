@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Thruster _rightThruster;
     [SerializeField] private AudioSource _powerupSound;
     [SerializeField] private BoostEffect boostEffect;
+    [SerializeField] private SpriteRenderer dashIndicator;
 
     private Vector2 _lastUsableVelocity;
 
@@ -52,7 +53,12 @@ public class PlayerMovement : MonoBehaviour
     private float propulsionCoeff = 1f;
     private float speedUpTimer = 0f;
 
+    private float _minBoost = 0.05f;
+    private float _maxBoost = 0.2f;
+    private bool _chargingBoost;
     private bool boost;
+    private float _boostAmount;
+    private float _chargeRate = 0.5f;
 
     private float boostRecharge;
 
@@ -88,34 +94,45 @@ public class PlayerMovement : MonoBehaviour
     {
         if (alive)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (GameState.shared.paused)
-                {
-                    _hud.Unpause
-
-                        ();
-                }
-                else
-                {
-                    _hud.Pause();
-                }
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                if (GameState.shared.paused) _hud.Unpause();
+                else _hud.Pause();
             }
+            
             if(isDisabled()){
                 _leftThruster.SetIntensity(0);
                 _rightThruster.SetIntensity(0);
             }
+            
+            if (Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()) {
+                // Start charging boost
+                _chargingBoost = true;
+                _boostAmount = _minBoost;
+                dashIndicator.size = DashIndicatorSize();
+            } else if (!isDisabled() && _chargingBoost && Input.GetKey(KeyCode.Space)) {
+                // Continue charging boost
+                _boostAmount += Time.deltaTime * _chargeRate;
+                
+                if (_boostAmount > _maxBoost) {
+                    _boostAmount = _maxBoost;
+                }
 
-            if(Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()){ //boost start
+                dashIndicator.size = DashIndicatorSize();
+            } else if (_chargingBoost && (Input.GetKeyUp(KeyCode.Space) || _boostAmount > _maxBoost)) {
+                // End charging and actually boost
+                _chargingBoost = false;
+                dashIndicator.size = DashIndicatorSize();
+                boostTime = _boostAmount;
                 boost = true; 
                 curBoostTime = 0;
                 boostEffect.Play();
+                _boostAmount = 0f;
             }
 
-            if (boost)
-            {
-                curBoostTime += Time.deltaTime; //boost end
-                if (curBoostTime > boostTime)
+            if (boost) {
+                curBoostTime += Time.deltaTime;
+                
+                if (curBoostTime > boostTime) //boost end
                 {
                     boost = false;
                     velocity = this.transform.up * 8;
@@ -213,6 +230,28 @@ public class PlayerMovement : MonoBehaviour
         if (speedUpTimer <= 0)
         {
             propulsionCoeff = 1;
+        }
+    }
+
+    private Vector2 DashIndicatorSize() {
+        var originalSize = dashIndicator.size;
+        if (!_chargingBoost) {
+            originalSize.y = 0;
+            return originalSize;
+        }
+        
+        var dist = _boostAmount * boostSpeed;
+        originalSize.y = dist - dashIndicator.transform.localPosition.y;
+        return originalSize;
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        
+        if (_chargingBoost) {
+            var dist = _boostAmount * boostSpeed;
+            Debug.Log(dist);
+            Gizmos.DrawLine(transform.position, transform.position + (transform.up * dist));
         }
     }
 
