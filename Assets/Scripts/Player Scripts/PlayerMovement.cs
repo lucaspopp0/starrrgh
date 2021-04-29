@@ -350,8 +350,9 @@ public class PlayerMovement : MonoBehaviour
         speedUpTimer = speedup_duration;
     }
 
-    public void ObtainPowerup()
+    public void ObtainPowerup(Hud.PowerupId id)
     {
+        _hud.GainPowerup(id, 1);
         _powerupSound.Play();
     }
 }

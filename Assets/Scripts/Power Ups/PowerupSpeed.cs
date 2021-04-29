@@ -12,7 +12,7 @@ public class PowerupSpeed : MonoBehaviour
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup();
+            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup(Hud.PowerupId.Speed);
             other.gameObject.GetComponent<PlayerMovement>().speedUp(_speedUpConstant,DURATION);
             Destroy(gameObject);
         }

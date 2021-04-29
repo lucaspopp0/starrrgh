@@ -12,7 +12,7 @@ public class PowerupFuel : MonoBehaviour
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup();
+            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup(Hud.PowerupId.Fuel);
             other.gameObject.GetComponent<PlayerFuel>().InfiniteFuel(fuelTimer);
             Destroy(gameObject);
         }

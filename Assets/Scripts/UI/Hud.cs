@@ -7,11 +7,22 @@ using TMPro;
 
 public class Hud: MonoBehaviour {
 
+    public enum PowerupId {
+
+        Health = 0,
+        Shield = 1,
+        Bomb = 2,
+        Fuel = 3,
+        Speed = 4,
+
+    };
+    
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private FuelBar _fuelBar;
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private DeathPopup deathPopup;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private PowerupIndicator[] powerupIndicators;
     public HealthBar healthBar => _healthBar;
     public FuelBar fuelBar => _fuelBar;
     public TMP_Text scoreText => _scoreText;
@@ -50,6 +61,14 @@ public class Hud: MonoBehaviour {
 
     public void PlayerDied() {
         deathPopup.Open();
+    }
+
+    public void GainPowerup(PowerupId id, int amountGained) {
+        powerupIndicators[id.GetHashCode()].Get(amountGained);
+    }
+
+    public void UsePowerup(PowerupId id) {
+        powerupIndicators[id.GetHashCode()].Use();
     }
 
 }
