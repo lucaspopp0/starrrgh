@@ -13,6 +13,8 @@ public class PlanetSpawn : MonoBehaviour
     private HashSet<GameObject> spawnedObjects;
     private PlayerMovement movement;
 
+    [SerializeField] private float weightSpeed = 1.0f;
+
     //A struct that stores a planetary feature and a weight
     //The weight is how likely we are to spawn that feature
     [System.Serializable]
@@ -20,7 +22,7 @@ public class PlanetSpawn : MonoBehaviour
     {
         [SerializeField] private GameObject obj;
         [SerializeField] private float targetWeight;
-        private float weight;
+        [SerializeField] private float weight;
 
         public WeightedItem(GameObject obj, float weight)
         {
@@ -182,12 +184,18 @@ public class PlanetSpawn : MonoBehaviour
             if(i - items.Length / 2 != 0)
             {
                 //Updating weights using a sigmoid function
-                items[i].setWeight(items[i].getTargetWeight() / (1 + Mathf.Exp(-(i - items.Length / 2) * Time.time)));
+                //items[i].setWeight(items[i].getTargetWeight() / (1 + Mathf.Exp(-(i - items.Length / 2) * weightSpeed * Time.time)));
+                items[i].setWeight(sigmoid(weightSpeed * Time.time, (i - items.Length / 2), items[i].getTargetWeight()));
             }
             else
             {
                 items[i].setWeight(items[i].getTargetWeight());
             }
         }
+    }
+
+    private float sigmoid(float t, float a, float w)
+    {
+        return w / (1 + Mathf.Exp(-a * t));
     }
 }

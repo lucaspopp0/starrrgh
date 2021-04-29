@@ -727,6 +727,11 @@ PrefabInstance:
       objectReference: {fileID: 1232302988}
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
+      propertyPath: weightSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
       propertyPath: prefabs.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -814,6 +819,31 @@ PrefabInstance:
         type: 3}
       propertyPath: prefabs.Array.data[4].weight
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[0].targetWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[1].targetWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[2].targetWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[3].targetWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[4].targetWeight
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
