@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour {
     {
         StringBuilder builder = new StringBuilder();
         builder.Append("Sta");
-        int rCount = new Random().Next(2,5);
+        int rCount = new Random().Next(2,7);
         for (int i = 0; i < rCount; i++)
         {
             builder.Append("r");
