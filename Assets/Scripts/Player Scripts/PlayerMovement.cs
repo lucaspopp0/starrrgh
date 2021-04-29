@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerHealth))]
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
     private Hud _hud;
     [SerializeField] private Thruster _leftThruster;
@@ -12,14 +13,16 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private Thruster _rightThruster;
     [SerializeField] private AudioSource _powerupSound;
     [SerializeField] private BoostEffect boostEffect;
+    [SerializeField] private SpriteRenderer dashIndicator;
 
     private Vector2 _lastUsableVelocity;
-    
+
     /*
      * Planet variables
      */
     //A list of planets to calculate gravity from
-    [SerializeField] private GameObject[] planets;
+    [SerializeField] private GameObject[] planetList;
+    private HashSet<GameObject> planets = new HashSet<GameObject>();
     //Newton's gravitational constant, just set to 1 for scale
     [SerializeField] private float G = 1;
     //The closest approach the ship can take where we still calculate the gravitational force from a planet
@@ -50,7 +53,12 @@ public class PlayerMovement : MonoBehaviour {
     private float propulsionCoeff = 1f;
     private float speedUpTimer = 0f;
 
+    private float _minBoost = 0.05f;
+    private float _maxBoost = 0.2f;
+    private bool _chargingBoost;
     private bool boost;
+    private float _boostAmount;
+    private float _chargeRate = 0.5f;
 
     private float boostRecharge;
 
@@ -58,6 +66,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public bool alive = true;
     private bool _disabled = false;
+
 
     private ScoreController _scoreController;
 
@@ -72,6 +81,10 @@ public class PlayerMovement : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
+        foreach (GameObject p in planetList)
+        {
+            planets.Add(p);
+        }
         velocity = Vector2.zero;
         _scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
     }
@@ -79,105 +92,130 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(alive){
+        if (alive)
+        {
             if (Input.GetKeyDown(KeyCode.Escape)) {
-                if (GameState.shared.paused) {
-                    _hud.Unpause
-                        
-                        ();
-                } else {
-                    _hud.Pause();
-                }
+                if (GameState.shared.paused) _hud.Unpause();
+                else _hud.Pause();
             }
+            
             if(isDisabled()){
                 _leftThruster.SetIntensity(0);
                 _rightThruster.SetIntensity(0);
             }
+            
+            if (Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()) {
+                // Start charging boost
+                _chargingBoost = true;
+                _boostAmount = _minBoost;
+                dashIndicator.size = DashIndicatorSize();
+            } else if (!isDisabled() && _chargingBoost && Input.GetKey(KeyCode.Space)) {
+                // Continue charging boost
+                _boostAmount += Time.deltaTime * _chargeRate;
+                
+                if (_boostAmount > _maxBoost) {
+                    _boostAmount = _maxBoost;
+                }
 
-            if(Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()){ //boost start
+                dashIndicator.size = DashIndicatorSize();
+            } else if (_chargingBoost && (Input.GetKeyUp(KeyCode.Space) || _boostAmount > _maxBoost)) {
+                // End charging and actually boost
+                _chargingBoost = false;
+                dashIndicator.size = DashIndicatorSize();
+                boostTime = _boostAmount;
                 boost = true; 
                 curBoostTime = 0;
                 boostEffect.Play();
+                _boostAmount = 0f;
             }
-            
-            if(boost){
-                curBoostTime += Time.deltaTime; //boost end
-                if(curBoostTime > boostTime){ 
+
+            if (boost) {
+                curBoostTime += Time.deltaTime;
+                
+                if (curBoostTime > boostTime) //boost end
+                {
                     boost = false;
                     velocity = this.transform.up * 8;
                     boostEffect.Stop();
                 }
-                else{
+                else {
+                    var BOOST_HIT_RADIUS = 0.4f;
                     this.transform.position += this.transform.up * Time.deltaTime * boostSpeed;
                     _leftThruster.SetIntensity(1);
                     _rightThruster.SetIntensity(1);
 
                     LayerMask mask = LayerMask.GetMask("Default");
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up,10f,mask);
+                    var overlappedColliders = Physics2D.OverlapCircleAll(transform.position, BOOST_HIT_RADIUS, mask);
 
-                    if (hit.collider != null)
-                    {
-                        GameObject hitObject = hit.transform.gameObject;
-                        //Debug.Log("dash hit comthing");
-                        if (hitObject.GetComponent<WanderingAI>() && hit.distance < 0.5f) {
-                            Debug.Log("dash hit enemy");
-                            if(hitObject.GetComponent<WanderingAI>()._alive){
-                                bool isCargoship = hitObject.GetComponent<WanderingAI>().running;
-                                hitObject.GetComponent<ReactiveTarget>().ReactToHit();
-                                if(isCargoship){
-                                    _scoreController.AddScore(3);
-                                }
-                                else{
-                                    _scoreController.AddScore(5);
-                                }
-                                
-                                
-                            }
+                    foreach (var collider in overlappedColliders) {
+                        var hitObject = collider.gameObject;
+                        var ai = hitObject.GetComponent<WanderingAI>();
+
+                        if (ai != null && ai._alive) {
+                            var isCargoship = ai.running;
+                            hitObject.GetComponent<ReactiveTarget>().ReactToHit();
+
+                            if (isCargoship) _scoreController.AddScore(200);
+                            else _scoreController.AddScore(50);
                         }
                     }
                 }
 
             }
-            else{
+            else {
+                var hInput = Input.GetAxis("Horizontal");
+                var vInput = Input.GetAxis("Vertical");
+                
                 //Rotating the ship
-                float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+                float rotation = -hInput * rotationSpeed * Time.deltaTime;
                 this.transform.Rotate(0, 0, rotation);
 
-                var thrusterInput = Input.GetAxis("Vertical");
-                if (Mathf.Abs(thrusterInput) <= 0.01f) {
-                    thrusterInput = Input.GetAxis("Horizontal");
+                var leftThrust = vInput;
+                var rightThrust = vInput;
+
+                if (Mathf.Abs(hInput) > 0.1f) {
+                    if (vInput < 0.1f) {
+                        if (hInput > 0f) {
+                            leftThrust = hInput;
+                            rightThrust = 1f - hInput;
+                        } else {
+                            leftThrust = 1f + hInput;
+                            rightThrust = -hInput;
+                        }
+                    } else {
+                        leftThrust += hInput * 0.1f;
+                        rightThrust -= hInput * 0.1f;
+                    }
                 }
 
-                var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
-                var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
+                //The propulsion force, in the direction the ship is pointed
+                Vector2 propulsion = Vector2.zero;
+                if (!isDisabled())
+                {
+                    propulsion = transform.up * (propForce * vInput * propulsionCoeff);
+                    _leftThruster.SetIntensity(leftThrust);
+                    _mainThruster.SetIntensity(vInput);
+                    _rightThruster.SetIntensity(rightThrust);
+                }
 
-            //The propulsion force, in the direction the ship is pointed
-            Vector2 propulsion = Vector2.zero;
-            if (!isDisabled())
-            {
-                propulsion = transform.up * (propForce * Input.GetAxis("Vertical") * propulsionCoeff);
-                _leftThruster.SetIntensity(thrusterInput * leftProportion);
-                _mainThruster.SetIntensity(thrusterInput);
-                _rightThruster.SetIntensity(thrusterInput * rightProportion);
-            }
-           
 
                 Vector2 totalForce = Vector2.zero;
 
-            //If the player presses shift
-            if (Input.GetKey(KeyCode.LeftShift) && !isDisabled())
-            {
-                //Don't calculate forces from gravity or propulsion
-                //Apply a force opposite to the velocity to stop the ship
-
+                //If the player presses shift
+                if (Input.GetKey(KeyCode.LeftShift) && !isDisabled())
+                {
+                    //Don't calculate forces from gravity or propulsion
+                    //Apply a force opposite to the velocity to stop the ship
                     //Should we add gravity to this? Or is that too much
                     totalForce = -(velocity.normalized) * stoppingForce;
                 }
                 //Otherwise, calculate gravity and propulsion like normal
                 else
                 {
+                    GameObject[] cachedPlanets = new GameObject[planets.Count];
+                    planets.CopyTo(cachedPlanets);
                     Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
-                    totalForce = gravity(planets) + propulsion - drag;
+                    totalForce = gravity(cachedPlanets) + propulsion - drag;
                 }
 
                 //Applying the force to the ship
@@ -193,6 +231,28 @@ public class PlayerMovement : MonoBehaviour {
         if (speedUpTimer <= 0)
         {
             propulsionCoeff = 1;
+        }
+    }
+
+    private Vector2 DashIndicatorSize() {
+        var originalSize = dashIndicator.size;
+        if (!_chargingBoost) {
+            originalSize.y = 0;
+            return originalSize;
+        }
+        
+        var dist = _boostAmount * boostSpeed;
+        originalSize.y = dist - dashIndicator.transform.localPosition.y;
+        return originalSize;
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        
+        if (_chargingBoost) {
+            var dist = _boostAmount * boostSpeed;
+            Debug.Log(dist);
+            Gizmos.DrawLine(transform.position, transform.position + (transform.up * dist));
         }
     }
 
@@ -239,38 +299,59 @@ public class PlayerMovement : MonoBehaviour {
         this.transform.position += (usableVel * Time.deltaTime);
     }
 
-    public void kill(){
+    public void kill()
+    {
         alive = false;
         _lastUsableVelocity = Vector2.zero;
     }
 
-    public Vector2 GetVelocity() {
+    public Vector2 GetVelocity()
+    {
         return _lastUsableVelocity;
     }
 
-   public void setDisabled(bool disabled)
+    /*
+     * Adds a planet to calculate gravity from
+     */
+    public bool addPlanet(GameObject planet)
+    {
+        Planet p = planet.GetComponent<Planet>();
+        if (p != null)
+        {
+            return planets.Add(planet);
+        }
+        return false;
+    }
+
+    public bool removePlanet(GameObject planet)
+    {
+        return planets.Remove(planet);
+    }
+
+    public void setDisabled(bool disabled)
     {
         _disabled = disabled;
     }
 
-   public bool isDisabled()
-   {
-       return _disabled;
-   }
+    public bool isDisabled()
+    {
+        return _disabled;
+    }
 
-   public void speedUp(float coeff,float duration)
-   {
-       propulsionCoeff = coeff;
-       speedup_duration = duration;
-       startSpeedUpTimer();
-   }
+    public void speedUp(float coeff, float duration)
+    {
+        propulsionCoeff = coeff;
+        speedup_duration = duration;
+        startSpeedUpTimer();
+    }
 
-   void startSpeedUpTimer()
-   {
-       speedUpTimer = speedup_duration;
-   }
+    void startSpeedUpTimer()
+    {
+        speedUpTimer = speedup_duration;
+    }
 
-   public void ObtainPowerup() {
-       _powerupSound.Play();
-   }
+    public void ObtainPowerup()
+    {
+        _powerupSound.Play();
+    }
 }
