@@ -105,11 +105,34 @@ public class PlanetSpawn : MonoBehaviour
      */
     private GameObject randomPrefab()
     {
+        //Finding some random object with probability of the weights
+        float sum_of_weights = 0;
+        //Summing all the weights
+        foreach (WeightedItem i in prefabs)
+        {
+            sum_of_weights += i.getWeight();
+        }
+        //Getting a random number between 0 and the sum of the weights
+        float rnd = Random.Range(0, sum_of_weights);
+        //Returning the random object
+        foreach (WeightedItem i in prefabs)
+        {
+            if(rnd < i.getWeight())
+            {
+                return i.getObject();
+            }
+            rnd -= i.getWeight();
+        }
+
+        //If we don't pick anything, just return some random prefab
+        //We should never be here, this is just in case
         WeightedItem item = prefabs[Random.Range(0, prefabs.Length)];
         return item.getObject();
-        //return prefabs[Random.Range(0, prefabs.Length)];
     }
 
+    /*
+     * Spawns a random prefab
+     */
     private void spawnFeature(Vector3 pos, Quaternion rot)
     {
         GameObject o = Instantiate(randomPrefab(), pos, rot);
@@ -126,6 +149,9 @@ public class PlanetSpawn : MonoBehaviour
         }
     }
 
+    /*
+     * Deletes the specified object from the scene
+     */
     private void deleteFeature(GameObject p)
     {
         spawnedObjects.Remove(p);
