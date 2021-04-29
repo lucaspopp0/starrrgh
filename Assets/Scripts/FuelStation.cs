@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class FuelStation : MonoBehaviour
 {
-    private static float baseWaitTime = 1f;
-    [SerializeField] private float waitBeforeFueling = baseWaitTime;
+    [SerializeField] private float baseWaitTime = 2f; 
+    private float waitBeforeFueling = 0f;
     private bool isWaiting = false;
     private bool isFueling = false;
     private float fuelingRate = 3f;//What how many seconds of fuel is restored per second
 
+    private void Start()
+    {
+        waitBeforeFueling = baseWaitTime;
+    }
+
     private void Update()
     {
+        Debug.Log(waitBeforeFueling);
         if (isWaiting)
         {
             waitBeforeFueling -= Time.deltaTime;
@@ -24,7 +30,7 @@ public class FuelStation : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -32,16 +38,23 @@ public class FuelStation : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
+
         if (other.gameObject.tag == "Player" && isFueling)
         {
-            other.gameObject.GetComponent<PlayerFuel>().AddFuel(fuelingRate);
+            PlayerFuel playerFuel = other.gameObject.GetComponent<PlayerFuel>();
+            if (playerFuel.GetFuel() < playerFuel.GetMaxFuel())
+            {
+                playerFuel.AddFuel(fuelingRate * Time.deltaTime);
+
+            }
         }    
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
+
         if (other.gameObject.tag == "Player")
         {
             isFueling = false;
@@ -55,6 +68,7 @@ public class FuelStation : MonoBehaviour
 
     void BeginFueling()
     {
+        isWaiting = false;
         isFueling = true;
     }
     void BeginWait()
