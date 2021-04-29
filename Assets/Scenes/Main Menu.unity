@@ -2498,6 +2498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StarsMovementSpeed: 0.02
+  LogoText: {fileID: 780709444}
   stars: {fileID: 1667711489}
   instructionsMenu: {fileID: 2092622076}
   optionsMenu: {fileID: 5792208856193286761}

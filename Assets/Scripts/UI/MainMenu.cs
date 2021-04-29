@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Random = System.Random;
 
 public class MainMenu : MonoBehaviour {
 
     [SerializeField] private float StarsMovementSpeed = 0.3f;
-
+    [SerializeField] private TextMeshProUGUI LogoText;
     [SerializeField] private RectTransform stars;
     [SerializeField] private MainMenuPanel instructionsMenu;
     [SerializeField] private MainMenuPanel optionsMenu;
@@ -16,7 +19,9 @@ public class MainMenu : MonoBehaviour {
 
     private float _starsLoopProgress = 0f;
 
-    private void Awake() {
+    private void Awake()
+    {
+        LogoText.text = GenerateTitle();
         instructionsMenu.Close();
         optionsMenu.Close();
         creditsMenu.Close();
@@ -34,6 +39,20 @@ public class MainMenu : MonoBehaviour {
         if (_starsLoopProgress >= 0.999f) {
             _starsLoopProgress = 0f;
         }
+    }
+
+    String GenerateTitle()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.Append("Sta");
+        int rCount = new Random().Next(2,5);
+        for (int i = 0; i < rCount; i++)
+        {
+            builder.Append("r");
+        }
+
+        builder.Append("gh");
+        return builder.ToString();
     }
 
     public void StartGame() {
