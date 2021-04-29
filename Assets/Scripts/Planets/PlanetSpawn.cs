@@ -19,15 +19,14 @@ public class PlanetSpawn : MonoBehaviour
     private struct WeightedItem
     {
         [SerializeField] private GameObject obj;
-        [SerializeField] private float initialWeight;
-
-        [SerializeField] private float weight;
+        [SerializeField] private float targetWeight;
+        private float weight;
 
         public WeightedItem(GameObject obj, float weight)
         {
             this.obj = obj;
             this.weight = weight;
-            this.initialWeight = weight;
+            this.targetWeight = weight;
         }
 
         public GameObject getObject()
@@ -45,9 +44,9 @@ public class PlanetSpawn : MonoBehaviour
             this.weight = weight;
         }
 
-        public float getInitialWeight()
+        public float getTargetWeight()
         {
-            return initialWeight;
+            return targetWeight;
         }
     }
 
@@ -183,11 +182,11 @@ public class PlanetSpawn : MonoBehaviour
             if(i - items.Length / 2 != 0)
             {
                 //Updating weights using a sigmoid function
-                items[i].setWeight(items[i].getInitialWeight() / (1 + Mathf.Exp(-(i - items.Length / 2) * Time.time)));
+                items[i].setWeight(items[i].getTargetWeight() / (1 + Mathf.Exp(-(i - items.Length / 2) * Time.time)));
             }
             else
             {
-                items[i].setWeight(items[i].getInitialWeight());
+                items[i].setWeight(items[i].getTargetWeight());
             }
         }
     }
