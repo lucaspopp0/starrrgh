@@ -15,13 +15,23 @@ public class PlanetSpawn : MonoBehaviour
     [System.Serializable]
     public struct WeightedItem
     {
-        [SerializeField] private GameObject obj { get; set; }
-        [SerializeField] private float weight { get; set; }
+        [SerializeField] private GameObject obj;
+        [SerializeField] private float weight;
 
         public WeightedItem(GameObject obj, float weight)
         {
             this.obj = obj;
             this.weight = weight;
+        }
+
+        public GameObject getObject()
+        {
+            return obj;
+        }
+
+        public float getWeight()
+        {
+            return weight;
         }
     }
 
@@ -89,7 +99,9 @@ public class PlanetSpawn : MonoBehaviour
      */
     private GameObject randomPrefab()
     {
-        return prefabs[Random.Range(0, prefabs.Length)];
+        WeightedItem item = items[Random.Range(0, items.Length)];
+        return item.getObject();
+        //return prefabs[Random.Range(0, prefabs.Length)];
     }
 
     private void spawnFeature(Vector3 pos, Quaternion rot)
