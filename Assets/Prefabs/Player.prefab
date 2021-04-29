@@ -9776,6 +9776,7 @@ GameObject:
   - component: {fileID: 2208976258412743770}
   - component: {fileID: -2270819244963210443}
   - component: {fileID: 2273891564572590213}
+  - component: {fileID: 1888225010735815413}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -10027,6 +10028,19 @@ MonoBehaviour:
   bombAmount: 0
   _bombPrefab: {fileID: 4291278612139046071, guid: 8c98990f6c8ba0e4285fc974b0c04f8f,
     type: 3}
+--- !u!114 &1888225010735815413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816661792128626313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d513e65c2829df4ebaac78514a80361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerupSound: {fileID: 3352196136746648195}
 --- !u!1 &1816661792698912962
 GameObject:
   m_ObjectHideFlags: 0

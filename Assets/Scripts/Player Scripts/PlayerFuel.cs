@@ -16,6 +16,8 @@ public class PlayerFuel : MonoBehaviour
     //The max amount of fuel that can be used (in seconds)
     [SerializeField] private float _maxFuelTime;
     private PlayerMovement _movement;
+
+    private bool isInfiniteFuelActivated;
     private float _infiniteFuelTimer = 0f;
 
     private bool _initialDash = true;
@@ -30,8 +32,9 @@ public class PlayerFuel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_infiniteFuelTimer <= 0)
+        if (_infiniteFuelTimer <= 0 || !isInfiniteFuelActivated)
         {
+            isInfiniteFuelActivated = false;
             if(_initialDash && _movement.isBoost()){
                 _initialDash = false;
                 _totalFuelTime -= _dashFuelConsumption;
@@ -61,7 +64,14 @@ public class PlayerFuel : MonoBehaviour
         }
         else
         {
-            _infiniteFuelTimer -= Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                isInfiniteFuelActivated = true;
+            }
+            if (isInfiniteFuelActivated)
+            {
+                _infiniteFuelTimer -= Time.deltaTime;
+            }
         }
 
 

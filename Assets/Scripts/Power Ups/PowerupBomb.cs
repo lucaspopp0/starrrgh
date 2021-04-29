@@ -11,8 +11,7 @@ public class PowerupBomb : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup(Hud.PowerupId.Bomb, bombAmount);
-            other.gameObject.GetComponent<PlayerBomb>().AddBombs(bombAmount);
+            other.gameObject.GetComponent<PlayerPowerup>().ObtainPowerup(Hud.PowerupId.Bomb, bombAmount);
             Destroy(gameObject);
         }
     }

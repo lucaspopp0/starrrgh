@@ -9,8 +9,7 @@ public class PowerupShield : MonoBehaviour
         Debug.Log("Collide");
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().ObtainPowerup(Hud.PowerupId.Shield);
-            other.gameObject.GetComponent<PlayerHealth>().setShield(true);
+            other.gameObject.GetComponent<PlayerPowerup>().ObtainPowerup(Hud.PowerupId.Shield);
             Destroy(gameObject);
         }
     }
