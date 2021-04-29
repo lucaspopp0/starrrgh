@@ -170,7 +170,6 @@ public class PlanetSpawn : MonoBehaviour
             //Probably don't have to do this check since we do it in addPlanet
             if (child.gameObject.GetComponent<Planet>() != null)
             {
-                //This throws an error since we modify the planet list while we calculate gravity on the player
                 movement.removePlanet(child.gameObject);
             }
         }
