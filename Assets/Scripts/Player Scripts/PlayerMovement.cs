@@ -138,35 +138,25 @@ public class PlayerMovement : MonoBehaviour
                     velocity = this.transform.up * 8;
                     boostEffect.Stop();
                 }
-                else
-                {
+                else {
+                    var BOOST_HIT_RADIUS = 0.4f;
                     this.transform.position += this.transform.up * Time.deltaTime * boostSpeed;
                     _leftThruster.SetIntensity(1);
                     _rightThruster.SetIntensity(1);
 
                     LayerMask mask = LayerMask.GetMask("Default");
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 10f, mask);
+                    var overlappedColliders = Physics2D.OverlapCircleAll(transform.position, BOOST_HIT_RADIUS, mask);
 
-                    if (hit.collider != null)
-                    {
-                        GameObject hitObject = hit.transform.gameObject;
-                        //Debug.Log("dash hit comthing");
-                        if (hitObject.GetComponent<WanderingAI>() && hit.distance < 0.5f)
-                        {
-                            Debug.Log("dash hit enemy");
-                            if (hitObject.GetComponent<WanderingAI>()._alive)
-                            {
-                                bool isCargoship = hitObject.GetComponent<WanderingAI>().running;
-                                hitObject.GetComponent<ReactiveTarget>().ReactToHit();
-                                if (isCargoship)
-                                {
-                                    _scoreController.AddScore(3);
-                                }
-                                else
-                                {
-                                    _scoreController.AddScore(5);
-                                }
-                            }
+                    foreach (var collider in overlappedColliders) {
+                        var hitObject = collider.gameObject;
+                        var ai = hitObject.GetComponent<WanderingAI>();
+
+                        if (ai != null && ai._alive) {
+                            var isCargoship = ai.running;
+                            hitObject.GetComponent<ReactiveTarget>().ReactToHit();
+
+                            if (isCargoship) _scoreController.AddScore(200);
+                            else _scoreController.AddScore(50);
                         }
                     }
                 }
