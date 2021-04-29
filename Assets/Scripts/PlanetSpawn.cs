@@ -12,6 +12,21 @@ public class PlanetSpawn : MonoBehaviour
     private HashSet<GameObject> spawnedObjects;
     private PlayerMovement movement;
 
+    [System.Serializable]
+    public struct WeightedItem
+    {
+        [SerializeField] private GameObject obj;
+        [SerializeField] private float weight;
+
+        public WeightedItem(GameObject obj, float weight)
+        {
+            this.obj = obj;
+            this.weight = weight;
+        }
+    }
+
+    [SerializeField] private WeightedItem[] items;
+
     // Start is called before the first frame update
     void Start()
     {
