@@ -162,29 +162,40 @@ public class PlayerMovement : MonoBehaviour
                 }
 
             }
-            else
-            {
+            else {
+                var hInput = Input.GetAxis("Horizontal");
+                var vInput = Input.GetAxis("Vertical");
+                
                 //Rotating the ship
-                float rotation = -Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+                float rotation = -hInput * rotationSpeed * Time.deltaTime;
                 this.transform.Rotate(0, 0, rotation);
 
-                var thrusterInput = Input.GetAxis("Vertical");
-                if (Mathf.Abs(thrusterInput) <= 0.01f)
-                {
-                    thrusterInput = Input.GetAxis("Horizontal");
-                }
+                var leftThrust = vInput;
+                var rightThrust = vInput;
 
-                var leftProportion = Mathf.Min(2f - (-Input.GetAxis("Horizontal") + 1f), 1f);
-                var rightProportion = Mathf.Min(2f - (Input.GetAxis("Horizontal") + 1f), 1f);
+                if (Mathf.Abs(hInput) > 0.1f) {
+                    if (vInput < 0.1f) {
+                        if (hInput > 0f) {
+                            leftThrust = hInput;
+                            rightThrust = 1f - hInput;
+                        } else {
+                            leftThrust = 1f + hInput;
+                            rightThrust = -hInput;
+                        }
+                    } else {
+                        leftThrust += hInput * 0.1f;
+                        rightThrust -= hInput * 0.1f;
+                    }
+                }
 
                 //The propulsion force, in the direction the ship is pointed
                 Vector2 propulsion = Vector2.zero;
                 if (!isDisabled())
                 {
-                    propulsion = transform.up * (propForce * Input.GetAxis("Vertical") * propulsionCoeff);
-                    _leftThruster.SetIntensity(thrusterInput * leftProportion);
-                    _mainThruster.SetIntensity(thrusterInput);
-                    _rightThruster.SetIntensity(thrusterInput * rightProportion);
+                    propulsion = transform.up * (propForce * vInput * propulsionCoeff);
+                    _leftThruster.SetIntensity(leftThrust);
+                    _mainThruster.SetIntensity(vInput);
+                    _rightThruster.SetIntensity(rightThrust);
                 }
 
 
