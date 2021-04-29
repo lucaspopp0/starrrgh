@@ -18,7 +18,6 @@ public class FuelStation : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(waitBeforeFueling);
         if (isWaiting)
         {
             waitBeforeFueling -= Time.deltaTime;
