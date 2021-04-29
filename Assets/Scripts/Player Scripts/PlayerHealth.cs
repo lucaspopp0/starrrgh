@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour {
 		
 	private Hud _hud;
     private int _health;
-    private static int MAX_HEALTH = 1000;
+    public static int MAX_HEALTH = 1000;
     private bool _shielded = false;
     private float _shieldTimer = 0f;
     private static float MAX_SHIELD_TIME = 3f;
@@ -48,8 +48,8 @@ public class PlayerHealth : MonoBehaviour {
 	public void Heal(int amount)
 	{
 		_health += amount;
-		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 		_hud.healthBar.SetNormalizedValue(_health /(float)MAX_HEALTH);
+		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 	}
 
 	public void Die() {
@@ -78,6 +78,11 @@ public class PlayerHealth : MonoBehaviour {
 	void startShieldTimer()
 	{
 		_shieldTimer = MAX_SHIELD_TIME;
+	}
+
+	public int GetHealth()
+	{
+		return _health;
 	}
 	
 }
