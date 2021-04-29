@@ -790,6 +790,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2220502502215854719, guid: cf16cbed61c5d55468e00c005ee82181,
         type: 3}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[0].weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[1].weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[2].weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[3].weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[4].weight
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4213507526210883777, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
       propertyPath: m_RootOrder
