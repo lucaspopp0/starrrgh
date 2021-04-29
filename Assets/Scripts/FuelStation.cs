@@ -9,7 +9,7 @@ public class FuelStation : MonoBehaviour
     private float waitBeforeFueling = 0f;
     private bool isWaiting = false;
     private bool isFueling = false;
-    private float fuelingRate = 3f;//What how many seconds of fuel is restored per second
+    [SerializeField] private float fuelingRate = 2.5f;//What how many seconds of fuel is restored per second
 
     private void Start()
     {
