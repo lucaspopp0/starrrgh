@@ -6,14 +6,17 @@ public class PlanetSpawn : MonoBehaviour
     [SerializeField] private float maxSpawnRadius = 100.0f;
     [SerializeField] private float minSpawnRadius = 10.0f;
     [SerializeField] private int numObjects = 10;
-    [SerializeField] private GameObject[] prefabs;
     [SerializeField] private GameObject player;
+
+    [SerializeField] private WeightedItem[] prefabs;
 
     private HashSet<GameObject> spawnedObjects;
     private PlayerMovement movement;
 
+    //A struct that stores a planetary feature and a weight
+    //The weight is how likely we are to spawn that feature
     [System.Serializable]
-    public struct WeightedItem
+    private struct WeightedItem
     {
         [SerializeField] private GameObject obj;
         [SerializeField] private float weight;
@@ -33,9 +36,12 @@ public class PlanetSpawn : MonoBehaviour
         {
             return weight;
         }
-    }
 
-    [SerializeField] private WeightedItem[] items;
+        public void setWeight(float weight)
+        {
+            this.weight = weight;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -99,7 +105,7 @@ public class PlanetSpawn : MonoBehaviour
      */
     private GameObject randomPrefab()
     {
-        WeightedItem item = items[Random.Range(0, items.Length)];
+        WeightedItem item = prefabs[Random.Range(0, prefabs.Length)];
         return item.getObject();
         //return prefabs[Random.Range(0, prefabs.Length)];
     }
