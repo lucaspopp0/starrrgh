@@ -10,16 +10,24 @@ public class PauseMenu : MonoBehaviour {
     [SerializeField] private AudioMixerSnapshot pausedVolumes;    
 
     public void Open() {
-        pausedVolumes.TransitionTo(0.01f);
+        PauseGameState();
         gameObject.SetActive(true);
+    }
+
+    public void Close() {
+        gameObject.SetActive(false);
+        UnpauseGameState();
+    }
+
+    private void PauseGameState() {
+        pausedVolumes.TransitionTo(0.01f);
         Time.timeScale = 0;
         GameState.shared.paused = true;
     }
 
-    public void Close() {
+    private void UnpauseGameState() {
         normalVolumes.TransitionTo(0.01f);
         Time.timeScale = 1;
-        gameObject.SetActive(false);
         GameState.shared.paused = false;
     }
 
@@ -33,6 +41,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void Quit() {
+        Close();
         SceneManager.LoadScene(SceneId.MainMenu);
     }
     

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class MainMenu : MonoBehaviour {
 
@@ -10,13 +11,15 @@ public class MainMenu : MonoBehaviour {
 
     [SerializeField] private RectTransform stars;
     [SerializeField] private MainMenuPanel instructionsMenu;
-    [SerializeField] private MainMenuPanel leaderboardMenu;
+    [SerializeField] private MainMenuPanel optionsMenu;
+    [FormerlySerializedAs("leaderboardMenu")] [SerializeField] private MainMenuPanel creditsMenu;
 
     private float _starsLoopProgress = 0f;
 
     private void Awake() {
         instructionsMenu.Close();
-        leaderboardMenu.Close();
+        optionsMenu.Close();
+        creditsMenu.Close();
         Debug.Log(stars.rect.height);
         Debug.Log(stars.transform.position.y);
     }
@@ -37,8 +40,12 @@ public class MainMenu : MonoBehaviour {
         SceneManager.LoadScene(SceneId.MainGame);
     }
 
-    public void OpenLeaderboard() {
-        leaderboardMenu.Open();
+    public void OpenOptions() {
+        optionsMenu.Open();
+    }
+
+    public void OpenCredits() {
+        creditsMenu.Open();
     }
 
     public void OpenInstructions() {
