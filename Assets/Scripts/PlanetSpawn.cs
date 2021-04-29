@@ -15,8 +15,8 @@ public class PlanetSpawn : MonoBehaviour
     [System.Serializable]
     public struct WeightedItem
     {
-        [SerializeField] private GameObject obj;
-        [SerializeField] private float weight;
+        [SerializeField] private GameObject obj { get; set; }
+        [SerializeField] private float weight { get; set; }
 
         public WeightedItem(GameObject obj, float weight)
         {
