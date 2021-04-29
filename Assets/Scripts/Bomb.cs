@@ -9,7 +9,7 @@ public class Bomb : MonoBehaviour {
     [SerializeField] private GameObject explosionRadius;
 
     
-    [SerializeField] private float fuseTimer = .4f;
+    [SerializeField] private float fuseTimer = .2f;
     private bool fuseEnabled = false;
 
     private void Start() {
@@ -47,17 +47,7 @@ public class Bomb : MonoBehaviour {
             other.gameObject.GetComponent<WanderingAI>().SetAlive(false);
         }
     }
-    private void OnTriggerEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            other.gameObject.GetComponent<PlayerHealth>().Hurt(500);
-        }
-        if (other.gameObject.tag == "Police")
-        {
-            other.gameObject.GetComponent<WanderingAI>().SetAlive(false);
-        }
-    }
+
     public void EnableFuse()
     {
         fuseEnabled = true;
