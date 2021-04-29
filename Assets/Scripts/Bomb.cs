@@ -6,8 +6,10 @@ public class Bomb : MonoBehaviour {
 
     [SerializeField] private GameObject graphic;
     [SerializeField] private GameObject effect;
+    [SerializeField] private GameObject explosionRadius;
+
     
-    [SerializeField] private float fuseTimer = 1f;
+    [SerializeField] private float fuseTimer = .4f;
     private bool fuseEnabled = false;
 
     private void Start() {
@@ -66,6 +68,7 @@ public class Bomb : MonoBehaviour {
         graphic.SetActive(false);
         effect.SetActive(true);
         Debug.Log("boom");
+        explosionRadius.SetActive(true);
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
