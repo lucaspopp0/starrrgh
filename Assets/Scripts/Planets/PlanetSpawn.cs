@@ -19,12 +19,15 @@ public class PlanetSpawn : MonoBehaviour
     private struct WeightedItem
     {
         [SerializeField] private GameObject obj;
+        [SerializeField] private float initialWeight;
+
         [SerializeField] private float weight;
 
         public WeightedItem(GameObject obj, float weight)
         {
             this.obj = obj;
             this.weight = weight;
+            this.initialWeight = weight;
         }
 
         public GameObject getObject()
@@ -40,6 +43,11 @@ public class PlanetSpawn : MonoBehaviour
         public void setWeight(float weight)
         {
             this.weight = weight;
+        }
+
+        public float getInitialWeight()
+        {
+            return initialWeight;
         }
     }
 
@@ -64,6 +72,7 @@ public class PlanetSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        updateWeights(prefabs);
         GameObject[] cachedPlanets = new GameObject[spawnedObjects.Count];
         spawnedObjects.CopyTo(cachedPlanets);
         //Check if planets are still within spawn distance of the ship
@@ -166,5 +175,21 @@ public class PlanetSpawn : MonoBehaviour
             }
         }
         Destroy(p);
+    }
+
+    private void updateWeights(WeightedItem[] items)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            if(i - items.Length / 2 != 0)
+            {
+                //Updating weights using a sigmoid function
+                items[i].setWeight(items[i].getInitialWeight() / (1 + Mathf.Exp(-(i - items.Length / 2) * Time.time)));
+            }
+            else
+            {
+                items[i].setWeight(items[i].getInitialWeight());
+            }
+        }
     }
 }

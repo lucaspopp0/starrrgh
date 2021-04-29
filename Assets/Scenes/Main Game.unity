@@ -221,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 1829099284479806870, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 500.00003
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1829099284479806870, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
@@ -793,27 +793,52 @@ PrefabInstance:
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
       propertyPath: prefabs.Array.data[0].weight
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
       propertyPath: prefabs.Array.data[1].weight
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
       propertyPath: prefabs.Array.data[2].weight
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
       propertyPath: prefabs.Array.data[3].weight
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
       propertyPath: prefabs.Array.data[4].weight
-      value: 5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[0].initialWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[1].initialWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[2].initialWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[3].initialWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
+      propertyPath: prefabs.Array.data[4].initialWeight
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4213507526210883777, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
