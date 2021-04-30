@@ -27,22 +27,35 @@ public class Hud: MonoBehaviour {
     public FuelBar fuelBar => _fuelBar;
     public TMP_Text scoreText => _scoreText;
 
+    private int _displayedScore = 0;
     private int score = 0;
 
     private void Start() {
         Reset();
         pauseMenu.Close();
+        SetScore(0, true);
     }
 
-    public void SetScore(int score) {
-        // Calculate what the max possible width of a number with this many digits will be, and use that so
-        // the size of the text doesn't change every time the score does
-        var allEights = Regex.Replace(score.ToString(), @"\d", "8");
-        var boundarySize = _scoreText.GetPreferredValues(allEights);
-        _scoreText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, boundarySize.x);
+    private void Update() {
+        if (_displayedScore != score) {
+            var difference = (score - _displayedScore) / 4;
+            if (difference == 0) {
+                difference = _displayedScore > score ? -1 : 1;
+            }
+                
+            _displayedScore += difference;
+            
+            _scoreText.text = _displayedScore.ToString();
+        }
+    }
+
+    public void SetScore(int score, bool instant = false) {
+        this.score = score;
         
-        // Set the actual score text
-        _scoreText.text = score.ToString();
+        if (instant) {
+            _displayedScore = score;
+            _scoreText.text = "0";
+        } 
     }
 
     public void Reset() {
