@@ -37,7 +37,7 @@ public class PlayerFuel : MonoBehaviour
                 _initialDash = false;
                 _totalFuelTime -= _dashFuelConsumption;
             }
-            else if (Input.GetKey(KeyCode.W) && !_movement.isDisabled() && !_movement.isBoost())
+            else if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.LeftShift))&& !_movement.isDisabled() && !_movement.isBoost())
             {
                 _totalFuelTime -= Time.deltaTime;
                 _initialDash = true;
