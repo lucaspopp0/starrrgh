@@ -67,8 +67,15 @@ public class Hud: MonoBehaviour {
         powerupIndicators[id.GetHashCode()].Get(amountGained);
     }
 
-    public void UsePowerup(PowerupId id) {
+    public void UsePowerup(PowerupId id, float duration = 1f) {
+        powerupIndicators[id.GetHashCode()].Activate(duration);
         powerupIndicators[id.GetHashCode()].Use();
+    }
+
+    public void ActivatePowerup(PowerupId id, float duration)
+    {
+        powerupIndicators[id.GetHashCode()].Activate(duration);
+
     }
 
 }
