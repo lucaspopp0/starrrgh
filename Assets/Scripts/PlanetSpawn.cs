@@ -6,7 +6,7 @@ public class PlanetSpawn : MonoBehaviour
     [SerializeField] private float maxSpawnRadius = 100.0f;
     [SerializeField] private float minSpawnRadius = 10.0f;
     [SerializeField] private int numObjects = 10;
-    [SerializeField] private GameObject[] prefabs;
+    [SerializeField] private List<GameObject> prefabs;
     [SerializeField] private GameObject player;
 
     private HashSet<GameObject> spawnedObjects;
@@ -74,7 +74,7 @@ public class PlanetSpawn : MonoBehaviour
      */
     private GameObject randomPrefab()
     {
-        return prefabs[Random.Range(0, prefabs.Length)];
+        return prefabs[Random.Range(0, prefabs.Count)];
     }
 
     private void spawnFeature(Vector3 pos, Quaternion rot)

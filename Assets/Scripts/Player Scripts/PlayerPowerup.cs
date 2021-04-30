@@ -89,15 +89,18 @@ public class PlayerPowerup : MonoBehaviour
                 gameObject.GetComponent<PlayerBomb>().AddBombs((int)value);
                 break;
             case Hud.PowerupId.Fuel:
+                _hud.ActivatePowerup(Hud.PowerupId.Fuel, value);
                 gameObject.GetComponent<PlayerFuel>().InfiniteFuel(value);
                 break;
             case Hud.PowerupId.Health:
                 gameObject.GetComponent<PlayerHealth>().Heal((int)value);
                 break;
             case Hud.PowerupId.Shield:
+                _hud.ActivatePowerup(Hud.PowerupId.Shield);
                 gameObject.GetComponent<PlayerHealth>().setShield(true);
                 break;
             case Hud.PowerupId.Speed:
+                _hud.ActivatePowerup(Hud.PowerupId.Speed, PowerupSpeed.DURATION);
                 gameObject.GetComponent<PlayerMovement>().speedUp(value,PowerupSpeed.DURATION);
                 break;
         }
