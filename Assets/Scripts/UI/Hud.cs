@@ -16,7 +16,9 @@ public class Hud: MonoBehaviour {
         Speed = 4,
 
     };
-    
+
+    private static readonly Color[] CHANGE_COLORS = new[] { Color.red, Color.cyan, Color.yellow, Color.magenta, Color.white };
+
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private FuelBar _fuelBar;
     [SerializeField] private TMP_Text _scoreText;
@@ -28,6 +30,7 @@ public class Hud: MonoBehaviour {
     public TMP_Text scoreText => _scoreText;
 
     private int _displayedScore = 0;
+    private int _displayedColorIndex = 0;
     private int score = 0;
 
     private void Start() {
@@ -38,7 +41,16 @@ public class Hud: MonoBehaviour {
 
     private void Update() {
         if (_displayedScore != score) {
-            var difference = (score - _displayedScore) / 4;
+            var difference = score - _displayedScore;
+
+            if (difference == 1 || difference == -1) {
+                _scoreText.color = Color.white;
+            } else {
+                _displayedColorIndex = (_displayedColorIndex + 1) % CHANGE_COLORS.Length;
+                _scoreText.color = CHANGE_COLORS[_displayedColorIndex];
+            }
+            
+            difference /= 4;
             if (difference == 0) {
                 difference = _displayedScore > score ? -1 : 1;
             }
