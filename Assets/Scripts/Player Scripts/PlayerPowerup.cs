@@ -29,8 +29,8 @@ public class PlayerPowerup : MonoBehaviour
         switch (id)
         {
             case Hud.PowerupId.Bomb:
-                powerUpAmounts[(int) Hud.PowerupId.Bomb]++;
-                bombAmount = (int)value;
+                powerUpAmounts[(int) Hud.PowerupId.Bomb] += amountGained;
+                gameObject.GetComponent<PlayerBomb>().AddBombs(amountGained);
                 break;
             case Hud.PowerupId.Fuel:
                 powerUpAmounts[(int) Hud.PowerupId.Fuel]++;
@@ -62,7 +62,7 @@ public class PlayerPowerup : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I) && HasPowerupAvailable(Hud.PowerupId.Bomb))
         {
-            UsePowerup(Hud.PowerupId.Bomb,bombAmount);
+            UsePowerup(Hud.PowerupId.Bomb, 1);
         }
         if (Input.GetKeyDown(KeyCode.O) && HasPowerupAvailable(Hud.PowerupId.Fuel))
         {
@@ -86,7 +86,7 @@ public class PlayerPowerup : MonoBehaviour
         switch (id)
         {
             case Hud.PowerupId.Bomb:
-                gameObject.GetComponent<PlayerBomb>().AddBombs((int)value);
+                gameObject.GetComponent<PlayerBomb>().UseBomb();
                 break;
             case Hud.PowerupId.Fuel:
                 _hud.ActivatePowerup(Hud.PowerupId.Fuel, value);

@@ -11,7 +11,7 @@ public class PlayerBomb : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && bombAmount > 0)
+        if (Input.GetKeyDown(KeyCode.I) && bombAmount > 0)
         {
             GameObject bomb = Instantiate(_bombPrefab);
             bomb.transform.position = gameObject.transform.position;
