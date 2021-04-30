@@ -16,6 +16,7 @@ public class PlayerFuel : MonoBehaviour
     //The max amount of fuel that can be used (in seconds)
     [SerializeField] private float _maxFuelTime;
     private PlayerMovement _movement;
+
     private float _infiniteFuelTimer = 0f;
 
     private bool _initialDash = true;
@@ -30,16 +31,14 @@ public class PlayerFuel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_infiniteFuelTimer <= 0)
+        if (_infiniteFuelTimer <= 0 )
         {
             if(_initialDash && _movement.isBoost()){
                 _initialDash = false;
-                _fuelTime += _dashFuelConsumption;
                 _totalFuelTime -= _dashFuelConsumption;
             }
-            else if (Input.GetKey(KeyCode.W) && !_movement.isDisabled() && !_movement.isBoost())
+            else if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.LeftShift))&& !_movement.isDisabled() && !_movement.isBoost())
             {
-                _fuelTime += Time.deltaTime;
                 _totalFuelTime -= Time.deltaTime;
                 _initialDash = true;
 
@@ -48,23 +47,15 @@ public class PlayerFuel : MonoBehaviour
                 _initialDash = true;
             }
 
-            if (_fuelTime >= 0)//W was pressed for a nonzero amount of time, update hud
-            {
+
                 if(_totalFuelTime/_maxFuelTime < 0){
                     _fuelBar.SetFuel(0);
                 }
                 else{
                     _fuelBar.SetFuel(_totalFuelTime / _maxFuelTime);
                 }
-                
-            }
 
-            if (Input.GetKeyUp(KeyCode.W) || _movement.isDisabled())//You are not thrusting so stop using fuel
-            {
-                _fuelTime = 0;
-            }
-
-            if (_totalFuelTime <= 0)
+                if (_totalFuelTime <= 0)
             {
                 _movement.setDisabled(true);
             }
@@ -72,6 +63,7 @@ public class PlayerFuel : MonoBehaviour
         else
         {
             _infiniteFuelTimer -= Time.deltaTime;
+            
         }
 
 
@@ -80,7 +72,6 @@ public class PlayerFuel : MonoBehaviour
 
     public void InfiniteFuel(float timer)
     {
-        Debug.Log("Fuel Timer");
         _infiniteFuelTimer = timer;
     }
 

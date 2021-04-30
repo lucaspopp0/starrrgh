@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerPowerup : MonoBehaviour
+{
+    private Hud _hud;
+    [SerializeField] private AudioSource _powerupSound;
+
+    private int bombAmount = 0;
+    private float infiniteFuelTime = 0f;
+    private int healAmount = 0;
+    private float speedCoeff = 0f;
+    /* Health = 0,
+        Shield = 1,
+        Bomb = 2,
+        Fuel = 3,
+        Speed = 4,
+     */
+    private int[] powerUpAmounts = new int[5];
+    private void Awake() {
+        _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
+    }
+    public void ObtainPowerup(Hud.PowerupId id, float value = 0f, int amountGained = 1)
+    {
+        _hud.GainPowerup(id, amountGained);
+        _powerupSound.Play();
+        switch (id)
+        {
+            case Hud.PowerupId.Bomb:
+                powerUpAmounts[(int) Hud.PowerupId.Bomb]++;
+                bombAmount = (int)value;
+                break;
+            case Hud.PowerupId.Fuel:
+                powerUpAmounts[(int) Hud.PowerupId.Fuel]++;
+                infiniteFuelTime = value;
+                break;
+            case Hud.PowerupId.Health:
+                powerUpAmounts[(int) Hud.PowerupId.Health]++;
+                healAmount = (int)value;
+                break;
+            case Hud.PowerupId.Shield:
+                powerUpAmounts[(int) Hud.PowerupId.Shield]++;
+                break;
+            case Hud.PowerupId.Speed:
+                powerUpAmounts[(int) Hud.PowerupId.Speed]++;
+                speedCoeff = value;
+                break;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y) && HasPowerupAvailable(Hud.PowerupId.Health))
+        {
+            UsePowerup(Hud.PowerupId.Health,healAmount);
+        }
+        if (Input.GetKeyDown(KeyCode.U) && HasPowerupAvailable(Hud.PowerupId.Shield))
+        {
+            UsePowerup(Hud.PowerupId.Shield);
+        }
+        if (Input.GetKeyDown(KeyCode.I) && HasPowerupAvailable(Hud.PowerupId.Bomb))
+        {
+            UsePowerup(Hud.PowerupId.Bomb,bombAmount);
+        }
+        if (Input.GetKeyDown(KeyCode.O) && HasPowerupAvailable(Hud.PowerupId.Fuel))
+        {
+            UsePowerup(Hud.PowerupId.Fuel,infiniteFuelTime);
+        }
+        if (Input.GetKeyDown(KeyCode.P) && HasPowerupAvailable(Hud.PowerupId.Speed))
+        {
+            UsePowerup(Hud.PowerupId.Speed, speedCoeff);
+        }
+    }
+
+    private bool HasPowerupAvailable(Hud.PowerupId id)
+    {
+        return powerUpAmounts[(int) id] > 0;
+    }
+
+    public void UsePowerup(Hud.PowerupId id, float value = 0)
+    {
+        powerUpAmounts[(int) id]--;
+        _hud.UsePowerup(id);
+        switch (id)
+        {
+            case Hud.PowerupId.Bomb:
+                gameObject.GetComponent<PlayerBomb>().AddBombs((int)value);
+                break;
+            case Hud.PowerupId.Fuel:
+                gameObject.GetComponent<PlayerFuel>().InfiniteFuel(value);
+                break;
+            case Hud.PowerupId.Health:
+                gameObject.GetComponent<PlayerHealth>().Heal((int)value);
+                break;
+            case Hud.PowerupId.Shield:
+                gameObject.GetComponent<PlayerHealth>().setShield(true);
+                break;
+            case Hud.PowerupId.Speed:
+                gameObject.GetComponent<PlayerMovement>().speedUp(value,PowerupSpeed.DURATION);
+                break;
+        }
+    }
+}
