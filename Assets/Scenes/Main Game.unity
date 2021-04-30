@@ -1097,12 +1097,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1816661790934342917}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1232302995 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1816661792128626315, guid: cbe94e02e4257e34094da2c4474c4903,
-    type: 3}
-  m_PrefabInstance: {fileID: 1816661790934342917}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1668146570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,7 +1631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 1232302995}
+  volumeTrigger: {fileID: 203424865814533533}
   volumeLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -1685,6 +1679,12 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!4 &203424865814533533 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 203424865999307121, guid: ab380599e7cef3749ba3c0c3f6d2f357,
+    type: 3}
+  m_PrefabInstance: {fileID: 203424865814533526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1816661790934342917
 PrefabInstance:
   m_ObjectHideFlags: 0
