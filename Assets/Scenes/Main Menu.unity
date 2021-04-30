@@ -4431,6 +4431,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1069319462}
     m_Modifications:
+    - target: {fileID: 5792208855771393968, guid: b8820ff71fe96452da9a55954b0f6701,
+        type: 3}
+      propertyPath: m_text
+      value: "You are a space pirate. Your goal of is to collect as much loot as
+        you can before dying or getting locked up by the space police.\n\nEarn loot
+        by collecting it from GOLD cargo ships. It can also be earned by destroying
+        police ships.\n\nIf the police see you doing something they don't like, they'll
+        chase you and try to arrest you. Protect yourself by using a SHIELD powerup,
+        or by healing yourself at a healing zone. \n\nIf you do decide to take the
+        offensive route, you can either drop BOMBS or use your dash attack. Make
+        sure to be conscious of your fuel usage, unless you have an infinite fuel
+        powerup! You can also always refuel at a fuel station.\n\nCONTROLS:\nRotate:
+        A/D\nForward/reverse: W/S\nSmart stop: Left shift\nDash attack: Hold space
+        bar\nPause: Esc"
+      objectReference: {fileID: 0}
     - target: {fileID: 5792208857181701116, guid: b8820ff71fe96452da9a55954b0f6701,
         type: 3}
       propertyPath: m_Pivot.x
