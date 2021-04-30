@@ -12,7 +12,7 @@ public class PowerupIndicator : MonoBehaviour {
     [SerializeField] private Image slotImage;
     [SerializeField] private TMP_Text keyText;
     private int _amount;
-    private float activeDuration;
+    private float activeDuration = 0;
 
     // Start is called before the first frame update
     void Start() {
@@ -25,6 +25,10 @@ public class PowerupIndicator : MonoBehaviour {
         {
             slotImage.color = Color.blue;
             activeDuration -= Time.deltaTime;
+        }
+        else
+        {
+            SetAmount(_amount);//This is goofy but I'm using this to reset the colors
         }
     }
 
