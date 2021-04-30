@@ -44,6 +44,8 @@ public class WanderingAI : MonoBehaviour {
 
     float reloadTime;
 
+    float shouldTurn = 0;
+
 	void Start() {
 		_alive = true;
 		
@@ -89,6 +91,7 @@ public class WanderingAI : MonoBehaviour {
                 _multiplier = 0f;
                 playerCaught = false;
                 if (siren != null) siren.TurnOff();
+                
             }
             else if(range <= closeToPlayer && !waiting){ //on screen so have wander
                 _multiplier = 4f; 
@@ -103,6 +106,15 @@ public class WanderingAI : MonoBehaviour {
                 }
                 else{
                     playerCaught = false;
+                    if(shouldTurn >= 4){
+                        shouldTurn = 0;
+                        //float angle = Random.Range(0, 360);
+                        Debug.Log("randomTurn");
+                        transform.Rotate(new Vector3(0,0,Random.Range(0, 360)));
+                    }
+                    else{
+                        shouldTurn += Time.deltaTime;
+                    }
                 }
                 
             }
