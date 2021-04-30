@@ -83,30 +83,23 @@ public class WanderingAI : MonoBehaviour {
 				//anim.SetInteger("zombieToState", 0);
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
 				_multiplier = 0.1f;
-                playerCaught = false;
+                //playerCaught = false;
 			}
             else if (range > closeToPlayer && range <= maxDistance && !waiting){ //off screen so can just stay still
                 _multiplier = 0f;
                 playerCaught = false;
+                if (siren != null) siren.TurnOff();
             }
             else if(range <= closeToPlayer && !waiting){ //on screen so have wander
                 _multiplier = 4f; 
                 if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught)){
-                    playerCaught = true;
+                    if(!playerCaught) playerCaught = true;
                     transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
                     if(running){
                         transform.Rotate(new Vector3(0,0,180));
                     }
-				    _multiplier = 7.0f;
-                }
-                else if (range <= tooClose){
-                    transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
-                    if(running){
-                        transform.Rotate(new Vector3(0,0,180));
-                    }
-                    else{
-                        _multiplier = 0.0f;
-                    }
+				    if(range <= tooClose) _multiplier = 0.0f;
+                    else _multiplier = 7.0f;
                 }
                 else{
                     playerCaught = false;
