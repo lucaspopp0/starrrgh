@@ -181,11 +181,24 @@ public class PlanetSpawn : MonoBehaviour
     {
         for(int i = 0; i < items.Length; i++)
         {
+            /*
             if(i - items.Length / 2 != 0)
             {
                 //Updating weights using a sigmoid function
                 //items[i].setWeight(items[i].getTargetWeight() / (1 + Mathf.Exp(-(i - items.Length / 2) * weightSpeed * Time.time)));
                 items[i].setWeight(sigmoid(weightSpeed * Time.time, (i - items.Length / 2), items[i].getTargetWeight()));
+            }
+            */
+            float index = i - items.Length / 2;
+            if(index < 0)
+            {
+                Debug.Log("Index: " + index + "\n" + "Decay");
+                items[i].setWeight(decayFunc(weightSpeed * Time.time, i, items[i].getTargetWeight()));
+            }
+            else if (index > 0)
+            {
+                Debug.Log("Index: " + index + "\n" + "Growth");
+                items[i].setWeight(growthFunc(weightSpeed * Time.time, i, items[i].getTargetWeight()));
             }
             else
             {
@@ -197,5 +210,15 @@ public class PlanetSpawn : MonoBehaviour
     private float sigmoid(float t, float a, float w)
     {
         return w / (1 + Mathf.Exp(-a * t));
+    }
+
+    private float growthFunc(float t, float a, float w)
+    {
+        return w * (1 - 1 / (1 + a * Mathf.Pow(t, 4)));
+    }
+
+    private float decayFunc(float t, float a, float w)
+    {
+        return w / (1 + a * Mathf.Pow(t, 4));
     }
 }
