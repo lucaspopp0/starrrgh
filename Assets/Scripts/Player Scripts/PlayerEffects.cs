@@ -6,12 +6,14 @@ using UnityEngine.Rendering.PostProcessing;
 public class PlayerEffects : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private float aberrationTime = 1.0f;
+    [SerializeField] private float aberrationReleaseTime = 1.0f;
+    [SerializeField] private float aberrationChargeSpeed = 20.0f;
     private PostProcessVolume volume;
     private ChromaticAberration aberration;
 
-    private float intensity = 1.0f;
-    private bool chromaticEffect = false;
+    private float intensity = 0.0f;
+    private bool releaseChromatic = false;
+    private bool chargeChromatic = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,24 +24,16 @@ public class PlayerEffects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (chromaticEffect && aberration != null)
+        intensity = Mathf.Clamp(intensity, 0, 1);
+        if (Input.GetKey(KeyCode.Space) && intensity != 1)
         {
-            intensity -= Time.deltaTime / aberrationTime;
+            intensity += Time.deltaTime * aberrationChargeSpeed;
             aberration.intensity.value = intensity;
-            if(intensity <= 0)
-            {
-                chromaticEffect = false;
-            }
         }
-        else if (!chromaticEffect)
+        else if(intensity != 0)
         {
-            intensity = 1.0f;
+            intensity -= Time.deltaTime / aberrationReleaseTime;
+            aberration.intensity.value = intensity;
         }
-    }
-
-    public void boostEffect()
-    {
-        chromaticEffect = true;
-        intensity = 1.0f;
     }
 }

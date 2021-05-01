@@ -67,8 +67,6 @@ public class PlayerMovement : MonoBehaviour
     public bool alive = true;
     private bool _disabled = false;
 
-    private PlayerEffects effects;
-
     private ScoreController _scoreController;
 
     public bool isBoost(){
@@ -89,8 +87,6 @@ public class PlayerMovement : MonoBehaviour
         }
         velocity = Vector2.zero;
         _scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
-
-        effects = this.GetComponent<PlayerEffects>();
     }
 
     // Update is called once per frame
@@ -133,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
                 curBoostTime = 0;
                 boostEffect.Play();
                 _boostAmount = 0f;
-                effects.boostEffect();
             }
 
             if (boost) {
