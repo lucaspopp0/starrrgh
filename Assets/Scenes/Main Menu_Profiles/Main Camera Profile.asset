@@ -83,7 +83,7 @@ MonoBehaviour:
     overrideState: 1
     value: 0
   fastMode:
-    overrideState: 1
+    overrideState: 0
     value: 1
 --- !u!114 &5653441600603611281
 MonoBehaviour:

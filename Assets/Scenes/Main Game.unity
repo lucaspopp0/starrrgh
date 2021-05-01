@@ -1235,6 +1235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 203424865814533532}
+  aberrationTime: 1
 --- !u!1 &1668146570
 GameObject:
   m_ObjectHideFlags: 0
