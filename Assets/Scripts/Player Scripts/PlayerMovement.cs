@@ -67,10 +67,16 @@ public class PlayerMovement : MonoBehaviour
     public bool alive = true;
     private bool _disabled = false;
 
+    private bool _looting = false;
+
     private ScoreController _scoreController;
 
     public bool isBoost(){
         return boost;
+    }
+
+    public bool isLooting(){
+        return _looting;
     }
 
     private void Awake() {
@@ -105,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
             } else {
                 RunStats.Current.Duration += Time.deltaTime;
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()) {
                 // Start charging boost
                 _chargingBoost = true;
@@ -202,11 +208,14 @@ public class PlayerMovement : MonoBehaviour
                 Vector2 totalForce = Vector2.zero;
 
                 //If the player presses shift
-                if (Input.GetKey(KeyCode.LeftShift) && !isDisabled())
+                if ((Input.GetKey(KeyCode.LeftShift) && !isDisabled()) )
                 {
                     //Don't calculate forces from gravity or propulsion
                     //Apply a force opposite to the velocity to stop the ship
                     //Should we add gravity to this? Or is that too much
+                    totalForce = -(velocity.normalized) * stoppingForce;
+                }
+                else if(Input.GetKey(KeyCode.L)){
                     totalForce = -(velocity.normalized) * stoppingForce;
                 }
                 //Otherwise, calculate gravity and propulsion like normal
@@ -216,6 +225,17 @@ public class PlayerMovement : MonoBehaviour
                     planets.CopyTo(cachedPlanets);
                     Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
                     totalForce = gravity(cachedPlanets) + propulsion - drag;
+                }
+
+                if(Input.GetKeyDown(KeyCode.L)){
+                    _looting = true;
+                    setDisabled(true);
+                    //want to apply some force here to slow down so stays in range, similar to leftshift
+                }
+
+                if(Input.GetKeyUp(KeyCode.L)){
+                    _looting = false;
+                    setDisabled(false);
                 }
 
                 //Applying the force to the ship

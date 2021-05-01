@@ -44,9 +44,16 @@ public class WanderingAI : MonoBehaviour {
 
     float reloadTime;
 
+    float shouldTurn = 0;
+
+    private bool canLoot = false;
+    float beingLooted = 0;
+
+    private ScoreController _scoreController;
+
 	void Start() {
 		_alive = true;
-		
+		_scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
 		//anim = GetComponent<Animator>();
 		playerObject = GameObject.Find("Player");
         waitFor = 0;
@@ -76,6 +83,7 @@ public class WanderingAI : MonoBehaviour {
 			//if very far away zombie speed = 0: idle animation
 			//if somewhat close zombie speed = walking speed: walking animation
 			//if near zombie speed = 8.0*walking speed:running animation
+             Quaternion initial = playerObject.transform.rotation;
 
 			Vector3 diff = playerObject.transform.position - transform.position;
 			float range = diff.magnitude;
@@ -89,35 +97,85 @@ public class WanderingAI : MonoBehaviour {
                 _multiplier = 0f;
                 playerCaught = false;
                 if (siren != null) siren.TurnOff();
+                
             }
             else if(range <= closeToPlayer && !waiting){ //on screen so have wander
                 _multiplier = 4f; 
-                if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught)){
+                if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting())){
                     if(!playerCaught) playerCaught = true;
+                    
                     transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
                     if(running){
-                        transform.Rotate(new Vector3(0,0,180));
+                        transform.Rotate(new Vector3(0,0,180)); 
                     }
-				    if(range <= tooClose) _multiplier = 0.0f;
-                    else _multiplier = 7.0f;
+
+				    if(range <= tooClose) {
+                        _multiplier = 0.0f;
+                    }
+                    else{
+                        _multiplier = 7.0f;
+                    }
                 }
                 else{
                     playerCaught = false;
+                    if(shouldTurn >= 4){
+                        shouldTurn = 0;
+                        //float angle = Random.Range(0, 360);
+                        //Debug.Log("randomTurn");
+                        transform.Rotate(new Vector3(0,0,Random.Range(0, 360)));
+                    }
+                    else{
+                        shouldTurn += Time.deltaTime;
+                    }
                 }
                 
             }
-			// else if (range <= visibility &&  range > tooClose && !waiting) {  //sees player, and moves toward him
-            //     transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
-            //     if(running){
-            //         transform.Rotate(new Vector3(0,0,180));
-            //     }
-			// 	_multiplier = 7.0f;
-			// }
             else {
 				//normal distance away, let wander
 
 				_multiplier = 4.0f; //dont move if not close to player
 			}
+
+            //cargoship is within range and player has not yet looted it
+            if (running && !playerObject.GetComponent<PlayerMovement>().isLooting()) {
+	            if (!canLoot && range <= tooClose) {
+		            canLoot = true;
+		            gameObject.GetComponent<CargoShip>().CanLoot();
+	            } else if (canLoot && range > tooClose) {
+		            canLoot = false;
+		            gameObject.GetComponent<CargoShip>().ClearLootState();
+	            }
+            }
+
+            //cargoship was being looted, but player stopped, so reset progress
+            if (canLoot && !(playerObject.GetComponent<PlayerMovement>().isLooting()) && beingLooted > 0){
+                Debug.Log("Resetloot timer");
+                beingLooted = 0;
+                gameObject.GetComponent<CargoShip>().StartLooting();
+            }
+
+            //Looting cargo ship
+            if(running && range <= tooClose && playerObject.GetComponent<PlayerMovement>().isLooting()){
+                //playerObject.transform.rotation = initial;
+                Debug.Log("Cargoship being looted");
+                playerCaught = true;
+                _multiplier = 0.0f;
+
+                if (beingLooted < Time.deltaTime) {
+	                GetComponent<CargoShip>().StartLooting();
+                }
+                
+                if (beingLooted > 2) {
+                    GetComponent<ReactiveTarget>().ReactToHit();
+                    _scoreController.AddScore(1000);
+                    RunStats.Current.CargoShipsLooted++;
+                }
+                else{
+                    beingLooted += Time.deltaTime;
+                    GetComponent<CargoShip>().SetLootProgress(beingLooted / 2f);
+                }
+                //add different particle effect?
+            }
 			
 			_leftThrust.SetIntensity(_multiplier / 7f);
 			_rightThrust.SetIntensity(_multiplier / 7f);
