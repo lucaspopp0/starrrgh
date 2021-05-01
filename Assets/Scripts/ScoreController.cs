@@ -29,10 +29,12 @@ public class ScoreController : MonoBehaviour
     public void AddScore(int val)
     {
         _score += val;
+        RunStats.Current.Score += val;
     }
     
     public void SubScore(int val)
     {
         _score -= val;
+        RunStats.Current.Score -= val;
     }
 }
