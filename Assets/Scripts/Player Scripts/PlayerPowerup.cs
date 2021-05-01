@@ -22,8 +22,8 @@ public class PlayerPowerup : MonoBehaviour
     private void Awake() {
         _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
     }
-    public void ObtainPowerup(Hud.PowerupId id, float value = 0f, int amountGained = 1)
-    {
+    public void ObtainPowerup(Hud.PowerupId id, float value = 0f, int amountGained = 1) {
+        RunStats.Current.PowerupsCollected++;
         _hud.GainPowerup(id, amountGained);
         _powerupSound.Play();
         switch (id)

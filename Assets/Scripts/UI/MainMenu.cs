@@ -67,6 +67,12 @@ public class MainMenu : MonoBehaviour {
         creditsMenu.Open();
     }
 
+    public void BeginTutorial() {
+        instructionsMenu.Open();
+        instructionsMenu.closeButton.GetComponentInChildren<TMP_Text>().text = "PLAY";
+        instructionsMenu.onClose = StartGame;
+    }
+
     public void OpenInstructions() {
         instructionsMenu.Open();
     }

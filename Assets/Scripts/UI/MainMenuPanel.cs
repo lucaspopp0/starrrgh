@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MainMenuPanel: MonoBehaviour {
 
-    [SerializeField] private Button closeButton;
+    public Button closeButton;
     
     public bool isOpen = false;
     public Action onOpen;

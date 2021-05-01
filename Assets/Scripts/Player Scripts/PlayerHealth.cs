@@ -43,6 +43,7 @@ public class PlayerHealth : MonoBehaviour {
 		_hud.healthBar.SetNormalizedValue(_health / (float)MAX_HEALTH);
 		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 		hurtSound.Play();
+		RunStats.Current.DamageTaken += damage / (float)MAX_HEALTH;
 	}
 
 	public void Heal(int amount)
@@ -53,8 +54,8 @@ public class PlayerHealth : MonoBehaviour {
 	}
 
 	public void Die() {
-		if (!_shielded && _shieldTimer <= 0)
-		{
+		if (!_shielded && _shieldTimer <= 0) {
+			RunStats.Current.DamageTaken += _health / (float)MAX_HEALTH;
 			_health = 0;
 			_hud.healthBar.SetNormalizedValue(0);
 			shipSpriteRenderer.color = damageColorGradient.Evaluate(1);

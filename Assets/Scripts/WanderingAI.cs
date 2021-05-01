@@ -36,6 +36,8 @@ public class WanderingAI : MonoBehaviour {
 
     bool waiting;
 
+    bool playerCaught = false;
+
     bool chasing;
 
     float waitFor;
@@ -81,27 +83,36 @@ public class WanderingAI : MonoBehaviour {
 				//anim.SetInteger("zombieToState", 0);
                 transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
 				_multiplier = 0.1f;
+                //playerCaught = false;
 			}
             else if (range > closeToPlayer && range <= maxDistance && !waiting){ //off screen so can just stay still
                 _multiplier = 0f;
+                playerCaught = false;
+                if (siren != null) siren.TurnOff();
             }
-            else if(range <= closeToPlayer && range > visibility && !waiting){ //on screen so have wander
+            else if(range <= closeToPlayer && !waiting){ //on screen so have wander
                 _multiplier = 4f; 
+                if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught)){
+                    if(!playerCaught) playerCaught = true;
+                    transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
+                    if(running){
+                        transform.Rotate(new Vector3(0,0,180));
+                    }
+				    if(range <= tooClose) _multiplier = 0.0f;
+                    else _multiplier = 7.0f;
+                }
+                else{
+                    playerCaught = false;
+                }
+                
             }
-			else if (range <= visibility &&  range > tooClose && !waiting) {  //sees player, and moves toward him
-                transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
-                if(running){
-                    transform.Rotate(new Vector3(0,0,180));
-                }
-				_multiplier = 7.0f;
-			}
-            else if (range <= tooClose && !waiting) {  //sees player, and moves toward him
-                transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
-                if(running){
-                    transform.Rotate(new Vector3(0,0,180));
-                }
-				_multiplier = 0.0f;
-			}
+			// else if (range <= visibility &&  range > tooClose && !waiting) {  //sees player, and moves toward him
+            //     transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
+            //     if(running){
+            //         transform.Rotate(new Vector3(0,0,180));
+            //     }
+			// 	_multiplier = 7.0f;
+			// }
             else {
 				//normal distance away, let wander
 
@@ -126,7 +137,7 @@ public class WanderingAI : MonoBehaviour {
             {
                 GameObject hitObject = hit.transform.gameObject;
 			 	if (hitObject.GetComponent<PlayerMovement>()) {
-                     if(!running && hitObject.GetComponent<PlayerMovement>().alive){
+                     if(!running && hitObject.GetComponent<PlayerMovement>().alive && playerCaught){
                          if (siren != null) siren.TurnOn();
                         // if(hit.distance < 0.05f){
                         //     hitObject.GetComponent<PlayerHealth>().Die();
