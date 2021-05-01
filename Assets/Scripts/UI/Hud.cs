@@ -16,7 +16,9 @@ public class Hud: MonoBehaviour {
         Speed = 4,
 
     };
-    
+
+    private static readonly Color[] CHANGE_COLORS = new[] { Color.red, Color.cyan, Color.yellow, Color.magenta, Color.white };
+
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private FuelBar _fuelBar;
     [SerializeField] private TMP_Text _scoreText;
@@ -27,22 +29,45 @@ public class Hud: MonoBehaviour {
     public FuelBar fuelBar => _fuelBar;
     public TMP_Text scoreText => _scoreText;
 
+    private int _displayedScore = 0;
+    private int _displayedColorIndex = 0;
     private int score = 0;
 
     private void Start() {
         Reset();
         pauseMenu.Close();
+        SetScore(0, true);
     }
 
-    public void SetScore(int score) {
-        // Calculate what the max possible width of a number with this many digits will be, and use that so
-        // the size of the text doesn't change every time the score does
-        var allEights = Regex.Replace(score.ToString(), @"\d", "8");
-        var boundarySize = _scoreText.GetPreferredValues(allEights);
-        _scoreText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, boundarySize.x);
+    private void Update() {
+        if (_displayedScore != score) {
+            var difference = score - _displayedScore;
+
+            if (difference == 1 || difference == -1) {
+                _scoreText.color = Color.white;
+            } else {
+                _displayedColorIndex = (_displayedColorIndex + 1) % CHANGE_COLORS.Length;
+                _scoreText.color = CHANGE_COLORS[_displayedColorIndex];
+            }
+            
+            difference /= 4;
+            if (difference == 0) {
+                difference = _displayedScore > score ? -1 : 1;
+            }
+                
+            _displayedScore += difference;
+            
+            _scoreText.text = _displayedScore.ToString();
+        }
+    }
+
+    public void SetScore(int score, bool instant = false) {
+        this.score = score;
         
-        // Set the actual score text
-        _scoreText.text = score.ToString();
+        if (instant) {
+            _displayedScore = score;
+            _scoreText.text = "0";
+        } 
     }
 
     public void Reset() {

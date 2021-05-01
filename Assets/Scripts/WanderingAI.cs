@@ -168,6 +168,7 @@ public class WanderingAI : MonoBehaviour {
                 if (beingLooted > 2) {
                     GetComponent<ReactiveTarget>().ReactToHit();
                     _scoreController.AddScore(1000);
+                    RunStats.Current.CargoShipsLooted++;
                 }
                 else{
                     beingLooted += Time.deltaTime;

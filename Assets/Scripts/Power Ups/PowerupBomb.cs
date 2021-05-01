@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PowerupBomb : MonoBehaviour
 {
-    public int bombAmount = 5;//How long in seconds the player has infinite fuel
+    public static int bombAmount = 5;//How long in seconds the player has infinite fuel
 
     private void OnTriggerEnter2D(Collider2D other)
     {
