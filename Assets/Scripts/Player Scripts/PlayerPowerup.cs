@@ -8,7 +8,8 @@ public class PlayerPowerup : MonoBehaviour
     private Hud _hud;
     [SerializeField] private AudioSource _powerupSound;
 
-    private int bombAmount = 0;
+    private int bombAmountToAdd = 0;
+    private int currentBombAmount = 0;
     private float infiniteFuelTime = 0f;
     private int healAmount = 0;
     private float speedCoeff = 0f;
@@ -30,7 +31,7 @@ public class PlayerPowerup : MonoBehaviour
         {
             case Hud.PowerupId.Bomb:
                 powerUpAmounts[(int) Hud.PowerupId.Bomb]++;
-                bombAmount = (int)value;
+                bombAmountToAdd = (int)value;
                 break;
             case Hud.PowerupId.Fuel:
                 powerUpAmounts[(int) Hud.PowerupId.Fuel]++;
@@ -60,10 +61,19 @@ public class PlayerPowerup : MonoBehaviour
         {
             UsePowerup(Hud.PowerupId.Shield);
         }
-        if (Input.GetKeyDown(KeyCode.I) && HasPowerupAvailable(Hud.PowerupId.Bomb))
+        if (Input.GetKeyDown(KeyCode.I) && HasPowerupAvailable(Hud.PowerupId.Bomb) && BombsDepleated())
         {
-            UsePowerup(Hud.PowerupId.Bomb,bombAmount);
+            Debug.Log("Add Bomb");
+           //Player needs to "reload" bombs from bomb powerup
+           UsePowerup(Hud.PowerupId.Bomb,bombAmountToAdd);
         }
+        else if (Input.GetKeyDown(KeyCode.I) && !BombsDepleated())
+        {//Player has bombs they need to use still
+            Debug.Log("Use Bomb");
+            gameObject.GetComponent<PlayerBomb>().UseBomb();
+            currentBombAmount--;
+        }
+       
         if (Input.GetKeyDown(KeyCode.O) && HasPowerupAvailable(Hud.PowerupId.Fuel))
         {
             UsePowerup(Hud.PowerupId.Fuel,infiniteFuelTime);
@@ -74,6 +84,11 @@ public class PlayerPowerup : MonoBehaviour
         }
     }
 
+    private bool BombsDepleated()
+    {
+        return currentBombAmount <= 0;
+    }
+
     private bool HasPowerupAvailable(Hud.PowerupId id)
     {
         return powerUpAmounts[(int) id] > 0;
@@ -81,11 +96,13 @@ public class PlayerPowerup : MonoBehaviour
 
     public void UsePowerup(Hud.PowerupId id, float value = 0)
     {
+        Debug.Log(value);
         powerUpAmounts[(int) id]--;
         _hud.UsePowerup(id);
         switch (id)
         {
             case Hud.PowerupId.Bomb:
+                currentBombAmount += (int) value;
                 gameObject.GetComponent<PlayerBomb>().AddBombs((int)value);
                 break;
             case Hud.PowerupId.Fuel:
