@@ -135,11 +135,12 @@ public class WanderingAI : MonoBehaviour {
 				_multiplier = 4.0f; //dont move if not close to player
 			}
 
-            if(running && !playerObject.GetComponent<PlayerMovement>().isLooting() && range <= tooClose){ //signal ship can be looted
+            //cargoship is within range and player has not yet looted it
+            if(running && !playerObject.GetComponent<PlayerMovement>().isLooting() && range <= tooClose){ 
                 Debug.Log("Cargo Ship can be looted");
             }
 
-            //Debug.Log("looting?" + playerObject.GetComponent<PlayerMovement>().isLooting());
+            //cargoship was being looted, but player stopped, so reset progress
             if(!(playerObject.GetComponent<PlayerMovement>().isLooting()) && beingLooted > 0){
                 Debug.Log("Resetloot timer");
                 beingLooted = 0;
