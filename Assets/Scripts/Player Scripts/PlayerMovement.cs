@@ -215,6 +215,9 @@ public class PlayerMovement : MonoBehaviour
                     //Should we add gravity to this? Or is that too much
                     totalForce = -(velocity.normalized) * stoppingForce;
                 }
+                else if(Input.GetKey(KeyCode.L)){
+                    totalForce = -(velocity.normalized) * stoppingForce;
+                }
                 //Otherwise, calculate gravity and propulsion like normal
                 else
                 {

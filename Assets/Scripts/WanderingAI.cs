@@ -159,7 +159,7 @@ public class WanderingAI : MonoBehaviour {
                 else{
                     beingLooted += Time.deltaTime;
                 }
-                //start timer, if timer gets to set amount/ blow up (new particle effect?) and add score
+                //add different particle effect?
             }
 			
 			_leftThrust.SetIntensity(_multiplier / 7f);
