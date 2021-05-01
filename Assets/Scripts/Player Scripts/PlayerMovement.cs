@@ -180,14 +180,9 @@ public class PlayerMovement : MonoBehaviour
                 var rightThrust = vInput;
 
                 if (Mathf.Abs(hInput) > 0.1f) {
-                    if (vInput < 0.1f) {
-                        if (hInput > 0f) {
-                            leftThrust = hInput;
-                            rightThrust = 1f - hInput;
-                        } else {
-                            leftThrust = 1f + hInput;
-                            rightThrust = -hInput;
-                        }
+                    if (Mathf.Abs(vInput) < 0.1f) {
+                        leftThrust = hInput;
+                        rightThrust = -hInput;
                     } else {
                         leftThrust += hInput * 0.1f;
                         rightThrust -= hInput * 0.1f;
