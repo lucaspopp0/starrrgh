@@ -4,35 +4,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreController : MonoBehaviour
-{
-    [SerializeField] private TextMeshProUGUI scoreText;
+public class ScoreController : MonoBehaviour {
+
+    private Hud _hud;
 
     private int _score;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        scoreText.text = _score.ToString();
-    }
-
-    public void SetScore(int score)
-    {
-        _score = score;
+    void Start() {
+        _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
     }
     
     public void AddScore(int val)
     {
         _score += val;
+        _hud.SetScore(_score);
+        RunStats.Current.Score += val;
     }
     
     public void SubScore(int val)
     {
         _score -= val;
+        _hud.SetScore(_score);
+        RunStats.Current.Score -= val;
     }
 }

@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() {
         _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
+        RunStats.ResetCurrent();
     }
 
     // Start is called before the first frame update
@@ -102,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
             if(isDisabled()){
                 _leftThruster.SetIntensity(0);
                 _rightThruster.SetIntensity(0);
+            } else {
+                RunStats.Current.Duration += Time.deltaTime;
             }
             
             if (Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()) {
@@ -157,6 +160,9 @@ public class PlayerMovement : MonoBehaviour
 
                             if (isCargoship) _scoreController.AddScore(200);
                             else _scoreController.AddScore(50);
+
+                            if (isCargoship) RunStats.Current.CargoShipsDestroyed++;
+                            else RunStats.Current.PoliceShipsDestroyed++;
                         }
                     }
                 }
@@ -174,14 +180,9 @@ public class PlayerMovement : MonoBehaviour
                 var rightThrust = vInput;
 
                 if (Mathf.Abs(hInput) > 0.1f) {
-                    if (vInput < 0.1f) {
-                        if (hInput > 0f) {
-                            leftThrust = hInput;
-                            rightThrust = 1f - hInput;
-                        } else {
-                            leftThrust = 1f + hInput;
-                            rightThrust = -hInput;
-                        }
+                    if (Mathf.Abs(vInput) < 0.1f) {
+                        leftThrust = hInput;
+                        rightThrust = -hInput;
                     } else {
                         leftThrust += hInput * 0.1f;
                         rightThrust -= hInput * 0.1f;
