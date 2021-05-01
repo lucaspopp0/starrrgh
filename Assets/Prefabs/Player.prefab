@@ -9664,7 +9664,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 7317530177531755335, guid: a2991fa9102ca4f91882b6e05613df04,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 37d9f971a6244437884a77acc5ec1b54, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -9988,8 +9988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fuelBar: {fileID: 0}
-  _fuelTime: 0
-  _totalFuelTime: 0
+  _currentFuelTime: 0
   _dashFuelConsumption: 0.75
   _maxFuelTime: 5
 --- !u!50 &-2270819244963210443
@@ -25048,7 +25047,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 7317530177531755335, guid: a2991fa9102ca4f91882b6e05613df04,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 746b0eb4e8ee640248eb0e3202e8593a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
