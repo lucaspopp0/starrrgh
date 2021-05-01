@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     public bool alive = true;
     private bool _disabled = false;
 
-
     private ScoreController _scoreController;
 
     public bool isBoost(){

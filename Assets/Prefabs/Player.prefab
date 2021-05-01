@@ -9779,6 +9779,7 @@ GameObject:
   - component: {fileID: -2270819244963210443}
   - component: {fileID: 2273891564572590213}
   - component: {fileID: 1888225010735815413}
+  - component: {fileID: 1100539749864911773}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -10042,6 +10043,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerupSound: {fileID: 3352196136746648195}
+--- !u!114 &1100539749864911773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816661792128626313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96ce9bcf15c61e419b78cdcf9bc8b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  aberrationTime: 1
 --- !u!1 &1816661792698912962
 GameObject:
   m_ObjectHideFlags: 0
