@@ -16,7 +16,8 @@ public class PlayerEffects : MonoBehaviour
     private bool chargeChromatic = false;
 
     private float cameraSize;
-    private float targetZoom = 4.0f;
+    [SerializeField] private float targetZoom = 4.0f;
+    [SerializeField] private float timeSlow = 0.8f;
     private float zoomSpeed = 1.0f;
     private float time = 0.0f;
     // Start is called before the first frame update
@@ -31,6 +32,11 @@ public class PlayerEffects : MonoBehaviour
     void Update()
     {
         intensity = Mathf.Clamp(intensity, 0, 1);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Time.timeScale = timeSlow;
+        }
+
         if (Input.GetKey(KeyCode.Space) && intensity != 1)
         {
             mainCamera.orthographicSize = cameraSize + 0.5f - sigmoid(time, (cameraSize - targetZoom) * 2, zoomSpeed);
@@ -48,6 +54,7 @@ public class PlayerEffects : MonoBehaviour
         {
             time = 0.0f;
             mainCamera.orthographicSize = cameraSize;
+            Time.timeScale = 1;
         }
     }
 
