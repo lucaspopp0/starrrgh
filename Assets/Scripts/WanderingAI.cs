@@ -46,6 +46,7 @@ public class WanderingAI : MonoBehaviour {
 
     float shouldTurn = 0;
 
+    private bool canLoot = false;
     float beingLooted = 0;
 
     private ScoreController _scoreController;
@@ -136,14 +137,21 @@ public class WanderingAI : MonoBehaviour {
 			}
 
             //cargoship is within range and player has not yet looted it
-            if(running && !playerObject.GetComponent<PlayerMovement>().isLooting() && range <= tooClose){ 
-                Debug.Log("Cargo Ship can be looted");
+            if (running && !playerObject.GetComponent<PlayerMovement>().isLooting()) {
+	            if (!canLoot && range <= tooClose) {
+		            canLoot = true;
+		            gameObject.GetComponent<CargoShip>().CanLoot();
+	            } else if (canLoot && range > tooClose) {
+		            canLoot = false;
+		            gameObject.GetComponent<CargoShip>().ClearLootState();
+	            }
             }
 
             //cargoship was being looted, but player stopped, so reset progress
-            if(!(playerObject.GetComponent<PlayerMovement>().isLooting()) && beingLooted > 0){
+            if (canLoot && !(playerObject.GetComponent<PlayerMovement>().isLooting()) && beingLooted > 0){
                 Debug.Log("Resetloot timer");
                 beingLooted = 0;
+                gameObject.GetComponent<CargoShip>().StartLooting();
             }
 
             //Looting cargo ship
@@ -152,12 +160,18 @@ public class WanderingAI : MonoBehaviour {
                 Debug.Log("Cargoship being looted");
                 playerCaught = true;
                 _multiplier = 0.0f;
-                if(beingLooted > 2){
+
+                if (beingLooted < Time.deltaTime) {
+	                GetComponent<CargoShip>().StartLooting();
+                }
+                
+                if (beingLooted > 2) {
                     GetComponent<ReactiveTarget>().ReactToHit();
                     _scoreController.AddScore(1000);
                 }
                 else{
                     beingLooted += Time.deltaTime;
+                    GetComponent<CargoShip>().SetLootProgress(beingLooted / 2f);
                 }
                 //add different particle effect?
             }
