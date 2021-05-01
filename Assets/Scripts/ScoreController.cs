@@ -18,11 +18,13 @@ public class ScoreController : MonoBehaviour {
     {
         _score += val;
         _hud.SetScore(_score);
+        RunStats.Current.Score += val;
     }
     
     public void SubScore(int val)
     {
         _score -= val;
         _hud.SetScore(_score);
+        RunStats.Current.Score -= val;
     }
 }

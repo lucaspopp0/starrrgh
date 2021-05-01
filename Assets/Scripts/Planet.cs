@@ -2,10 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
-public class Planet : MonoBehaviour
-{
+public class Planet : MonoBehaviour {
+
+    private static Random spriteIndexGenerator = new Random();
+
+    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private SpriteRenderer minimapIcon;
+    
     [SerializeField] private float mass;
+    [SerializeField] private Sprite[] sprites;
+
+    private void Start() {
+        var index = spriteIndexGenerator.Next(sprites.Length);
+        renderer.sprite = sprites[index];
+        minimapIcon.sprite = sprites[index];
+    }
 
     public float getMass()
     {
