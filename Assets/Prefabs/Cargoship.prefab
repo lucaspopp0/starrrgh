@@ -310,7 +310,7 @@ MonoBehaviour:
   visibility: 5
   maxDistance: 45
   closeToPlayer: 25
-  tooClose: 0
+  tooClose: 3
   _alive: 0
 --- !u!114 &1508813020881854068
 MonoBehaviour:
