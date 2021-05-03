@@ -6,11 +6,51 @@ public class PlanetSpawn : MonoBehaviour
     [SerializeField] private float maxSpawnRadius = 100.0f;
     [SerializeField] private float minSpawnRadius = 10.0f;
     [SerializeField] private int numObjects = 10;
-    [SerializeField] private List<GameObject> prefabs;
     [SerializeField] private GameObject player;
+
+    [SerializeField] private WeightedItem[] prefabs;
 
     private HashSet<GameObject> spawnedObjects;
     private PlayerMovement movement;
+
+    [SerializeField] private float weightSpeed = 1.0f;
+
+    //A struct that stores a planetary feature and a weight
+    //The weight is how likely we are to spawn that feature
+    [System.Serializable]
+    private struct WeightedItem
+    {
+        [SerializeField] private GameObject obj;
+        [SerializeField] private float targetWeight;
+        private float weight;
+
+        public WeightedItem(GameObject obj, float weight)
+        {
+            this.obj = obj;
+            this.weight = weight;
+            this.targetWeight = weight;
+        }
+
+        public GameObject getObject()
+        {
+            return obj;
+        }
+
+        public float getWeight()
+        {
+            return weight;
+        }
+
+        public void setWeight(float weight)
+        {
+            this.weight = weight;
+        }
+
+        public float getTargetWeight()
+        {
+            return targetWeight;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +73,7 @@ public class PlanetSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        updateWeights(prefabs);
         GameObject[] cachedPlanets = new GameObject[spawnedObjects.Count];
         spawnedObjects.CopyTo(cachedPlanets);
         //Check if planets are still within spawn distance of the ship
@@ -74,9 +115,34 @@ public class PlanetSpawn : MonoBehaviour
      */
     private GameObject randomPrefab()
     {
-        return prefabs[Random.Range(0, prefabs.Count)];
+        //Finding some random object with probability of the weights
+        float sum_of_weights = 0;
+        //Summing all the weights
+        foreach (WeightedItem i in prefabs)
+        {
+            sum_of_weights += i.getWeight();
+        }
+        //Getting a random number between 0 and the sum of the weights
+        float rnd = Random.Range(0, sum_of_weights);
+        //Returning the random object
+        foreach (WeightedItem i in prefabs)
+        {
+            if(rnd < i.getWeight())
+            {
+                return i.getObject();
+            }
+            rnd -= i.getWeight();
+        }
+
+        //If we don't pick anything, just return some random prefab
+        //We should never be here, this is just in case
+        WeightedItem item = prefabs[Random.Range(0, prefabs.Length)];
+        return item.getObject();
     }
 
+    /*
+     * Spawns a random prefab
+     */
     private void spawnFeature(Vector3 pos, Quaternion rot)
     {
         GameObject o = Instantiate(randomPrefab(), pos, rot);
@@ -93,6 +159,9 @@ public class PlanetSpawn : MonoBehaviour
         }
     }
 
+    /*
+     * Deletes the specified object from the scene
+     */
     private void deleteFeature(GameObject p)
     {
         spawnedObjects.Remove(p);
@@ -102,10 +171,41 @@ public class PlanetSpawn : MonoBehaviour
             //Probably don't have to do this check since we do it in addPlanet
             if (child.gameObject.GetComponent<Planet>() != null)
             {
-                //This throws an error since we modify the planet list while we calculate gravity on the player
                 movement.removePlanet(child.gameObject);
             }
         }
         Destroy(p);
+    }
+
+    private void updateWeights(WeightedItem[] items)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            float index = i - items.Length / 2;
+            if(index < 0)
+            {
+                Debug.Log("Index: " + index + "\n" + "Decay");
+                items[i].setWeight(decayFunc(weightSpeed * Time.time, -1 / index, items[i].getTargetWeight()));
+            }
+            else if (index > 0)
+            {
+                Debug.Log("Index: " + index + "\n" + "Growth");
+                items[i].setWeight(growthFunc(weightSpeed * Time.time, 1 / index, items[i].getTargetWeight()));
+            }
+            else
+            {
+                items[i].setWeight(items[i].getTargetWeight());
+            }
+        }
+    }
+
+    private float growthFunc(float t, float a, float w)
+    {
+        return w * (1 - 1 / (1 + a * Mathf.Pow(t, 4)));
+    }
+
+    private float decayFunc(float t, float a, float w)
+    {
+        return w / (1 + a * Mathf.Pow(t, 4));
     }
 }
