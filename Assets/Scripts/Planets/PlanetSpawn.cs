@@ -22,7 +22,7 @@ public class PlanetSpawn : MonoBehaviour
     {
         [SerializeField] private GameObject obj;
         [SerializeField] private float targetWeight;
-        [SerializeField] private float weight;
+        private float weight;
 
         public WeightedItem(GameObject obj, float weight)
         {
