@@ -63,15 +63,13 @@ public class PlayerPowerup : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I) && HasPowerupAvailable(Hud.PowerupId.Bomb) && BombsDepleated())
         {
-            Debug.Log("Add Bomb");
            //Player needs to "reload" bombs from bomb powerup
            UsePowerup(Hud.PowerupId.Bomb,bombAmountToAdd);
+           UseBomb();
         }
         else if (Input.GetKeyDown(KeyCode.I) && !BombsDepleated())
         {//Player has bombs they need to use still
-            Debug.Log("Use Bomb");
-            gameObject.GetComponent<PlayerBomb>().UseBomb();
-            currentBombAmount--;
+            UseBomb();
         }
        
         if (Input.GetKeyDown(KeyCode.O) && HasPowerupAvailable(Hud.PowerupId.Fuel))
@@ -84,6 +82,11 @@ public class PlayerPowerup : MonoBehaviour
         }
     }
 
+    private void UseBomb()
+    {
+        gameObject.GetComponent<PlayerBomb>().UseBomb();
+        currentBombAmount--;
+    }
     private bool BombsDepleated()
     {
         return currentBombAmount <= 0;
