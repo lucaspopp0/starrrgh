@@ -7,20 +7,7 @@ public class PlayerBomb : MonoBehaviour
 {
     [SerializeField] private int bombAmount = 0;
     [SerializeField] private GameObject _bombPrefab;
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && bombAmount > 0)
-        {
-            GameObject bomb = Instantiate(_bombPrefab);
-            bomb.transform.position = gameObject.transform.position;
-            bomb.GetComponent<Bomb>().EnableFuse();
-            UseBomb();
-
-        }
-    }
-
+    
     public void AddBombs(int amount)
     {
         bombAmount += amount;
@@ -28,6 +15,9 @@ public class PlayerBomb : MonoBehaviour
 
     public void UseBomb()
     {
+        GameObject bomb = Instantiate(_bombPrefab);
+        bomb.transform.position = gameObject.transform.position;
+        bomb.GetComponent<Bomb>().EnableFuse();
         bombAmount--;
     }
 }

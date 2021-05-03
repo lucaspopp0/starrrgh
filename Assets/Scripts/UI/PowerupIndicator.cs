@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,11 +11,25 @@ public class PowerupIndicator : MonoBehaviour {
     [SerializeField] private TMP_Text countText;
     [SerializeField] private Image slotImage;
     [SerializeField] private TMP_Text keyText;
-    private int _amount; 
+    private int _amount;
+    private float activeDuration = 0;
 
     // Start is called before the first frame update
     void Start() {
         SetAmount(0);
+    }
+
+    private void Update()
+    {
+        if (activeDuration >= 0)
+        {
+            slotImage.color = Color.blue;
+            activeDuration -= Time.deltaTime;
+        }
+        else
+        {
+            SetAmount(_amount);//This is goofy but I'm using this to reset the colors
+        }
     }
 
     public void SetAmount(int amount) {
@@ -38,5 +53,10 @@ public class PowerupIndicator : MonoBehaviour {
     
     public void Use(int used = 1) {
         SetAmount(_amount - used);
+    }
+
+    public void Activate(float duration)
+    {
+        activeDuration = duration;
     }
 }

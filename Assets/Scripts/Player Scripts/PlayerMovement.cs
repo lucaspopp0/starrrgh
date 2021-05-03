@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     public bool alive = true;
     private bool _disabled = false;
 
+    private bool _looting = false;
 
     private ScoreController _scoreController;
 
@@ -74,8 +75,13 @@ public class PlayerMovement : MonoBehaviour
         return boost;
     }
 
+    public bool isLooting(){
+        return _looting;
+    }
+
     private void Awake() {
         _hud = GameObject.FindWithTag("HUD").GetComponent<Hud>();
+        RunStats.ResetCurrent();
     }
 
     // Start is called before the first frame update
@@ -102,8 +108,10 @@ public class PlayerMovement : MonoBehaviour
             if(isDisabled()){
                 _leftThruster.SetIntensity(0);
                 _rightThruster.SetIntensity(0);
+            } else {
+                RunStats.Current.Duration += Time.deltaTime;
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Space) && !boost && !isDisabled()) {
                 // Start charging boost
                 _chargingBoost = true;
@@ -157,6 +165,9 @@ public class PlayerMovement : MonoBehaviour
 
                             if (isCargoship) _scoreController.AddScore(200);
                             else _scoreController.AddScore(50);
+
+                            if (isCargoship) RunStats.Current.CargoShipsDestroyed++;
+                            else RunStats.Current.PoliceShipsDestroyed++;
                         }
                     }
                 }
@@ -174,14 +185,9 @@ public class PlayerMovement : MonoBehaviour
                 var rightThrust = vInput;
 
                 if (Mathf.Abs(hInput) > 0.1f) {
-                    if (vInput < 0.1f) {
-                        if (hInput > 0f) {
-                            leftThrust = hInput;
-                            rightThrust = 1f - hInput;
-                        } else {
-                            leftThrust = 1f + hInput;
-                            rightThrust = -hInput;
-                        }
+                    if (Mathf.Abs(vInput) < 0.1f) {
+                        leftThrust = hInput;
+                        rightThrust = -hInput;
                     } else {
                         leftThrust += hInput * 0.1f;
                         rightThrust -= hInput * 0.1f;
@@ -202,11 +208,14 @@ public class PlayerMovement : MonoBehaviour
                 Vector2 totalForce = Vector2.zero;
 
                 //If the player presses shift
-                if (Input.GetKey(KeyCode.LeftShift) && !isDisabled())
+                if ((Input.GetKey(KeyCode.LeftShift) && !isDisabled()) )
                 {
                     //Don't calculate forces from gravity or propulsion
                     //Apply a force opposite to the velocity to stop the ship
                     //Should we add gravity to this? Or is that too much
+                    totalForce = -(velocity.normalized) * stoppingForce;
+                }
+                else if(Input.GetKey(KeyCode.L)){
                     totalForce = -(velocity.normalized) * stoppingForce;
                 }
                 //Otherwise, calculate gravity and propulsion like normal
@@ -216,6 +225,17 @@ public class PlayerMovement : MonoBehaviour
                     planets.CopyTo(cachedPlanets);
                     Vector2 drag = 0.5f * velocity.magnitude * velocity.magnitude * dragForce * velocity.normalized;
                     totalForce = gravity(cachedPlanets) + propulsion - drag;
+                }
+
+                if(Input.GetKeyDown(KeyCode.L)){
+                    _looting = true;
+                    setDisabled(true);
+                    //want to apply some force here to slow down so stays in range, similar to leftshift
+                }
+
+                if(Input.GetKeyUp(KeyCode.L)){
+                    _looting = false;
+                    setDisabled(false);
                 }
 
                 //Applying the force to the ship

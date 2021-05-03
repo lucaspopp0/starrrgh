@@ -2,14 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerFuel : MonoBehaviour
 {
     [SerializeField] private FuelBar _fuelBar;
-
-    [SerializeField] private float _fuelTime;
-
-    [SerializeField] private float _totalFuelTime;
+    
+    [FormerlySerializedAs("_totalFuelTime")] [SerializeField] private float _currentFuelTime;
 
     [SerializeField] private float _dashFuelConsumption;
 
@@ -25,7 +24,7 @@ public class PlayerFuel : MonoBehaviour
     private void Start()
     {
         _movement = gameObject.GetComponent<PlayerMovement>();
-        _totalFuelTime = _maxFuelTime;
+        _currentFuelTime = _maxFuelTime;
     }
 
     // Update is called once per frame
@@ -35,11 +34,11 @@ public class PlayerFuel : MonoBehaviour
         {
             if(_initialDash && _movement.isBoost()){
                 _initialDash = false;
-                _totalFuelTime -= _dashFuelConsumption;
+                _currentFuelTime -= _dashFuelConsumption;
             }
             else if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.LeftShift))&& !_movement.isDisabled() && !_movement.isBoost())
             {
-                _totalFuelTime -= Time.deltaTime;
+                _currentFuelTime -= Time.deltaTime;
                 _initialDash = true;
 
             }
@@ -48,14 +47,14 @@ public class PlayerFuel : MonoBehaviour
             }
 
 
-                if(_totalFuelTime/_maxFuelTime < 0){
+                if(_currentFuelTime/_maxFuelTime < 0){
                     _fuelBar.SetFuel(0);
                 }
                 else{
-                    _fuelBar.SetFuel(_totalFuelTime / _maxFuelTime);
+                    _fuelBar.SetFuel(_currentFuelTime / _maxFuelTime);
                 }
 
-                if (_totalFuelTime <= 0)
+                if (_currentFuelTime <= 0)
             {
                 _movement.setDisabled(true);
             }
@@ -78,6 +77,15 @@ public class PlayerFuel : MonoBehaviour
     //Increase the current fuel amount by the input (in seconds)
     public void AddFuel(float amount)
     {
-        _totalFuelTime += amount;
+        _currentFuelTime += amount;
+    }
+
+    public float GetMaxFuel()
+    {
+        return _maxFuelTime;
+    }
+    public float GetFuel()
+    {
+        return _currentFuelTime;
     }
 }
