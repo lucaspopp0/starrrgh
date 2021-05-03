@@ -1869,9 +1869,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1100539749864911773, guid: cbe94e02e4257e34094da2c4474c4903,
         type: 3}
+      propertyPath: timeSlow
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100539749864911773, guid: cbe94e02e4257e34094da2c4474c4903,
+        type: 3}
+      propertyPath: zoomSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100539749864911773, guid: cbe94e02e4257e34094da2c4474c4903,
+        type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 203424865814533532}
+    - target: {fileID: 1100539749864911773, guid: cbe94e02e4257e34094da2c4474c4903,
+        type: 3}
+      propertyPath: targetZoom
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1100539749864911773, guid: cbe94e02e4257e34094da2c4474c4903,
         type: 3}
       propertyPath: aberrationChargeSpeed
