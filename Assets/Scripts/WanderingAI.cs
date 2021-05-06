@@ -101,7 +101,7 @@ public class WanderingAI : MonoBehaviour {
             }
             else if(range <= closeToPlayer && !waiting){ //on screen so have wander
                 _multiplier = 4f; 
-                if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting())){
+                if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting() )){
                     if(!playerCaught) playerCaught = true;
                     
                     transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
@@ -132,7 +132,10 @@ public class WanderingAI : MonoBehaviour {
             }
             else {
 				//normal distance away, let wander
-
+                if(range <= visibility && !running && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting() )){
+                    if (siren != null) siren.TurnOn();
+                    playerCaught = true;
+                }
 				_multiplier = 4.0f; //dont move if not close to player
 			}
 
@@ -231,7 +234,7 @@ public class WanderingAI : MonoBehaviour {
                           else{
                              transform.Rotate(0,0,-10);
                          }
-                        waitFor = 500f* Time.deltaTime;
+                        waitFor = 400f* Time.deltaTime;
                         waiting = true;
                         //extraTurn = true;
                      }
