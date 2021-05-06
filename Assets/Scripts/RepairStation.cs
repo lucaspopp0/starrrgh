@@ -13,8 +13,10 @@ public class RepairStation : MonoBehaviour
     private bool isRepairing = false;
     [SerializeField] private int repairRate = 50;//How much HP is restored per second
 
+    private ScoreController _scoreController;
     private void Start()
     {
+        _scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
         waitBeforeRepairing = baseWaitTime;
     }
 
@@ -49,6 +51,7 @@ public class RepairStation : MonoBehaviour
             if (playerHealth.GetHealth() < PlayerHealth.MAX_HEALTH && timer >= 1)
             {
                 timer = 0;
+                _scoreController.SubScore(25);
                 playerHealth.Heal(repairRate);
 
             }
