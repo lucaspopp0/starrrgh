@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 8423486959968295631}
   - component: {fileID: 8318950408401395539}
   m_Layer: 0
-  m_Name: Police
+  m_Name: Pirate
   m_TagString: Police
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -685,7 +685,7 @@ MonoBehaviour:
   siren: {fileID: 1776671905176360552}
   lazer: {fileID: 4624816897462325054, guid: ef19b8c756a765c418ed53b5ff650111, type: 3}
   lazerShot: {fileID: 8300000, guid: 8c0e40659be10439d82c72215e239ed4, type: 3}
-  isPirate: 0
+  isPirate: 1
   speed: 1
   running: 0
   visibility: 8
@@ -693,8 +693,8 @@ MonoBehaviour:
   closeToPlayer: 25
   tooClose: 2
   _alive: 0
-  timeBetweenshot: 20
-  health: 1
+  timeBetweenshot: 50
+  health: 2
 --- !u!114 &8423486959968295631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,9 +721,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88344c201724df3bb8c0cd2e28c50b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSprite: {fileID: -2717832465410499228, guid: 8a59973c3cc49461999b09646b5c457a,
+  normalSprite: {fileID: -4591477558164741163, guid: 8a59973c3cc49461999b09646b5c457a,
     type: 3}
-  semiDamagedSprite: {fileID: 5910598453246730488, guid: 8a59973c3cc49461999b09646b5c457a,
+  semiDamagedSprite: {fileID: -4591477558164741163, guid: 8a59973c3cc49461999b09646b5c457a,
     type: 3}
   veryDamagedSprite: {fileID: -4591477558164741163, guid: 8a59973c3cc49461999b09646b5c457a,
     type: 3}

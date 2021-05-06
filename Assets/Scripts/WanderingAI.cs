@@ -11,6 +11,8 @@ public class WanderingAI : MonoBehaviour {
     [SerializeField] private GameObject lazer;
 
      [SerializeField] public AudioClip lazerShot;
+
+     [SerializeField] public bool isPirate;
 	
 	public const float baseSpeed = 1f;
 
@@ -30,9 +32,12 @@ public class WanderingAI : MonoBehaviour {
     private float obstacleRange = 3.5f;
 	
 	public bool _alive;
+
+    public float timeBetweenshot;
 	private int _animState;
 	private float _multiplier;
 
+    public int health;
 
     bool waiting;
 
@@ -50,6 +55,14 @@ public class WanderingAI : MonoBehaviour {
     float beingLooted = 0;
 
     private ScoreController _scoreController;
+
+    public int getHealth(){
+        return health;
+    }
+
+    public void looseHealth(int h){
+        health = health - h;
+    }
 
 	void Start() {
 		_alive = true;
@@ -101,7 +114,7 @@ public class WanderingAI : MonoBehaviour {
             }
             else if(range <= closeToPlayer && !waiting){ //on screen so have wander
                 _multiplier = 4f; 
-                if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting() )){
+                if(range <= visibility && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting() || isPirate )){
                     if(!playerCaught) playerCaught = true;
                     
                     transform.rotation = Quaternion.LookRotation( Vector3.forward, diff);
@@ -132,7 +145,7 @@ public class WanderingAI : MonoBehaviour {
             }
             else {
 				//normal distance away, let wander
-                if(range <= visibility && !running && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting() )){
+                if(range <= visibility && !running && !isPirate && (playerObject.GetComponent<PlayerMovement>().isBoost() || playerCaught || playerObject.GetComponent<PlayerMovement>().isLooting() )){
                     if (siren != null) siren.TurnOn();
                     playerCaught = true;
                 }
@@ -199,14 +212,14 @@ public class WanderingAI : MonoBehaviour {
                 GameObject hitObject = hit.transform.gameObject;
 			 	if (hitObject.GetComponent<PlayerMovement>()) {
                      if(!running && hitObject.GetComponent<PlayerMovement>().alive && playerCaught){
-                         if (siren != null) siren.TurnOn();
+                         if (siren != null && !isPirate) siren.TurnOn();
                         // if(hit.distance < 0.05f){
                         //     hitObject.GetComponent<PlayerHealth>().Die();
                         //     Debug.Log("caught charcter");
                         //     chasing = false;
                         // }
                         //else{ //shoot at player
-                            if(reloadTime >= 20){
+                            if(reloadTime >= timeBetweenshot){
                                 reloadTime = 0;
                                 AudioSource.PlayClipAtPoint (lazerShot, Camera.main.transform.position);
                                 Instantiate(lazer, 
