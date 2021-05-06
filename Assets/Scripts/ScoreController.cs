@@ -20,6 +20,11 @@ public class ScoreController : MonoBehaviour {
         _hud.SetScore(_score);
         RunStats.Current.Score += val;
     }
+
+    public int GetScore()
+    {
+        return _score;
+    }
     
     public void SubScore(int val)
     {

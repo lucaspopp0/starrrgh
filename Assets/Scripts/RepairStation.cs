@@ -48,7 +48,7 @@ public class RepairStation : MonoBehaviour
         if (other.gameObject.tag == "Player" && isRepairing)
         {
             PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-            if (playerHealth.GetHealth() < PlayerHealth.MAX_HEALTH && timer >= 1)
+            if (playerHealth.GetHealth() < PlayerHealth.MAX_HEALTH && timer >= 1 && _scoreController.GetScore() > 0)
             {
                 timer = 0;
                 _scoreController.SubScore(25);

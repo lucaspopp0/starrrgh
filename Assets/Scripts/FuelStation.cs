@@ -46,7 +46,7 @@ public class FuelStation : MonoBehaviour
         if (other.gameObject.tag == "Player" && isFueling)
         {
             PlayerFuel playerFuel = other.gameObject.GetComponent<PlayerFuel>();
-            if (playerFuel.GetFuel() < playerFuel.GetMaxFuel())
+            if (playerFuel.GetFuel() < playerFuel.GetMaxFuel() && _scoreController.GetScore() > 0)
             {
                 _scoreController.SubScore(1);
                 playerFuel.AddFuel(fuelingRate * Time.deltaTime);
