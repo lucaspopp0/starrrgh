@@ -5,7 +5,7 @@ using UnityEngine;
 public class ReactiveTarget : MonoBehaviour
 {
     // Start is called before the first frame update	
-	public ParticleSystem deathEffect;
+	public GameObject deathEffect;
 
 	void Start(){
 
@@ -24,11 +24,11 @@ public class ReactiveTarget : MonoBehaviour
 	private IEnumerator Die() {
 		// this.transform.Rotate(-75, 0, 0);
 		// anim.SetInteger("zombieToState", 2);
-		Destroy(this.gameObject.GetComponent<Collider>());
-		Destroy(Instantiate(deathEffect.gameObject,transform.position,Quaternion.identity) as GameObject,deathEffect.startLifetime);
 
-		yield return new WaitForSeconds(0.1f);
-		
+		var explosion = Instantiate(deathEffect, transform.position, Quaternion.identity);
+		Destroy(explosion, 4f);
+		yield return null;
+		Destroy(this.gameObject.GetComponent<Collider>());
 		Destroy(this.gameObject);
 	}
 }
