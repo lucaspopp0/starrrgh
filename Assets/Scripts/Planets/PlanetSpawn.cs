@@ -7,6 +7,7 @@ public class PlanetSpawn : MonoBehaviour
     [SerializeField] private float minSpawnRadius = 10.0f;
     [SerializeField] private int numObjects = 10;
     [SerializeField] private GameObject player;
+    [SerializeField] private Camera camera;
 
     [SerializeField] private WeightedItem[] prefabs;
 
@@ -76,6 +77,7 @@ public class PlanetSpawn : MonoBehaviour
         updateWeights(prefabs);
         GameObject[] cachedPlanets = new GameObject[spawnedObjects.Count];
         spawnedObjects.CopyTo(cachedPlanets);
+        Vector3 vel = player.GetComponent<PlayerMovement>().getVelocity().normalized;
         //Check if planets are still within spawn distance of the ship
         for (int i = 0; i < cachedPlanets.Length; i++)
         {
@@ -85,7 +87,7 @@ public class PlanetSpawn : MonoBehaviour
             //Simplify all this logic later
             if (radius.magnitude >= maxSpawnRadius)
             {
-                Vector3 v = Quaternion.AngleAxis(Random.Range(-45, 45), player.transform.forward) * (player.transform.up * (maxSpawnRadius - 0.1f * maxSpawnRadius) + player.transform.position);
+                Vector3 v = Quaternion.AngleAxis(Random.Range(-45, 45), player.transform.forward) * (vel * (maxSpawnRadius - 0.1f * maxSpawnRadius) + player.transform.position);
                 bool canSpawn = true;
                 //This is very inefficient, if we run into some performance issues, should probably try and fix this
                 //This loop just checks all the stored features to see if the desired object can be spawned
@@ -96,6 +98,10 @@ public class PlanetSpawn : MonoBehaviour
                     {
                         canSpawn = false;
                     }
+                }
+                if(vel.magnitude == 0 && !isInsideCamera(v))
+                {
+                    canSpawn = false;
                 }
                 //If there is space to spawn a thing, delete the feature p and create a new feature at v
                 if (canSpawn)
@@ -207,5 +213,13 @@ public class PlanetSpawn : MonoBehaviour
     private float decayFunc(float t, float a, float w)
     {
         return w / (1 + a * Mathf.Pow(t, 4));
+    }
+
+    private bool isInsideCamera(Vector3 v)
+    {
+        Vector3 viewPos = camera.WorldToViewportPoint(v);
+        bool inX = viewPos.x >= 0 && viewPos.x <= 1;
+        bool inY = viewPos.y >= 0 && viewPos.y <= 1;
+        return !inX && !inY;
     }
 }
