@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour {
     private int _health;
     public static int MAX_HEALTH = 1000;
     private bool _shielded = false;
-    private float _shieldTimer = 0f;
+    private float _shieldImmunityTimer = 0f;
     private static float MAX_SHIELD_TIME = 3f;
     
     [SerializeField] private GameObject explosionEffect;
@@ -31,14 +31,14 @@ public class PlayerHealth : MonoBehaviour {
     }
 
 	void Update(){
-		if(_health == 0){
+		if(_health <= 0){
 			Die();
+			_health = 0;
 		}
 
-		if (_shieldTimer > 0) {
-			_shieldTimer -= Time.deltaTime;
-		} else if (_shielded) {
-			_shielded = false;
+		if (_shieldImmunityTimer > 0) {
+			_shieldImmunityTimer -= Time.deltaTime;
+		} else if (!_shielded) {
 			shieldEffect.SetActive(false);
 		}
 	}
@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour {
 	}
 
 	public void Die() {
-		if (!_shielded && _shieldTimer <= 0) {
+		if (!_shielded && _shieldImmunityTimer <= 0) {
 			RunStats.Current.DamageTaken += _health / (float)MAX_HEALTH;
 			_health = 0;
 			_hud.healthBar.SetNormalizedValue(0);
@@ -94,7 +94,7 @@ public class PlayerHealth : MonoBehaviour {
 
 	void startShieldTimer()
 	{
-		_shieldTimer = MAX_SHIELD_TIME;
+		_shieldImmunityTimer = MAX_SHIELD_TIME;
 	}
 
 	public int GetHealth()
