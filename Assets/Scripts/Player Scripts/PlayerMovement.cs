@@ -71,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
 
     private ScoreController _scoreController;
 
+    public Vector2 getVelocity()
+    {
+        return velocity;
+    }
+
     public bool isBoost(){
         return boost;
     }
