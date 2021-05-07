@@ -76,6 +76,7 @@ public class PlanetSpawn : MonoBehaviour
         updateWeights(prefabs);
         GameObject[] cachedPlanets = new GameObject[spawnedObjects.Count];
         spawnedObjects.CopyTo(cachedPlanets);
+        Vector3 vel = player.GetComponent<PlayerMovement>().getVelocity().normalized;
         //Check if planets are still within spawn distance of the ship
         for (int i = 0; i < cachedPlanets.Length; i++)
         {
@@ -85,7 +86,7 @@ public class PlanetSpawn : MonoBehaviour
             //Simplify all this logic later
             if (radius.magnitude >= maxSpawnRadius)
             {
-                Vector3 v = Quaternion.AngleAxis(Random.Range(-45, 45), player.transform.forward) * (player.transform.up * (maxSpawnRadius - 0.1f * maxSpawnRadius) + player.transform.position);
+                Vector3 v = Quaternion.AngleAxis(Random.Range(-45, 45), player.transform.forward) * (vel * (maxSpawnRadius - 0.1f * maxSpawnRadius) + player.transform.position);
                 bool canSpawn = true;
                 //This is very inefficient, if we run into some performance issues, should probably try and fix this
                 //This loop just checks all the stored features to see if the desired object can be spawned
@@ -96,6 +97,10 @@ public class PlanetSpawn : MonoBehaviour
                     {
                         canSpawn = false;
                     }
+                }
+                if(vel.magnitude == 0)
+                {
+                    canSpawn = false;
                 }
                 //If there is space to spawn a thing, delete the feature p and create a new feature at v
                 if (canSpawn)
