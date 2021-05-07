@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour {
     public static int MAX_HEALTH = 1000;
     private bool _shielded = false;
     private float _shieldImmunityTimer = 0f;
-    private static float MAX_SHIELD_TIME = 3f;
+    private static float MAX_SHIELD_IMMUNITY_TIME = 3f;
     
     [SerializeField] private GameObject explosionEffect;
 
@@ -94,7 +94,7 @@ public class PlayerHealth : MonoBehaviour {
 
 	void startShieldTimer()
 	{
-		_shieldImmunityTimer = MAX_SHIELD_TIME;
+		_shieldImmunityTimer = MAX_SHIELD_IMMUNITY_TIME;
 	}
 
 	public int GetHealth()
