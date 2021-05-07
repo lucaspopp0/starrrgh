@@ -7,6 +7,7 @@ public class PlanetSpawn : MonoBehaviour
     [SerializeField] private float minSpawnRadius = 10.0f;
     [SerializeField] private int numObjects = 10;
     [SerializeField] private GameObject player;
+    [SerializeField] private Camera camera;
 
     [SerializeField] private WeightedItem[] prefabs;
 
@@ -98,7 +99,7 @@ public class PlanetSpawn : MonoBehaviour
                         canSpawn = false;
                     }
                 }
-                if(vel.magnitude == 0)
+                if(vel.magnitude == 0 && !isInsideCamera(v))
                 {
                     canSpawn = false;
                 }
@@ -212,5 +213,13 @@ public class PlanetSpawn : MonoBehaviour
     private float decayFunc(float t, float a, float w)
     {
         return w / (1 + a * Mathf.Pow(t, 4));
+    }
+
+    private bool isInsideCamera(Vector3 v)
+    {
+        Vector3 viewPos = camera.WorldToViewportPoint(v);
+        bool inX = viewPos.x >= 0 && viewPos.x <= 1;
+        bool inY = viewPos.y >= 0 && viewPos.y <= 1;
+        return !inX && !inY;
     }
 }
