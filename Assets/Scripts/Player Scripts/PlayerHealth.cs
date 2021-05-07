@@ -9,13 +9,15 @@ public class PlayerHealth : MonoBehaviour {
 	[SerializeField] private SpriteRenderer shipSpriteRenderer;
 	[SerializeField] private AudioSource hurtSound;
 	[SerializeField] private TextPopup textPopup;
+	[SerializeField] private GameObject shieldEffect;
+	[SerializeField] private ParticleSystem healthEffect;
 		
 	private Hud _hud;
     private int _health;
     public static int MAX_HEALTH = 1000;
     private bool _shielded = false;
-    private float _shieldTimer = 0f;
-    private static float MAX_SHIELD_TIME = 3f;
+    private float _shieldImmunityTimer = 0f;
+    private static float MAX_SHIELD_IMMUNITY_TIME = 3f;
     
     [SerializeField] private GameObject explosionEffect;
 
@@ -29,37 +31,41 @@ public class PlayerHealth : MonoBehaviour {
     }
 
 	void Update(){
-		if(_health == 0){
+		if(_health <= 0){
 			Die();
+			_health = 0;
 		}
 
-		if (_shieldTimer > 0)
-		{
-			_shieldTimer -= Time.deltaTime;
+		if (_shieldImmunityTimer > 0) {
+			_shieldImmunityTimer -= Time.deltaTime;
+		} else if (!_shielded) {
+			shieldEffect.SetActive(false);
 		}
 	}
 
 	public void Hurt(int damage) {
-		var percent = damage / (float) MAX_HEALTH;
-		_health -= damage;
-		_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
-		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
-		hurtSound.Play();
-		RunStats.Current.DamageTaken += percent;
-		textPopup.DisplayPopup($"-{damage / (float) MAX_HEALTH * 100f}% HEALTH", Color.red);
+		if (!_shielded) {
+			var percent = damage / (float) MAX_HEALTH;
+			_health -= damage;
+			_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
+			shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
+			hurtSound.Play();
+			RunStats.Current.DamageTaken += percent;
+			textPopup.DisplayPopup($"-{damage / (float) MAX_HEALTH * 100f}% HEALTH", Color.red);
+		}
 	}
 
 	public void Heal(int amount)
 	{
-		var percent = amount / (float) MAX_HEALTH;
 		_health += amount;
 		_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
 		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 		textPopup.DisplayPopup($"+{amount / (float) MAX_HEALTH * 100f}% HEALTH", Color.green);
+		healthEffect.Play();
 	}
 
 	public void Die() {
-		if (!_shielded && _shieldTimer <= 0) {
+		if (!_shielded && _shieldImmunityTimer <= 0) {
 			RunStats.Current.DamageTaken += _health / (float)MAX_HEALTH;
 			_health = 0;
 			_hud.healthBar.SetNormalizedValue(0);
@@ -78,12 +84,17 @@ public class PlayerHealth : MonoBehaviour {
 
 	public void setShield(bool val)
 	{
+		if (!_shielded && val) {
+			shieldEffect.SetActive(true);
+			startShieldTimer();
+		}
+		
 		_shielded = val;
 	}
 
 	void startShieldTimer()
 	{
-		_shieldTimer = MAX_SHIELD_TIME;
+		_shieldImmunityTimer = MAX_SHIELD_IMMUNITY_TIME;
 	}
 
 	public int GetHealth()

@@ -8,6 +8,10 @@ public class Thruster : MonoBehaviour {
 
     [SerializeField] private ParticleSystem forwardParticles;
     [SerializeField] private ParticleSystem reverseParticles;
+
+    [SerializeField] private float minSpeed = 0.3f;
+    [SerializeField] private float maxSpeed = 0.4f;
+    [SerializeField] private float maxEmission = 200f;
     
     private AudioSource _as;
     private float _intensity; // 0-1
@@ -33,10 +37,10 @@ public class Thruster : MonoBehaviour {
         if (_hasForwardParticles) {
             if (intensity > 0f) {
                 var main = forwardParticles.main;
-                main.startSpeed = new ParticleSystem.MinMaxCurve(0.3f * intensity, 0.4f * intensity);
+                main.startSpeed = new ParticleSystem.MinMaxCurve(minSpeed * intensity, maxSpeed * intensity);
 
                 var emission = forwardParticles.emission;
-                emission.rateOverTime = 200f * intensity;
+                emission.rateOverTime = maxEmission * intensity;
             } else {
                 var emission = forwardParticles.emission;
                 emission.rateOverTime = 0f;
@@ -49,7 +53,7 @@ public class Thruster : MonoBehaviour {
                 main.startColor = new Color(1f, 1f, 1f, -intensity);
 
                 var emission = reverseParticles.emission;
-                emission.rateOverTime = 200f * -intensity;
+                emission.rateOverTime = maxEmission * -intensity;
             } else {
                 var emission = reverseParticles.emission;
                 emission.rateOverTime = 0f;

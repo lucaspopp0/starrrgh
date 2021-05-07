@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Thruster _rightThruster;
     [SerializeField] private AudioSource _powerupSound;
     [SerializeField] private BoostEffect boostEffect;
+    [SerializeField] private ParticleSystem speedEffect;
     [SerializeField] private SpriteRenderer dashIndicator;
 
     private Vector2 _lastUsableVelocity;
@@ -256,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
         if (speedUpTimer <= 0)
         {
             propulsionCoeff = 1;
+            speedEffect.Stop();
         }
     }
 
@@ -368,6 +370,7 @@ public class PlayerMovement : MonoBehaviour
         propulsionCoeff = coeff;
         speedup_duration = duration;
         startSpeedUpTimer();
+        speedEffect.Play();
     }
 
     void startSpeedUpTimer()
