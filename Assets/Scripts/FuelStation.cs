@@ -41,10 +41,10 @@ public class FuelStation : MonoBehaviour {
         } else {
             stationUI.gameObject.SetActive(true);
 
-            if (playerFuel.GetFuel() < playerFuel._maxFuelTime && _scoreController.GetScore() >= FUEL_COST) {
+            if (playerFuel.GetFuel() < playerFuel.GetMaxFuel() && _scoreController.GetScore() >= FUEL_COST) {
                 stationUI.slider.gameObject.SetActive(true);
                 stationUI.slider.normalizedValue = (baseWaitTime - waitBeforeFueling) / baseWaitTime;
-                stationUI.priceText.text = $"{FUEL_COST} loot = {fuelingRate * 100 / playerFuel._maxFuelTime}% fuel";
+                stationUI.priceText.text = $"{FUEL_COST} loot = {fuelingRate * 100 / playerFuel.GetMaxFuel()}% fuel";
             } else {
                 stationUI.slider.gameObject.SetActive(false);
                 stationUI.priceText.text = _scoreController.GetScore() < FUEL_COST ? "Need more loot" : "All fueled up!";
@@ -71,7 +71,15 @@ public class FuelStation : MonoBehaviour {
                 BeginWait();
                 isFueling = false;
                 _scoreController.SubScore(FUEL_COST);
-                playerFuel.AddFuel(fuelingRate);
+                
+                if (playerFuel._maxFuelTime - playerFuel.GetFuel() < 40)
+                {
+                    playerFuel.AddFuel(playerFuel.GetMaxFuel() - playerFuel.GetFuel());
+                }
+                else
+                {
+                    playerFuel.AddFuel(fuelingRate);
+                }
             }
             UpdateUI(playerFuel);
         }    
