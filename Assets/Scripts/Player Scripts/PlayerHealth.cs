@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour {
 	[SerializeField] private Gradient damageColorGradient;
 	[SerializeField] private SpriteRenderer shipSpriteRenderer;
 	[SerializeField] private AudioSource hurtSound;
+	[SerializeField] private TextPopup textPopup;
 		
 	private Hud _hud;
     private int _health;
@@ -39,18 +40,22 @@ public class PlayerHealth : MonoBehaviour {
 	}
 
 	public void Hurt(int damage) {
+		var percent = damage / (float) MAX_HEALTH;
 		_health -= damage;
-		_hud.healthBar.SetNormalizedValue(_health / (float)MAX_HEALTH);
+		_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
 		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 		hurtSound.Play();
-		RunStats.Current.DamageTaken += damage / (float)MAX_HEALTH;
+		RunStats.Current.DamageTaken += percent;
+		textPopup.DisplayPopup($"-{damage / (float) MAX_HEALTH * 100f} HEALTH", Color.red);
 	}
 
 	public void Heal(int amount)
 	{
+		var percent = amount / (float) MAX_HEALTH;
 		_health += amount;
-		_hud.healthBar.SetNormalizedValue(_health /(float)MAX_HEALTH);
+		_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
 		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
+		textPopup.DisplayPopup($"+{amount / (float) MAX_HEALTH * 100f}% HEALTH", Color.green);
 	}
 
 	public void Die() {

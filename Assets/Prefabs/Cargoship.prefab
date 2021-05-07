@@ -868,7 +868,6 @@ MonoBehaviour:
     type: 3}
   raidedSprite: {fileID: 5910598453246730488, guid: cf177f0187e9047eba23c57d915d43af,
     type: 3}
-  lootCanvas: {fileID: 1650301620010192412}
   canLootPopup: {fileID: 8845811009243306572}
   lootingPopup: {fileID: 2633530537407056877}
   lootProgress: {fileID: 6635683264337744781}
@@ -884,6 +883,7 @@ GameObject:
   - component: {fileID: 1650301620010192412}
   - component: {fileID: 5660576366932348390}
   - component: {fileID: 6364848517589339257}
+  - component: {fileID: 4087928754314464451}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -972,6 +972,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4087928754314464451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217501063619357880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e24acdd887044bf857a509921dfa4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7244653835943043867
 GameObject:
   m_ObjectHideFlags: 0

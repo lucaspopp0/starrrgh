@@ -7,6 +7,7 @@ public class PlayerPowerup : MonoBehaviour
 {
     private Hud _hud;
     [SerializeField] private AudioSource _powerupSound;
+    [SerializeField] private TextPopup textPopup;
 
     private int bombAmountToAdd = 0;
     private int currentBombAmount = 0;
@@ -32,20 +33,25 @@ public class PlayerPowerup : MonoBehaviour
             case Hud.PowerupId.Bomb:
                 powerUpAmounts[(int) Hud.PowerupId.Bomb]++;
                 bombAmountToAdd = (int)value;
+                textPopup.DisplayPopup($"+{(int)value} BOMBS", Color.cyan, 1.5f);
                 break;
             case Hud.PowerupId.Fuel:
                 powerUpAmounts[(int) Hud.PowerupId.Fuel]++;
                 infiniteFuelTime = value;
+                textPopup.DisplayPopup($"+1 INFINITE FUEL POWERUP", Color.cyan, 1.5f);
                 break;
             case Hud.PowerupId.Health:
                 powerUpAmounts[(int) Hud.PowerupId.Health]++;
                 healAmount = (int)value;
+                textPopup.DisplayPopup("+1 HEALTH POWERUP", Color.cyan, 1.5f);
                 break;
             case Hud.PowerupId.Shield:
                 powerUpAmounts[(int) Hud.PowerupId.Shield]++;
+                textPopup.DisplayPopup($"+1 SHIELD POWERUP", Color.cyan, 1.5f);
                 break;
             case Hud.PowerupId.Speed:
                 powerUpAmounts[(int) Hud.PowerupId.Speed]++;
+                textPopup.DisplayPopup($"+1 SPEED BOOST", Color.cyan, 1.5f);
                 speedCoeff = value;
                 break;
         }

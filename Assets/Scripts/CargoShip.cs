@@ -10,7 +10,6 @@ public class CargoShip: MonoBehaviour {
     [SerializeField] private Sprite normalSprite;
     [SerializeField] private Sprite raidedSprite;
 
-    [SerializeField] private Canvas lootCanvas;
     [SerializeField] private GameObject canLootPopup;
     [SerializeField] private GameObject lootingPopup;
     [SerializeField] private Slider lootProgress;
@@ -19,10 +18,6 @@ public class CargoShip: MonoBehaviour {
         canLootPopup.SetActive(false);
         lootingPopup.SetActive(false);
         lootProgress.normalizedValue = 0f;
-    }
-
-    private void LateUpdate() {
-        lootCanvas.transform.rotation = Quaternion.identity;
     }
 
     public void RaidComplete() {
