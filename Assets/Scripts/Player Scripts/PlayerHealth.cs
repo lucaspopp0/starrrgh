@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour {
 	[SerializeField] private SpriteRenderer shipSpriteRenderer;
 	[SerializeField] private AudioSource hurtSound;
 	[SerializeField] private TextPopup textPopup;
+	[SerializeField] private GameObject shieldEffect;
+	[SerializeField] private ParticleSystem healthEffect;
 		
 	private Hud _hud;
     private int _health;
@@ -33,29 +35,33 @@ public class PlayerHealth : MonoBehaviour {
 			Die();
 		}
 
-		if (_shieldTimer > 0)
-		{
+		if (_shieldTimer > 0) {
 			_shieldTimer -= Time.deltaTime;
+		} else if (_shielded) {
+			_shielded = false;
+			shieldEffect.SetActive(false);
 		}
 	}
 
 	public void Hurt(int damage) {
-		var percent = damage / (float) MAX_HEALTH;
-		_health -= damage;
-		_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
-		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
-		hurtSound.Play();
-		RunStats.Current.DamageTaken += percent;
-		textPopup.DisplayPopup($"-{damage / (float) MAX_HEALTH * 100f}% HEALTH", Color.red);
+		if (!_shielded) {
+			var percent = damage / (float) MAX_HEALTH;
+			_health -= damage;
+			_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
+			shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
+			hurtSound.Play();
+			RunStats.Current.DamageTaken += percent;
+			textPopup.DisplayPopup($"-{damage / (float) MAX_HEALTH * 100f}% HEALTH", Color.red);
+		}
 	}
 
 	public void Heal(int amount)
 	{
-		var percent = amount / (float) MAX_HEALTH;
 		_health += amount;
 		_hud.healthBar.SetNormalizedValue(_health / (float) MAX_HEALTH);
 		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 		textPopup.DisplayPopup($"+{amount / (float) MAX_HEALTH * 100f}% HEALTH", Color.green);
+		healthEffect.Play();
 	}
 
 	public void Die() {
@@ -78,6 +84,11 @@ public class PlayerHealth : MonoBehaviour {
 
 	public void setShield(bool val)
 	{
+		if (!_shielded && val) {
+			shieldEffect.SetActive(true);
+			startShieldTimer();
+		}
+		
 		_shielded = val;
 	}
 

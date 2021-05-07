@@ -14558,6 +14558,7 @@ MonoBehaviour:
   _rightThruster: {fileID: 1202698593066948252}
   _powerupSound: {fileID: 3352196136746648195}
   boostEffect: {fileID: 6412579697534259283}
+  speedEffect: {fileID: 7458976444120804824}
   dashIndicator: {fileID: 1167636781069004038}
   planetList: []
   G: 2
@@ -14707,6 +14708,8 @@ MonoBehaviour:
   shipSpriteRenderer: {fileID: 1816661792698912972}
   hurtSound: {fileID: 9063537511065453753}
   textPopup: {fileID: 6862522977580526068}
+  shieldEffect: {fileID: 7026894099744553747}
+  healthEffect: {fileID: 1358377650319398870}
   explosionEffect: {fileID: 1622844654203419309}
 --- !u!114 &2208976258412743770
 MonoBehaviour:
@@ -29982,7 +29985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &109024150943990211
 Transform:
   m_ObjectHideFlags: 0
