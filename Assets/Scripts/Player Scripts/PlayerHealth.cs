@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour {
 		shipSpriteRenderer.color = damageColorGradient.Evaluate(1f - _health / (float) MAX_HEALTH);
 		hurtSound.Play();
 		RunStats.Current.DamageTaken += percent;
-		textPopup.DisplayPopup($"-{damage / (float) MAX_HEALTH * 100f} HEALTH", Color.red);
+		textPopup.DisplayPopup($"-{damage / (float) MAX_HEALTH * 100f}% HEALTH", Color.red);
 	}
 
 	public void Heal(int amount)

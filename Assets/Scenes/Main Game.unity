@@ -171,7 +171,7 @@ PrefabInstance:
     - target: {fileID: 461544044461501294, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 480
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 461544044461501294, guid: c50487bf2035541af93635db9eb841c8,
         type: 3}
@@ -2198,6 +2198,16 @@ PrefabInstance:
       propertyPath: _scoreController
       value: 
       objectReference: {fileID: 1668146571}
+    - target: {fileID: 8033619011305699792, guid: cbe94e02e4257e34094da2c4474c4903,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8033619011305699792, guid: cbe94e02e4257e34094da2c4474c4903,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbe94e02e4257e34094da2c4474c4903, type: 3}
 --- !u!1001 &2518491091259087130
