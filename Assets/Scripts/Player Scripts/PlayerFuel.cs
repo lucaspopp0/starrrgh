@@ -13,7 +13,7 @@ public class PlayerFuel : MonoBehaviour
     [SerializeField] private float _dashFuelConsumption;
 
     //The max amount of fuel that can be used (in seconds)
-    [SerializeField] private float _maxFuelTime;
+    [SerializeField] public float _maxFuelTime;
     private PlayerMovement _movement;
 
     private float _infiniteFuelTimer = 0f;
