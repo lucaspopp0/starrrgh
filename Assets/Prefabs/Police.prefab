@@ -303,8 +303,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad0c4e275193437caf3211e46e6a5188, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   redLight: {fileID: 196866705892684830}
   blueLight: {fileID: 4484113687056924736}
 --- !u!82 &7676895832391151047
@@ -678,8 +678,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f8f2282857e92e478bf6e8a37f82f2f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   _leftThrust: {fileID: 4723473302513559758}
   _rightThrust: {fileID: 6810888352628361960}
   siren: {fileID: 1776671905176360552}
@@ -691,6 +691,7 @@ MonoBehaviour:
   maxDistance: 45
   closeToPlayer: 25
   tooClose: 2
+  _alive: 0
 --- !u!114 &8423486959968295631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,9 +702,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6299e964c16616b419be968d3be867e4, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  deathEffect: {fileID: 8084579502289631458, guid: 707da78b9d33ab94aa85ac36249a691b,
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 6888189898680859408, guid: 94aebece49ccc4712aab08005135a625,
     type: 3}
 --- !u!114 &8318950408401395539
 MonoBehaviour:
@@ -715,8 +716,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d88344c201724df3bb8c0cd2e28c50b0, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   normalSprite: {fileID: -2717832465410499228, guid: 8a59973c3cc49461999b09646b5c457a,
     type: 3}
   semiDamagedSprite: {fileID: 5910598453246730488, guid: 8a59973c3cc49461999b09646b5c457a,
@@ -808,8 +809,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42ab8f98a0979405c809a11613591598, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1354063415541994348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -901,5 +902,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42ab8f98a0979405c809a11613591598, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
