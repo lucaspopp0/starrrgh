@@ -11,8 +11,11 @@ public class FuelStation : MonoBehaviour
     private bool isFueling = false;
     [SerializeField] private float fuelingRate = 2.5f;//What how many seconds of fuel is restored per second
 
+    private ScoreController _scoreController;
+
     private void Start()
     {
+        _scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
         waitBeforeFueling = baseWaitTime;
     }
 
@@ -43,8 +46,9 @@ public class FuelStation : MonoBehaviour
         if (other.gameObject.tag == "Player" && isFueling)
         {
             PlayerFuel playerFuel = other.gameObject.GetComponent<PlayerFuel>();
-            if (playerFuel.GetFuel() < playerFuel.GetMaxFuel())
+            if (playerFuel.GetFuel() < playerFuel.GetMaxFuel() && _scoreController.GetScore() > 0)
             {
+                _scoreController.SubScore(1);
                 playerFuel.AddFuel(fuelingRate * Time.deltaTime);
 
             }
