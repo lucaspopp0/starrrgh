@@ -219,8 +219,8 @@ public class WanderingAI : MonoBehaviour {
                         //}
                      }
 			 	}
-                else if(hitObject.GetComponent<EnemyLazer>()){
-                    Debug.Log("saw lazer, ignored");
+                else if(hitObject.GetComponent<EnemyLazer>() || hitObject.GetComponent<RepairStation>() ||hitObject.GetComponent<FuelStation>()){
+                    Debug.Log("saw collier that should be ignored");
                 }
                 else
                 {
@@ -234,7 +234,7 @@ public class WanderingAI : MonoBehaviour {
                           else{
                              transform.Rotate(0,0,-10);
                          }
-                        waitFor = 400f* Time.deltaTime;
+                        waitFor = 200f* Time.deltaTime;
                         waiting = true;
                         //extraTurn = true;
                      }
