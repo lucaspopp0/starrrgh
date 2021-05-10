@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6299e964c16616b419be968d3be867e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathEffect: {fileID: 8084579502289631458, guid: 707da78b9d33ab94aa85ac36249a691b,
+  deathEffect: {fileID: 864544754331858530, guid: 8608b1049a9c245f8b33a9f917603d6b,
     type: 3}
 --- !u!114 &8318950408401395539
 MonoBehaviour:
