@@ -64,7 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 200 loot = 50% health
+  m_text: All healed!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce47def563006407893e67ff61dcce4b, type: 2}
   m_sharedMaterial: {fileID: 4630840016140229488, guid: ce47def563006407893e67ff61dcce4b,
@@ -435,7 +435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5210930951107082485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -503,7 +503,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.374
+  m_Value: 0.12829022
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
