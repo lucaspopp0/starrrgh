@@ -69,6 +69,11 @@ public class PlayerFuel : MonoBehaviour
 
     }
 
+    public float GetCurrentFuelTime()
+    {
+        return _currentFuelTime;
+    }
+
     public void InfiniteFuel(float timer)
     {
         _infiniteFuelTimer = timer;

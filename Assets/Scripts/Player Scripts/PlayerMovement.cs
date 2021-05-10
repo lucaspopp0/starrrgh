@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private float speedup_duration = 5f;
     private float propulsionCoeff = 1f;
     private float speedUpTimer = 0f;
+    private PlayerFuel _fuel;
 
     private float _minBoost = 0.05f;
     private float _maxBoost = 0.2f;
@@ -97,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
         {
             planets.Add(p);
         }
+
+        _fuel = gameObject.GetComponent<PlayerFuel>();
         velocity = Vector2.zero;
         _scoreController = GameObject.Find("Score Controller").GetComponent<ScoreController>();
     }
@@ -225,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
                     //Should we add gravity to this? Or is that too much
                     totalForce = -(velocity.normalized) * stoppingForce;
                 }
-                else if(Input.GetKey(KeyCode.L) ){
+                else if(Input.GetKey(KeyCode.L) && _fuel.GetFuel() > 0){
                     totalForce = -(velocity.normalized) * stoppingForce;
                 }
                 //Otherwise, calculate gravity and propulsion like normal
