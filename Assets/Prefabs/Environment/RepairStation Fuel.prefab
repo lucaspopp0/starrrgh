@@ -117,6 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseWaitTime: 2
   repairRate: 50
+  stationUI: {fileID: 7006030717027336140, guid: 4e1024563dbb94c0a81f750c44481bc8,
+    type: 3}
 --- !u!1 &6589608975275675701
 GameObject:
   m_ObjectHideFlags: 0

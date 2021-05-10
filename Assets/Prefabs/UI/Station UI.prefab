@@ -920,12 +920,12 @@ GameObject:
   - component: {fileID: 1111297786318249193}
   - component: {fileID: 7006030717027336140}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: Station UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5148044402120467495
 RectTransform:
   m_ObjectHideFlags: 0
