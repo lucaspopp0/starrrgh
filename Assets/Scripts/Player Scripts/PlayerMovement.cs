@@ -167,13 +167,17 @@ public class PlayerMovement : MonoBehaviour
 
                         if (ai != null && ai._alive) {
                             var isCargoship = ai.running;
-                            hitObject.GetComponent<ReactiveTarget>().ReactToHit();
+                            ai.looseHealth(1);
+                            if(ai.getHealth() <= 0){
+                                hitObject.GetComponent<ReactiveTarget>().ReactToHit();
 
-                            if (isCargoship) _scoreController.AddScore(200);
-                            else _scoreController.AddScore(50);
+                                if (isCargoship) _scoreController.AddScore(200);
+                                else if (ai.isPirate) _scoreController.AddScore(500);
+                                else _scoreController.AddScore(50);
 
-                            if (isCargoship) RunStats.Current.CargoShipsDestroyed++;
-                            else RunStats.Current.PoliceShipsDestroyed++;
+                                if (isCargoship) RunStats.Current.CargoShipsDestroyed++;
+                                else RunStats.Current.PoliceShipsDestroyed++;
+                            }
                         }
                     }
                 }

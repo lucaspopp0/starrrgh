@@ -107,7 +107,7 @@ Transform:
   m_GameObject: {fileID: 1515892795481814324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 8423486959968295624}
   m_RootOrder: 2
@@ -151,12 +151,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1ce401b25cfcf4866b8dda9c3256d08d, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1c0ef63b21f3ae44cb08a19e5ccb4cec, type: 3}
+  m_Color: {r: 1, g: 0, b: 0.020209312, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 1.7933333}
+  m_Size: {x: 6, y: 6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -303,8 +303,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad0c4e275193437caf3211e46e6a5188, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   redLight: {fileID: 196866705892684830}
   blueLight: {fileID: 4484113687056924736}
 --- !u!82 &7676895832391151047
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 8423486959968295631}
   - component: {fileID: 8318950408401395539}
   m_Layer: 0
-  m_Name: Police
+  m_Name: Pirate
   m_TagString: Police
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,7 +515,7 @@ Transform:
   m_GameObject: {fileID: 8423486959968295620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 1372539660038720821}
   - {fileID: 865881503565917971}
@@ -678,14 +678,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f8f2282857e92e478bf6e8a37f82f2f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   _leftThrust: {fileID: 4723473302513559758}
   _rightThrust: {fileID: 6810888352628361960}
   siren: {fileID: 1776671905176360552}
   lazer: {fileID: 4624816897462325054, guid: ef19b8c756a765c418ed53b5ff650111, type: 3}
   lazerShot: {fileID: 8300000, guid: 8c0e40659be10439d82c72215e239ed4, type: 3}
-  isPirate: 0
+  isPirate: 1
   speed: 1
   running: 0
   visibility: 8
@@ -693,8 +693,8 @@ MonoBehaviour:
   closeToPlayer: 25
   tooClose: 2
   _alive: 0
-  timeBetweenshot: 20
-  health: 1
+  timeBetweenshot: 50
+  health: 2
 --- !u!114 &8423486959968295631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,9 +705,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6299e964c16616b419be968d3be867e4, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  deathEffect: {fileID: 864544754331858530, guid: 8608b1049a9c245f8b33a9f917603d6b,
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 8084579502289631458, guid: 707da78b9d33ab94aa85ac36249a691b,
     type: 3}
 --- !u!114 &8318950408401395539
 MonoBehaviour:
@@ -719,11 +719,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d88344c201724df3bb8c0cd2e28c50b0, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  normalSprite: {fileID: -2717832465410499228, guid: 8a59973c3cc49461999b09646b5c457a,
-    type: 3}
-  semiDamagedSprite: {fileID: 5910598453246730488, guid: 8a59973c3cc49461999b09646b5c457a,
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalSprite: {fileID: 21300000, guid: 3456678ab251348f1ac01c8ebabbd910, type: 3}
+  semiDamagedSprite: {fileID: -4591477558164741163, guid: 8a59973c3cc49461999b09646b5c457a,
     type: 3}
   veryDamagedSprite: {fileID: -4591477558164741163, guid: 8a59973c3cc49461999b09646b5c457a,
     type: 3}
@@ -742,12 +741,12 @@ PrefabInstance:
     - target: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.06
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.31
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
         type: 3}
@@ -812,8 +811,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42ab8f98a0979405c809a11613591598, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1354063415541994348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -829,12 +828,12 @@ PrefabInstance:
     - target: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.31
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 127970014799453785, guid: ca3a5189fcb1842d99aea28a7e82ee44,
         type: 3}
@@ -905,5 +904,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42ab8f98a0979405c809a11613591598, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
