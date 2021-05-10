@@ -2206,6 +2206,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816661792128626312, guid: cbe94e02e4257e34094da2c4474c4903,
         type: 3}
+      propertyPath: rotationSpeed
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816661792128626312, guid: cbe94e02e4257e34094da2c4474c4903,
+        type: 3}
       propertyPath: planets.Array.size
       value: 7
       objectReference: {fileID: 0}
