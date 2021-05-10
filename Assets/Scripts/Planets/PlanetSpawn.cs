@@ -218,6 +218,6 @@ public class PlanetSpawn : MonoBehaviour
         Vector3 viewPos = camera.WorldToViewportPoint(v);
         bool inX = viewPos.x >= 0 && viewPos.x <= 1;
         bool inY = viewPos.y >= 0 && viewPos.y <= 1;
-        return !inX && !inY;
+        return inX && inY;
     }
 }

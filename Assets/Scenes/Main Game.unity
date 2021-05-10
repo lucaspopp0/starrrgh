@@ -905,6 +905,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
         type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 1057824443}
+    - target: {fileID: 4213507526210883776, guid: f428a203a18641d4c880a220a180de36,
+        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1232302988}
