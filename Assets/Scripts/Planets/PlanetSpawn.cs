@@ -190,12 +190,10 @@ public class PlanetSpawn : MonoBehaviour
             float index = i - items.Length / 2;
             if(index < 0)
             {
-                Debug.Log("Index: " + index + "\n" + "Decay");
                 items[i].setWeight(decayFunc(weightSpeed * Time.time, -1 / index, items[i].getTargetWeight()));
             }
             else if (index > 0)
             {
-                Debug.Log("Index: " + index + "\n" + "Growth");
                 items[i].setWeight(growthFunc(weightSpeed * Time.time, 1 / index, items[i].getTargetWeight()));
             }
             else
