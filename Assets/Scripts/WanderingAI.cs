@@ -248,7 +248,7 @@ public class WanderingAI : MonoBehaviour {
                           else{
                              transform.Rotate(0,0,-10);
                          }
-                        waitFor = 200f* Time.deltaTime;
+                        waitFor = 300f * Time.deltaTime;
                         waiting = true;
                         //extraTurn = true;
                      }
